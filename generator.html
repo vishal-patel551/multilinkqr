@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MultiLinkQR – Generate Multi-Link QR Code</title>
-    <meta name="description" content="Generate a QR code that opens multiple HTTPS links at once. Free multi-link QR generator with colors, labels, expiry and more.">
+    <title>Free Multi-Link QR Code Generator – Create One QR for Multiple Links</title>
+
+    <!-- SEO Meta -->
+    <meta name="description" content="Free Multi-Link QR Code Generator. Create one QR code that opens multiple HTTPS links at once. Add labels, colors, expiry, auto-open mode and download QR as PNG or SVG. No login needed. Works on all devices.">
+    <meta name="keywords" content="multi link qr code, qr code with multiple links, multi url qr code, qr generator multiple links, multi link qr generator, social media qr code, business qr code generator">
+    <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Free Multi-Link QR Code Generator">
+    <meta property="og:description" content="Generate a multi-URL QR that opens multiple links with a single scan. Free, fast and customizable.">
+    <meta property="og:image" content="https://multilinkqr.com/og-image.png">
+    <meta property="og:url" content="https://multilinkqr.com">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Multi-Link QR Code Generator">
+    <meta name="twitter:description" content="Create one QR for multiple URLs — free, fast & customizable.">
+    <meta name="twitter:image" content="https://multilinkqr.com/og-image.png">
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,7 +29,7 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <!-- QRCode library (PNG + SVG support) -->
+    <!-- QR Library -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 
     <style>
@@ -31,13 +48,13 @@
             border-radius: 12px;
         }
 
-            .qr-preview-wrapper.with-border {
-                border: 2px solid #dee2e6;
-            }
+        .with-border {
+            border: 2px solid #dee2e6;
+        }
 
-            .qr-preview-wrapper.rounded-pixels canvas {
-                border-radius: 8px;
-            }
+        .rounded-pixels canvas {
+            border-radius: 8px;
+        }
 
         footer {
             margin-top: 3rem;
@@ -47,29 +64,24 @@
             font-size: 0.9rem;
             color: #6c757d;
         }
-
-        .link-label-small {
-            font-size: 0.8rem;
-            color: #6c757d;
-        }
     </style>
 </head>
+
 <body>
-    <!-- Header / Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-white border-bottom">
         <div class="container">
             <a class="navbar-brand brand-logo" href="index.html">
                 <span class="text-primary">Multi</span>LinkQR
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                    aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="nav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="generator.html">Generate QR</a></li>
-                    <li class="nav-item"><a class=" nav-link" href="tips.html">QR Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tips.html">QR Tips</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                 </ul>
@@ -77,145 +89,155 @@
         </div>
     </nav>
 
-    <!-- Main content -->
+    <!-- MAIN CONTENT -->
     <div class="container py-5">
+        <h1 class="h2 text-center mb-4 fw-bold">Free Multi-Link QR Code Generator</h1>
+
+        <p class="text-center mb-5 text-muted">
+            Create one QR code that opens multiple HTTPS links at once. Ideal for business cards, social media profiles, marketing,
+            creators, restaurants and professionals. Customize colors, labels, expiry date, and download as PNG or SVG.
+        </p>
+
         <div class="row g-4">
+
+            <!-- FORM -->
             <div class="col-lg-7">
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
-                        <h1 class="h3 mb-3">Generate Multi-Link QR Code</h1>
-                        <p class="text-muted mb-4">
-                            Create one QR code that opens multiple <strong>HTTPS</strong> links.
-                            Add labels, choose design, set expiry and decide how links open.
-                        </p>
+                        <h2 class="h4 mb-3">Generate Multi-Link QR Code</h2>
 
                         <div id="alertArea"></div>
 
                         <form id="qrForm">
-                            <!-- QR Name -->
+
+                            <!-- TITLE -->
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Name of QR (Title)</label>
-                                <input type="text" id="qrTitle" class="form-control" placeholder="Example: Ravi's Business Links">
-                                <div class="form-text">Shown on the landing page when someone scans your QR.</div>
+                                <label class="fw-semibold">QR Title</label>
+                                <input type="text" id="qrTitle" class="form-control" placeholder="Example: My Social Links">
                             </div>
 
-                            <!-- Expiry -->
+                            <!-- EXPIRY -->
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Expiry date (optional)</label>
+                                <label class="fw-semibold">Expiry Date (optional)</label>
                                 <input type="date" id="qrExpiry" class="form-control">
-                                <div class="form-text">After this date, the QR will show “QR expired” instead of opening links.</div>
                             </div>
 
-                            <!-- Mode -->
+                            <!-- OPEN MODE -->
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Open mode</label>
+                                <label class="fw-semibold">Open Mode</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="openMode" id="modeAuto" value="auto" checked>
-                                    <label class="form-check-label" for="modeAuto">
-                                        Auto-open all links in new tabs (plus show buttons as fallback)
-                                    </label>
+                                    <input class="form-check-input" type="radio" name="openMode" value="auto" checked>
+                                    <label class="form-check-label">Auto-open all links</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="openMode" id="modeButtons" value="buttons">
-                                    <label class="form-check-label" for="modeButtons">
-                                        Only show buttons (user clicks each link)
-                                    </label>
+                                    <input class="form-check-input" type="radio" name="openMode" value="buttons">
+                                    <label class="form-check-label">Show buttons only</label>
                                 </div>
                             </div>
 
-                            <!-- Style options -->
+                            <!-- STYLE -->
                             <div class="row g-3 mb-3">
                                 <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Color</label>
+                                    <label class="fw-semibold">Color</label>
                                     <select id="qrColor" class="form-select">
-                                        <option value="black" selected>Black</option>
+                                        <option value="#000000" selected>Black</option>
+                                        <option value="#1a1a1a">Dark Gray</option>
+                                        <option value="#444444">Gray</option>
+                                        <option value="#ffffff">White</option>
+
                                         <option value="#0d6efd">Blue</option>
+                                        <option value="#6610f2">Purple</option>
+                                        <option value="#6f42c1">Indigo</option>
+                                        <option value="#d63384">Pink</option>
                                         <option value="#dc3545">Red</option>
+                                        <option value="#fd7e14">Orange</option>
+                                        <option value="#ffc107">Yellow</option>
+                                        <option value="#198754">Green</option>
+                                        <option value="#20c997">Teal</option>
+                                        <option value="#0dcaf0">Cyan</option>
+
+                                        <option value="#1877F2">Facebook Blue</option>
+                                        <option value="#E4405F">Instagram Pink</option>
+                                        <option value="#1DA1F2">Twitter Blue</option>
+                                        <option value="#0A66C2">LinkedIn Blue</option>
+                                        <option value="#FF0000">YouTube Red</option>
+                                        <option value="#25D366">WhatsApp Green</option>
+
+                                        <option value="#39FF14">Neon Green</option>
+                                        <option value="#FF073A">Neon Red</option>
+                                        <option value="#F000FF">Neon Pink</option>
+                                        <option value="#00FFFF">Aqua</option>
                                     </select>
                                 </div>
+
                                 <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Background</label>
+                                    <label class="fw-semibold">Background</label>
                                     <select id="qrBg" class="form-select">
                                         <option value="#ffffff" selected>White</option>
-                                        <option value="#f8f9fa">Light gray</option>
-                                        <option value="#000000">Black (dark mode)</option>
+                                        <option value="#f8f9fa">Light Gray</option>
+                                        <option value="#000000">Black</option>
                                     </select>
                                 </div>
+
                                 <div class="col-md-4">
-                                    <label class="form-label fw-semibold d-block">Extras</label>
+                                    <label class="fw-semibold">Extras</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="qrBorder" checked>
-                                        <label class="form-check-label" for="qrBorder">Show border</label>
+                                        <input type="checkbox" id="qrBorder" class="form-check-input" checked>
+                                        <label class="form-check-label">Show Border</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="qrRounded">
-                                        <label class="form-check-label" for="qrRounded">Rounded pixels (soft corners)</label>
+                                        <input type="checkbox" id="qrRounded" class="form-check-input">
+                                        <label class="form-check-label">Rounded Pixels</label>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Links -->
-                            <div class="mb-2 d-flex justify-content-between align-items-center">
-                                <label class="form-label fw-semibold mb-0">Links & Labels</label>
-                                <button type="button" id="addLink" class="btn btn-outline-secondary btn-sm">
-                                    + Add another link
-                                </button>
-                            </div>
-                            <div id="linksContainer"></div>
-                            <div class="form-text mb-3">
-                                Each link must start with <strong>https://</strong>. Label is optional but recommended
-                                (e.g., Instagram, Website, LinkedIn).
+                            <!-- LINKS -->
+                            <div class="d-flex justify-content-between mb-2">
+                                <label class="fw-semibold">Links</label>
+                                <button type="button" id="addLink" class="btn btn-outline-secondary btn-sm">+ Add Link</button>
                             </div>
 
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">
-                                    Generate QR Code
-                                </button>
-                            </div>
+                            <div id="linksContainer"></div>
+                            <div class="form-text mb-3">Each link must start with <strong>https://</strong></div>
+
+                            <button class="btn btn-primary w-100">Generate QR Code</button>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <!-- QR Output -->
+            <!-- QR OUTPUT -->
             <div class="col-lg-5">
                 <div class="card shadow-sm">
-                    <div class="card-body p-4">
-                        <h2 class="h5 mb-3">QR Preview & Download</h2>
-                        <p class="text-muted mb-3">
-                            After generating, you can download the QR as PNG or SVG and print or share anywhere.
-                        </p>
+                    <div class="card-body p-4 text-center">
+
+                        <h3 class="h5 mb-3">QR Preview & Download</h3>
 
                         <div id="noQrMessage" class="alert alert-info">
                             Generate a QR code to see preview here.
                         </div>
 
-                        <div id="qrResult" class="d-none text-center">
-                            <div id="qrTitlePreview" class="fw-semibold mb-2"></div>
+                        <div id="qrResult" class="d-none">
+                            <div class="fw-semibold mb-2" id="qrTitlePreview"></div>
 
-                            <div id="qrWrapper" class="qr-preview-wrapper with-border" style="background-color:#ffffff;">
+                            <div id="qrWrapper" class="qr-preview-wrapper with-border">
                                 <canvas id="qrCanvas"></canvas>
                             </div>
 
                             <div class="mt-3">
-                                <label class="form-label fw-semibold">Shareable URL</label>
+                                <label class="fw-semibold">Shareable URL</label>
                                 <input type="text" id="generatedUrl" class="form-control mb-2" readonly>
-                                <div class="btn-group" role="group">
-                                    <button type="button" id="downloadPng" class="btn btn-outline-primary btn-sm">
-                                        Download PNG
-                                    </button>
-                                    <button type="button" id="downloadSvg" class="btn btn-outline-secondary btn-sm">
-                                        Download SVG
-                                    </button>
+
+                                <div class="btn-group mb-3" role="group">
+                                    <button type="button" id="copyUrl" class="btn btn-outline-success btn-sm">Copy URL</button>
+                                    <button type="button" id="downloadPng" class="btn btn-outline-primary btn-sm">Download PNG</button>
+                                    <button type="button" id="downloadSvg" class="btn btn-outline-secondary btn-sm">Download SVG</button>
                                 </div>
+
+                                <div id="copyMessage" class="text-success small d-none">Copied!</div>
                             </div>
 
-                            <div class="mt-3 text-start">
-                                <div class="link-label-small">
-                                    <strong>Note:</strong> When someone scans this QR, they will be taken to the MultiLinkQR
-                                    landing page which applies your expiry, style and opening mode.
-                                </div>
-                            </div>
                         </div>
 
                     </div>
@@ -225,35 +247,21 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container d-flex flex-wrap justify-content-between align-items-center">
-            <div>© <span id="yearSpan"></span> MultiLinkQR – Multi-link QR code generator.</div>
-            <div>
-                <a href="privacy-policy.html" class="me-3">Privacy Policy</a>
-                <a href="terms.html">Terms</a>
-            </div>
-        </div>
+    <footer class="text-center">
+        © <span id="yearSpan"></span> MultiLinkQR — Multi-Link QR Code Generator
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- QR LOGIC -->
     <script>
-        const BASE_MULTI_URL = "https://yourdomain.com/multi.html"; // TODO: change to your domain
+        const BASE_MULTI_URL = "https://multilinkqr.com/multi.html";
 
-        function showAlert(message, type = "danger") {
-            $("#alertArea").html(
-                '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
-                message +
-                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                '</div>'
-            );
+        function showAlert(msg, type = "danger") {
+            $("#alertArea").html(`<div class="alert alert-${type}">${msg}</div>`);
         }
-
-        function clearAlert() {
-            $("#alertArea").empty();
-        }
+        function clearAlert() { $("#alertArea").empty(); }
 
         function validateHttps(url) {
             return /^https:\/\/.+/i.test(url.trim());
@@ -261,54 +269,38 @@
 
         function addLinkRow(url = "", label = "") {
             const idx = $("#linksContainer .link-row").length + 1;
-            const row = `
-            <div class="row g-2 align-items-center mb-2 link-row">
-              <div class="col-12 col-md-7">
-                <div class="input-group input-group-sm">
-                  <span class="input-group-text">Link ${idx}</span>
-                  <input type="text" class="form-control link-url" placeholder="https://example.com" value="${url}">
+            $("#linksContainer").append(`
+                <div class="row g-2 mb-2 link-row">
+                    <div class="col-md-7">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text">Link ${idx}</span>
+                            <input type="text" class="form-control link-url" value="${url}" placeholder="https://example.com">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control form-control-sm link-label" value="${label}" placeholder="Label (Instagram)">
+                    </div>
+                    <div class="col-md-1 text-end">
+                        <button class="btn btn-outline-danger btn-sm remove-link">&times;</button>
+                    </div>
                 </div>
-              </div>
-              <div class="col-9 col-md-4">
-                <input type="text" class="form-control form-control-sm link-label" placeholder="Label (Instagram, Website)" value="${label}">
-              </div>
-              <div class="col-3 col-md-1 text-end">
-                <button type="button" class="btn btn-outline-danger btn-sm remove-link" title="Remove link">&times;</button>
-              </div>
-            </div>
-          `;
-            $("#linksContainer").append(row);
-            renumberLinks();
-        }
-
-        function renumberLinks() {
-            $("#linksContainer .link-row").each(function (index) {
-                $(this).find(".input-group-text").text("Link " + (index + 1));
-            });
+            `);
         }
 
         $(function () {
             $("#yearSpan").text(new Date().getFullYear());
-
-            // Initial link rows
             addLinkRow("https://instagram.com/", "Instagram");
             addLinkRow("https://www.linkedin.com/", "LinkedIn");
 
-            $("#addLink").on("click", function () {
-                addLinkRow();
-            });
+            $("#addLink").click(() => addLinkRow());
+            $("#linksContainer").on("click", ".remove-link", function () { $(this).closest(".link-row").remove(); });
 
-            $("#linksContainer").on("click", ".remove-link", function () {
-                $(this).closest(".link-row").remove();
-                renumberLinks();
-            });
-
-            $("#qrForm").on("submit", function (e) {
+            $("#qrForm").submit(function (e) {
                 e.preventDefault();
                 clearAlert();
 
                 const title = $("#qrTitle").val().trim();
-                const expiryStr = $("#qrExpiry").val();
+                const expiry = $("#qrExpiry").val();
                 const color = $("#qrColor").val();
                 const bg = $("#qrBg").val();
                 const border = $("#qrBorder").is(":checked");
@@ -316,113 +308,86 @@
                 const mode = $("input[name='openMode']:checked").val();
 
                 const links = [];
-                let hasError = false;
-
                 $("#linksContainer .link-row").each(function () {
                     const url = $(this).find(".link-url").val().trim();
                     const label = $(this).find(".link-label").val().trim();
-                    if (!url) return; // ignore empty rows
-                    if (!validateHttps(url)) {
-                        showAlert("Only links starting with <strong>https://</strong> are allowed. Invalid: " + url);
-                        hasError = true;
-                        return false;
-                    }
-                    links.push({ url: url, label: label || null });
+                    if (!url) return;
+                    if (!validateHttps(url)) { showAlert("Invalid link: " + url); return false; }
+                    links.push({ url, label: label || null });
                 });
 
-                if (hasError) return;
-                if (links.length === 0) {
-                    showAlert("Please enter at least one valid https link.");
-                    return;
-                }
+                if (links.length === 0) { showAlert("Add at least one HTTPS link."); return; }
 
-                let expTimestamp = null;
-                if (expiryStr) {
-                    const expDate = new Date(expiryStr + "T23:59:59");
-                    if (!isNaN(expDate.getTime())) {
-                        expTimestamp = expDate.getTime();
-                    }
+                let exp = null;
+                if (expiry) {
+                    const d = new Date(expiry + "T23:59:59");
+                    if (!isNaN(d.getTime())) exp = d.getTime();
                 }
 
                 const payload = {
                     title: title || null,
-                    exp: expTimestamp,
-                    mode: mode, // "auto" or "buttons"
-                    style: {
-                        color: color,
-                        bg: bg,
-                        border: border,
-                        rounded: rounded
-                    },
-                    links: links
+                    exp,
+                    mode,
+                    style: { color, bg, border, rounded },
+                    links
                 };
 
-                const json = JSON.stringify(payload);
-                const encoded = btoa(unescape(encodeURIComponent(json)));
+                const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
                 const finalUrl = BASE_MULTI_URL + "?d=" + encodeURIComponent(encoded);
 
-                // Update UI
+                $("#generatedUrl").val(finalUrl);
+                $("#qrTitlePreview").text(title || "Your MultiLinkQR Code");
                 $("#noQrMessage").addClass("d-none");
                 $("#qrResult").removeClass("d-none");
-                $("#generatedUrl").val(finalUrl);
-                $("#qrTitlePreview").text(title || "Your MultiLinkQR code");
 
-                // Style wrapper
                 $("#qrWrapper").css("background-color", bg);
                 $("#qrWrapper").toggleClass("with-border", border);
                 $("#qrWrapper").toggleClass("rounded-pixels", rounded);
 
                 const canvas = document.getElementById("qrCanvas");
-                const opts = {
-                    text: finalUrl,
-                    width: 220,
-                    height: 220,
-                    color: { dark: color, light: bg }
-                };
-
                 QRCode.toCanvas(canvas, finalUrl, {
                     width: 220,
                     margin: 2,
                     color: {
-                        dark: color,
-                        light: bg === "#000000" ? "#000000" : "#ffffff"
-                    }
-                }, function (error) {
-                    if (error) {
-                        console.error(error);
-                        showAlert("Error generating QR code. Please try again.");
+                        dark: color || "#000000",
+                        light: bg || "#ffffff"
                     }
                 });
 
-                // Download PNG
-                $("#downloadPng").off("click").on("click", function () {
-                    const link = document.createElement("a");
-                    link.download = (title || "multilinkqr") + ".png";
-                    link.href = canvas.toDataURL("image/png");
-                    link.click();
+                $("#downloadPng").off().click(function () {
+                    const a = document.createElement("a");
+                    a.download = (title || "multilinkqr") + ".png";
+                    a.href = canvas.toDataURL("image/png");
+                    a.click();
                 });
 
-                // Download SVG
-                $("#downloadSvg").off("click").on("click", function () {
-                    QRCode.toString(finalUrl, { type: "svg", margin: 2 }, function (err, svgString) {
-                        if (err) {
-                            console.error(err);
-                            showAlert("Error generating SVG. Please try again.");
-                            return;
-                        }
-                        const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+                $("#downloadSvg").off().click(function () {
+                    QRCode.toString(finalUrl, { type: "svg" }, function (err, svg) {
+                        const blob = new Blob([svg], { type: "image/svg+xml" });
                         const url = URL.createObjectURL(blob);
                         const a = document.createElement("a");
                         a.href = url;
-                        a.download = (title || "multilinkqr") + ".svg";
-                        document.body.appendChild(a);
+                        a.download = "multilinkqr.svg";
                         a.click();
-                        document.body.removeChild(a);
                         URL.revokeObjectURL(url);
                     });
                 });
+                $("#copyUrl").off().on("click", function () {
+                    const text = $("#generatedUrl").val();
+                    navigator.clipboard.writeText(text).then(() => {
+                        $("#copyMessage").removeClass("d-none");
+
+                        setTimeout(() => {
+                            $("#copyMessage").addClass("d-none");
+                        }, 1500);
+                    }).catch(() => {
+                        alert("Copy failed. Please copy manually.");
+                    });
+                });
+
             });
         });
     </script>
+
 </body>
 </html>
