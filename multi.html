@@ -216,172 +216,211 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-    function getParam(name) {
-        const params = new URLSearchParams(window.location.search);
-        return params.get(name);
-    }
-
-    function showError(message) {
-        $("#errorArea").html(
-            '<div class="alert alert-danger" role="alert">' + message + '</div>'
-        );
-    }
-
-    function validateHttps(url) {
-        return /^https:\/\/.+/i.test(url.trim());
-    }
-
-    function getDomain(url) {
-        try {
-            const u = new URL(url);
-            return u.hostname;
-        } catch (e) {
-            return url;
+        function getParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
         }
-    }
 
-    function createFaviconUrl(url) {
-        try {
-            const u = new URL(url);
-            return u.origin + "/favicon.ico";
-        } catch (e) {
-            return null;
-        }
-    }
-
-    function renderButtons(links, primaryColor) {
-        const container = $("#buttonsView");
-        container.empty();
-        links.forEach(function (item, idx) {
-            const label = item.label || ("Link " + (idx + 1));
-            container.append(
-                '<a href="' + item.url + '" target="_blank" rel="noopener noreferrer"' +
-                ' class="btn btn-primary w-100 mb-2"' +
-                ' style="background-color:' + primaryColor + ';border-color:' + primaryColor + '">' +
-                label +
-                '</a>'
+        function showError(message) {
+            $("#errorArea").html(
+                '<div class="alert alert-danger" role="alert">' + message + '</div>'
             );
-        });
-    }
+        }
 
-    function renderPreviewCards(links) {
-        const container = $("#previewView");
-        container.empty();
-        links.forEach(function (item, idx) {
-            const label = item.label || ("Link " + (idx + 1));
-            const domain = getDomain(item.url);
-            const favicon = createFaviconUrl(item.url);
-            const firstLetter = (domain && domain[0]) ? domain[0].toUpperCase() : "?";
+        function validateHttps(url) {
+            return /^https:\/\/.+/i.test(url.trim());
+        }
 
-            const faviconHtml = favicon
-                ? '<img src="' + favicon + '" alt="icon" onerror="this.style.display=\'none\'" style="width:32px;height:32px;border-radius:8px;">'
-                : '<span>' + firstLetter + '</span>';
+        function getDomain(url) {
+            try {
+                const u = new URL(url);
+                return u.hostname;
+            } catch (e) {
+                return url;
+            }
+        }
 
-            container.append(
-                '<div class="preview-card">' +
+        function createFaviconUrl(url) {
+            try {
+                const u = new URL(url);
+                return u.origin + "/favicon.ico";
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function renderButtons(links, primaryColor) {
+            const container = $("#buttonsView");
+            container.empty();
+            links.forEach(function (item, idx) {
+                const label = item.label || ("Link " + (idx + 1));
+                container.append(
+                    '<a href="' + item.url + '" target="_blank" rel="noopener noreferrer"' +
+                    ' class="btn btn-primary w-100 mb-2"' +
+                    ' style="background-color:' + primaryColor + ';border-color:' + primaryColor + '">' +
+                    label +
+                    '</a>'
+                );
+            });
+        }
+
+        function renderPreviewCards(links) {
+            const container = $("#previewView");
+            container.empty();
+            links.forEach(function (item, idx) {
+                const label = item.label || ("Link " + (idx + 1));
+                const domain = getDomain(item.url);
+                const favicon = createFaviconUrl(item.url);
+                const firstLetter = (domain && domain[0]) ? domain[0].toUpperCase() : "?";
+
+                const faviconHtml = favicon
+                    ? '<img src="' + favicon + '" alt="icon" onerror="this.style.display=\'none\'" style="width:32px;height:32px;border-radius:8px;">'
+                    : '<span>' + firstLetter + '</span>';
+
+                container.append(
+                    '<div class="preview-card">' +
                     '<div class="preview-favicon">' + faviconHtml + '</div>' +
                     '<div>' +
-                        '<div class="fw-semibold">' + label + '</div>' +
-                        '<div class="small text-muted preview-url">' +
-                            '<a href="' + item.url + '" target="_blank" rel="noopener noreferrer">' +
-                                item.url +
-                            '</a>' +
-                        '</div>' +
+                    '<div class="fw-semibold">' + label + '</div>' +
+                    '<div class="small text-muted preview-url">' +
+                    '<a href="' + item.url + '" target="_blank" rel="noopener noreferrer">' +
+                    item.url +
+                    '</a>' +
                     '</div>' +
-                '</div>'
-            );
-        });
-    }
-
-    function openAllLinks(links) {
-        links.forEach(function (item) {
-            window.open(item.url, "_blank");
-        });
-    }
-
-    $(function () {
-        $("#yearSpan").text(new Date().getFullYear());
-
-        const encoded = getParam("d");
-        if (!encoded) {
-            showError("No data found in the URL. Please scan a valid MultiLinkQR code or use the correct link.");
-            $("#statusArea").text("Unable to open links.");
-            $("#pageSubtitle").text("The QR code data is missing from this URL.");
-            return;
+                    '</div>' +
+                    '</div>'
+                );
+            });
         }
 
-        let payload;
-        try {
-            const jsonStr = decodeURIComponent(escape(atob(encoded)));
-            payload = JSON.parse(jsonStr);
-        } catch (e) {
-            console.error(e);
-            showError("The data in the URL is invalid or corrupted.");
-            $("#statusArea").text("Unable to open links.");
-            $("#pageSubtitle").text("We could not decode the information embedded in this QR code.");
-            return;
+        function openAllLinks(links) {
+            links.forEach(function (item) {
+                window.open(item.url, "_blank");
+            });
         }
 
-        const links = (payload && Array.isArray(payload.links))
-            ? payload.links.filter(l => validateHttps(l.url))
-            : [];
+        $(function () {
+            $("#yearSpan").text(new Date().getFullYear());
 
-        if (links.length === 0) {
-            showError("No valid HTTPS links were found in this MultiLinkQR code.");
-            $("#statusArea").text("Unable to open links.");
-            $("#pageSubtitle").text("The QR code did not contain any valid HTTPS URLs.");
-            return;
-        }
+            const encoded = getParam("d");
 
-        const now = Date.now();
-        if (payload.exp && now > payload.exp) {
-            $("#expiredMessage").removeClass("d-none");
-            $("#statusArea").text("This QR code is expired.");
-            $("#pageSubtitle").text("The expiry date for this MultiLinkQR code has passed.");
-            return;
-        }
+            /* ===========================
+               CASE 1: NO ?d= PARAM
+               → Show generic informative landing page
+               → This is what Googlebot will see
+            ============================ */
+            if (!encoded) {
+                $("#pageTitle").text("Multi-link QR landing page example");
+                $("#pageSubtitle").text(
+                    "This page shows how a MultiLinkQR code can open several HTTPS links from a single QR scan. " +
+                    "Use the buttons or preview cards below to visit a few example links."
+                );
+                $("#statusArea").text(
+                    "This is a demo page for search engines and visitors who open multi.html directly " +
+                    "without a QR code. Real QR codes generated with MultiLinkQR will display your own links here."
+                );
 
-        const title = payload.title || "Your links are ready";
-        $("#pageTitle").text(title);
+                const demoLinks = [
+                    {
+                        label: "Visit MultiLinkQR homepage",
+                        url: "https://www.multilinkqr.com/"
+                    },
+                    {
+                        label: "Open the QR generator",
+                        url: "https://www.multilinkqr.com/generator.html"
+                    },
+                    {
+                        label: "Read QR tips & best practices",
+                        url: "https://www.multilinkqr.com/tips.html"
+                    }
+                ];
 
-        const style = payload.style || {};
-        const primaryColor = style.color || "#0d6efd";
-        const bg = style.bg || "#f8f9fa";
+                $("#controls").removeClass("d-none");
+                $("#buttonsView").removeClass("d-none");
+                renderButtons(demoLinks, "#0d6efd");
+                renderPreviewCards(demoLinks);
+                $(".status-pill").hide();
 
-        if (bg === "#000000") {
-            $("body").css("background-color", "#000000");
-            $(".card").addClass("bg-dark text-light");
-        }
+                // Do NOT return here with an error – this is a valid page.
+                return;
+            }
 
-        $("#controls").removeClass("d-none");
-        $("#buttonsView").removeClass("d-none");
+            /* ===========================
+               CASE 2: REAL QR PAYLOAD
+            ============================ */
 
-        renderButtons(links, primaryColor);
-        renderPreviewCards(links);
-        $(".status-pill").hide();
+            let payload;
+            try {
+                const jsonStr = decodeURIComponent(escape(atob(encoded)));
+                payload = JSON.parse(jsonStr);
+            } catch (e) {
+                console.error(e);
+                showError("The data in the URL is invalid or corrupted.");
+                $("#statusArea").text("Unable to open links.");
+                $("#pageSubtitle").text("We could not decode the information embedded in this QR code.");
+                return;
+            }
 
-        const mode = payload.mode || "auto";
+            const links = (payload && Array.isArray(payload.links))
+                ? payload.links.filter(l => validateHttps(l.url))
+                : [];
 
-        if (mode === "auto") {
-            $("#statusArea").text("Trying to open all links in new tabs. If pop-ups are blocked, use the buttons or previews below.");
-            openAllLinks(links);
-        } else {
-            $("#statusArea").text("Use the buttons or preview cards below to open your links.");
-        }
+            if (links.length === 0) {
+                showError("No valid HTTPS links were found in this MultiLinkQR code.");
+                $("#statusArea").text("Unable to open links.");
+                $("#pageSubtitle").text("The QR code did not contain any valid HTTPS URLs.");
+                return;
+            }
 
-        // View toggles
-        $("#btnViewOpen").on("click", function () {
-            openAllLinks(links);
-        });
-        $("#btnViewButtons").on("click", function () {
+            const now = Date.now();
+            if (payload.exp && now > payload.exp) {
+                $("#expiredMessage").removeClass("d-none");
+                $("#statusArea").text("This QR code is expired.");
+                $("#pageSubtitle").text("The expiry date for this MultiLinkQR code has passed.");
+                return;
+            }
+
+            const title = payload.title || "Your links are ready";
+            $("#pageTitle").text(title);
+
+            const style = payload.style || {};
+            const primaryColor = style.color || "#0d6efd";
+            const bg = style.bg || "#f8f9fa";
+
+            if (bg === "#000000") {
+                $("body").css("background-color", "#000000");
+                $(".card").addClass("bg-dark text-light");
+            }
+
+            $("#controls").removeClass("d-none");
             $("#buttonsView").removeClass("d-none");
-            $("#previewView").addClass("d-none");
+
+            renderButtons(links, primaryColor);
+            renderPreviewCards(links);
+            $(".status-pill").hide();
+
+            const mode = payload.mode || "auto";
+
+            if (mode === "auto") {
+                $("#statusArea").text("Trying to open all links in new tabs. If pop-ups are blocked, use the buttons or previews below.");
+                openAllLinks(links);
+            } else {
+                $("#statusArea").text("Use the buttons or preview cards below to open your links.");
+            }
+
+            // View toggles
+            $("#btnViewOpen").on("click", function () {
+                openAllLinks(links);
+            });
+            $("#btnViewButtons").on("click", function () {
+                $("#buttonsView").removeClass("d-none");
+                $("#previewView").addClass("d-none");
+            });
+            $("#btnViewPreview").on("click", function () {
+                $("#previewView").removeClass("d-none");
+                $("#buttonsView").addClass("d-none");
+            });
         });
-        $("#btnViewPreview").on("click", function () {
-            $("#previewView").removeClass("d-none");
-            $("#buttonsView").addClass("d-none");
-        });
-    });
     </script>
 </body>
 </html>
