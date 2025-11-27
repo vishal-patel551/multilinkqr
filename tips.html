@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MultiLinkQR – Free Multi-Link QR Code Generator</title>
+  <meta name="description" content="MultiLinkQR is a free online multi-link QR code generator. Create one QR code that opens multiple HTTPS links at once. Perfect for business cards, social media and portfolios.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body { background-color: #f8f9fa; }
+    .brand-logo { font-weight: 700; letter-spacing: 0.03em; }
+    footer {
+      margin-top: 3rem;
+      padding: 1.5rem 0;
+      background: #ffffff;
+      border-top: 1px solid #e5e5e5;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <div class="container">
+      <a class="navbar-brand brand-logo" href="index.html">
+        <span class="text-primary">Multi</span>LinkQR
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="generator.html">Generate QR</a></li>
+          <li class="nav-item"><a class="nav-link" href="tips.html">QR Tips</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="py-5">
+      <div class="container">
+          <h1 class="h3 mb-3">Best Ways to Use QR Codes for Your Business</h1>
+          <p>
+              QR codes are a powerful bridge between offline and online experiences. With MultiLinkQR you can combine multiple
+              links in a single QR and create a smooth digital journey for your audience.
+          </p>
+
+          <h2 class="h5 mt-4">1. Best way to use QR for business</h2>
+          <ul>
+              <li>Place a single QR code on your business card that links to your website, WhatsApp and social media profiles.</li>
+              <li>Add QR codes to flyers, posters and brochures so people can instantly visit your offers or contact page.</li>
+              <li>Use a time-limited QR for temporary campaigns or seasonal promotions.</li>
+          </ul>
+
+          <h2 class="h5 mt-4">2. How to create QR for online portfolio</h2>
+          <p>
+              If you are a designer, developer, photographer or freelancer, you can use a multi-link QR to share your portfolio,
+              LinkedIn profile, GitHub, Behance, Dribbble and contact form. This helps clients find all your important links in
+              one place.
+          </p>
+
+          <h2 class="h5 mt-4">3. QR on visiting card design tips</h2>
+          <ul>
+              <li>Keep the QR size at least 2 cm x 2 cm so it is easy to scan.</li>
+              <li>Use a clean background with good contrast between the QR and the card color.</li>
+              <li>Include a small text like “Scan for all my links” under the QR.</li>
+              <li>Test your QR on multiple phones before printing a large batch.</li>
+          </ul>
+      </div>
+  </main>
+
+  <footer>
+    <div class="container d-flex flex-wrap justify-content-between align-items-center">
+      <div>© <span id="yearSpan"></span> MultiLinkQR – Free multi-link QR code generator.</div>
+      <div>
+        <a href="privacy-policy.html" class="me-3">Privacy Policy</a>
+        <a href="terms.html" class="me-3">Terms</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("yearSpan").textContent = new Date().getFullYear();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
