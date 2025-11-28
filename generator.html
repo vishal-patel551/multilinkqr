@@ -47,6 +47,16 @@
             display: inline-block;
             padding: 12px;
             border-radius: 12px;
+            max-width: 320px;        /* keep preview nicely sized */
+            width: 100%;
+        }
+
+        /* Make the QR canvas responsive inside its box */
+        #qrWrapper canvas {
+            width: 100% !important;
+            height: auto !important;
+            display: block;
+            margin: 0 auto;
         }
 
         .with-border {
@@ -72,6 +82,109 @@
             margin-top: 0.5rem;
             display: none;
             border-radius: 8px;
+        }
+
+        .utm-toggle {
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .utm-fields {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 6px 8px;
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: #f8f9fa;
+        }
+
+        .dark-mode .navbar {
+            background-color: #1e1e1e !important;
+            border-bottom: 1px solid #333 !important;
+        }
+
+        .dark-mode .navbar .nav-link,
+        .dark-mode .navbar .navbar-brand {
+            color: #f8f9fa !important;
+        }
+
+        .dark-mode .card {
+            background-color: #1e1e1e;
+            color: #f8f9fa;
+            border-color: #333;
+        }
+
+        .dark-mode .form-control,
+        .dark-mode .form-select {
+            background-color: #222;
+            color: #f8f9fa;
+            border-color: #444;
+        }
+
+        .dark-mode .form-control::placeholder {
+            color: #888;
+        }
+
+        .dark-mode .form-text {
+            color: #b5b5b5;
+        }
+
+        .dark-mode footer {
+            background-color: #1e1e1e;
+            border-top-color: #333;
+            color: #b5b5b5;
+        }
+
+        .dark-mode a {
+            color: #0dcaf0;
+        }
+
+        .dark-mode .alert-info {
+            background-color: #09354e;
+            border-color: #0d4f72;
+            color: #e0f3ff;
+        }
+
+        .scan-tips {
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .faq-section {
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .faq-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .accordion-button:not(.collapsed) {
+            box-shadow: none;
+        }
+
+        .accordion-item {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border-color: #e3e6ea;
+        }
+
+        .dark-mode .accordion-item {
+            border-color: #333;
+            background-color: #1e1e1e;
+        }
+
+        .dark-mode .accordion-button {
+            background-color: #1e1e1e;
+            color: #f8f9fa;
+        }
+
+        .dark-mode .accordion-body {
+            background-color: #1e1e1e;
+            color: #f8f9fa;
         }
     </style>
 
@@ -104,6 +217,9 @@
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                 </ul>
+                <button id="themeToggle" type="button" class="btn btn-sm btn-outline-secondary ms-3">
+                    🌙 Dark
+                </button>
             </div>
         </div>
     </nav>
@@ -223,6 +339,19 @@
                                 </div>
                             </div>
 
+                            <!-- QR SIZE -->
+                            <div class="mb-3">
+                                <label class="fw-semibold">QR Size</label>
+                                <select id="qrSize" class="form-select">
+                                    <option value="220">Small (screens)</option>
+                                    <option value="400" selected>Medium</option>
+                                    <option value="800">Large (print)</option>
+                                </select>
+                                <div class="form-text">
+                                    Larger sizes are better for printing and posters. Smaller sizes are fine for on-screen sharing.
+                                </div>
+                            </div>
+
                             <!-- LOGO UPLOAD -->
                             <div class="mb-3">
                                 <label class="fw-semibold">Logo (optional)</label>
@@ -259,7 +388,7 @@
 
             <!-- QR OUTPUT -->
             <div class="col-lg-5">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm h-100">
                     <div class="card-body p-4 text-center">
 
                         <h3 class="h5 mb-3">QR Preview & Download</h3>
@@ -271,7 +400,7 @@
                         <div id="qrResult" class="d-none">
                             <div class="fw-semibold mb-2" id="qrTitlePreview"></div>
 
-                            <div id="qrWrapper" class="qr-preview-wrapper with-border">
+                            <div id="qrWrapper" class="qr-preview-wrapper with-border mx-auto">
                                 <canvas id="qrCanvas"></canvas>
                             </div>
 
@@ -288,6 +417,17 @@
                                 </div>
 
                                 <div id="copyMessage" class="text-success small d-none">Copied!</div>
+
+                                <!-- Scanability Tips -->
+                                <div class="scan-tips mt-3 text-start">
+                                    <div class="fw-semibold mb-1">Scanability Tips</div>
+                                    <ul class="mb-0">
+                                        <li>Keep the logo smaller than about 25% of the QR area.</li>
+                                        <li>Maintain strong contrast (dark QR code on a light background).</li>
+                                        <li>Avoid too much compression when sharing or printing screenshots.</li>
+                                        <li>Always test with at least one phone before printing at scale.</li>
+                                    </ul>
+                                </div>
                             </div>
 
                         </div>
@@ -296,6 +436,52 @@
                 </div>
             </div>
 
+        </div>
+
+        <!-- FAQ SECTION -->
+        <div class="faq-section">
+            <h2 class="mb-3">FAQ</h2>
+
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item mb-2">
+                    <h2 class="accordion-header" id="faqHeadingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="false" aria-controls="faqCollapseOne">
+                            Can I edit the links later after printing the QR?
+                        </button>
+                    </h2>
+                    <div id="faqCollapseOne" class="accordion-collapse collapse" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            This tool creates <strong>static</strong> QR codes. All the information (title, style, links) is encoded directly into the URL inside the QR. Once a QR is printed, you’ll need to generate and reprint a new one if you want to change the links.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item mb-2">
+                    <h2 class="accordion-header" id="faqHeadingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                            Is my data stored anywhere?
+                        </button>
+                    </h2>
+                    <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            No account is required. Your configuration is packed into the generated URL itself, so the generator doesn’t need a database or login. Anyone with the final URL can open your multi-link page, but there’s no separate dashboard that stores or manages your projects.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item mb-2">
+                    <h2 class="accordion-header" id="faqHeadingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                            Can I track how many scans I get?
+                        </button>
+                    </h2>
+                    <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            This free version doesn’t include built-in scan tracking. For marketing campaigns, you can still add <strong>UTM parameters</strong> to your links (using the UTM options under each link) and then track the traffic inside tools like Google Analytics or your own analytics platform.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -317,9 +503,9 @@
     <!-- QR LOGIC -->
     <script>
         const BASE_MULTI_URL = "https://multilinkqr.com/multi.html";
-        let currentFinalUrl = ""; // Store the current QR URL for copy functionality
-        let currentLinkMode = ""; // Store the current link mode
-        let logoImage = null;     // Store uploaded logo
+        let currentFinalUrl = "";
+        let currentLinkMode = "";
+        let logoImage = null;
 
         function showAlert(msg, type = "danger") {
             $("#alertArea").html(`<div class="alert alert-${type}">${msg}</div>`);
@@ -330,32 +516,186 @@
             return /^https:\/\/.+/i.test(url.trim());
         }
 
-        function addLinkRow(url = "", label = "") {
+        function buildUrlWithUtm(baseUrl, source, medium, campaign) {
+            if (!source && !medium && !campaign) return baseUrl;
+
+            try {
+                const urlObj = new URL(baseUrl);
+                if (source) urlObj.searchParams.set("utm_source", source);
+                if (medium) urlObj.searchParams.set("utm_medium", medium);
+                if (campaign) urlObj.searchParams.set("utm_campaign", campaign);
+                return urlObj.toString();
+            } catch (e) {
+                return baseUrl;
+            }
+        }
+
+        function addLinkRow(url = "", label = "", utmSource = "", utmMedium = "", utmCampaign = "") {
             const idx = $("#linksContainer .link-row").length + 1;
             $("#linksContainer").append(`
                 <div class="row g-2 mb-2 link-row">
-                    <div class="col-md-7">
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-text">Link ${idx}</span>
-                            <input type="text" class="form-control link-url" value="${url}" placeholder="https://example.com">
+                    <div class="col-12">
+                        <div class="row g-2">
+                            <div class="col-md-7">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text">Link ${idx}</span>
+                                    <input type="text" class="form-control link-url" value="${url}" placeholder="https://example.com">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm link-label" value="${label}" placeholder="Label (Instagram)">
+                            </div>
+                            <div class="col-md-1 text-end">
+                                <button class="btn btn-outline-danger btn-sm remove-link" type="button">&times;</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control form-control-sm link-label" value="${label}" placeholder="Label (Instagram)">
-                    </div>
-                    <div class="col-md-1 text-end">
-                        <button class="btn btn-outline-danger btn-sm remove-link">&times;</button>
+                        <div class="mt-1 d-flex justify-content-between align-items-center">
+                            <span class="utm-toggle text-primary">${utmSource || utmMedium || utmCampaign ? "− Hide UTM params" : "+ Add UTM params"}</span>
+                        </div>
+                        <div class="utm-fields mt-1 ${utmSource || utmMedium || utmCampaign ? "" : "d-none"}">
+                            <div class="row g-1">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control form-control-sm utm-source" placeholder="utm_source" value="${utmSource}">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control form-control-sm utm-medium" placeholder="utm_medium" value="${utmMedium}">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control form-control-sm utm-campaign" placeholder="utm_campaign" value="${utmCampaign}">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `);
         }
 
+        function applyThemeFromStorage() {
+            const saved = localStorage.getItem("mlqr_theme");
+            const body = document.body;
+            const toggleBtn = document.getElementById("themeToggle");
+
+            if (saved === "dark") {
+                body.classList.add("dark-mode");
+                if (toggleBtn) toggleBtn.textContent = "☀️ Light";
+            } else {
+                body.classList.remove("dark-mode");
+                if (toggleBtn) toggleBtn.textContent = "🌙 Dark";
+            }
+        }
+
+        function saveState() {
+            try {
+                const state = {
+                    linkMode: $("input[name='linkMode']:checked").val(),
+                    title: $("#qrTitle").val().trim(),
+                    expiry: $("#qrExpiry").val(),
+                    openMode: $("input[name='openMode']:checked").val(),
+                    color: $("#qrColor").val(),
+                    bg: $("#qrBg").val(),
+                    border: $("#qrBorder").is(":checked"),
+                    rounded: $("#qrRounded").is(":checked"),
+                    singleLinkUrl: $("#singleLinkUrl").val().trim(),
+                    qrSize: $("#qrSize").val(),
+                    links: []
+                };
+
+                $("#linksContainer .link-row").each(function () {
+                    const url = $(this).find(".link-url").val().trim();
+                    const label = $(this).find(".link-label").val().trim();
+                    const utmSource = $(this).find(".utm-source").val().trim();
+                    const utmMedium = $(this).find(".utm-medium").val().trim();
+                    const utmCampaign = $(this).find(".utm-campaign").val().trim();
+
+                    if (!url && !label && !utmSource && !utmMedium && !utmCampaign) return;
+
+                    state.links.push({
+                        url,
+                        label,
+                        utmSource,
+                        utmMedium,
+                        utmCampaign
+                    });
+                });
+
+                localStorage.setItem("mlqr_state", JSON.stringify(state));
+            } catch (e) {
+                console.warn("Failed to save state", e);
+            }
+        }
+
+        function restoreState() {
+            const raw = localStorage.getItem("mlqr_state");
+            if (!raw) {
+                addLinkRow("https://instagram.com/", "Instagram");
+                addLinkRow("https://www.linkedin.com/", "LinkedIn");
+                return;
+            }
+
+            try {
+                const state = JSON.parse(raw);
+
+                if (state.linkMode === "single") {
+                    $("#linkModeSingle").prop("checked", true);
+                } else {
+                    $("#linkModeMulti").prop("checked", true);
+                }
+
+                $("#qrTitle").val(state.title || "");
+                $("#qrExpiry").val(state.expiry || "");
+
+                if (state.openMode === "buttons") {
+                    $("input[name='openMode'][value='buttons']").prop("checked", true);
+                } else {
+                    $("input[name='openMode'][value='auto']").prop("checked", true);
+                }
+
+                if (state.color) $("#qrColor").val(state.color);
+                if (state.bg) $("#qrBg").val(state.bg);
+                $("#qrBorder").prop("checked", !!state.border);
+                $("#qrRounded").prop("checked", !!state.rounded);
+                $("#singleLinkUrl").val(state.singleLinkUrl || "");
+                if (state.qrSize) $("#qrSize").val(state.qrSize);
+
+                $("#linksContainer").empty();
+                if (Array.isArray(state.links) && state.links.length > 0) {
+                    state.links.forEach(l => {
+                        addLinkRow(
+                            l.url || "",
+                            l.label || "",
+                            l.utmSource || "",
+                            l.utmMedium || "",
+                            l.utmCampaign || ""
+                        );
+                    });
+                } else {
+                    addLinkRow("https://instagram.com/", "Instagram");
+                    addLinkRow("https://www.linkedin.com/", "LinkedIn");
+                }
+
+                $("input[name='linkMode']:checked").trigger("change");
+
+            } catch (e) {
+                console.warn("Failed to restore state", e);
+                addLinkRow("https://instagram.com/", "Instagram");
+                addLinkRow("https://www.linkedin.com/", "LinkedIn");
+            }
+        }
+
         $(function () {
             $("#yearSpan").text(new Date().getFullYear());
-            addLinkRow("https://instagram.com/", "Instagram");
-            addLinkRow("https://www.linkedin.com/", "LinkedIn");
 
-            // Logo file input handler
+            applyThemeFromStorage();
+            $("#themeToggle").on("click", function () {
+                const body = document.body;
+                body.classList.toggle("dark-mode");
+                const isDark = body.classList.contains("dark-mode");
+                this.textContent = isDark ? "☀️ Light" : "🌙 Dark";
+                localStorage.setItem("mlqr_theme", isDark ? "dark" : "light");
+            });
+
+            restoreState();
+
             $("#qrLogo").on("change", function (e) {
                 const file = e.target.files[0];
                 const preview = document.getElementById("logoPreview");
@@ -380,7 +720,6 @@
                 reader.readAsDataURL(file);
             });
 
-            // Link mode toggle
             $("input[name='linkMode']").change(function() {
                 const mode = $(this).val();
                 if (mode === "single") {
@@ -394,16 +733,38 @@
                     $("#expirySection").removeClass("d-none");
                     $("#openModeSection").removeClass("d-none");
                 }
-                // Clear previous QR result when switching modes
                 $("#noQrMessage").removeClass("d-none");
                 $("#qrResult").addClass("d-none");
-                // Reset copy URL button visibility
                 $("#copyUrl").parent().removeClass("d-none");
                 clearAlert();
+                saveState();
             });
 
-            $("#addLink").click(() => addLinkRow());
-            $("#linksContainer").on("click", ".remove-link", function () { $(this).closest(".link-row").remove(); });
+            $("#addLink").click(() => {
+                addLinkRow();
+                saveState();
+            });
+
+            $("#linksContainer").on("click", ".remove-link", function () {
+                $(this).closest(".link-row").remove();
+                saveState();
+            });
+
+            $("#linksContainer").on("click", ".utm-toggle", function () {
+                const fields = $(this).closest(".row").nextAll(".utm-fields").first();
+                fields.toggleClass("d-none");
+                if (fields.hasClass("d-none")) {
+                    $(this).text("+ Add UTM params");
+                } else {
+                    $(this).text("− Hide UTM params");
+                }
+                saveState();
+            });
+
+            $("#qrTitle, #qrExpiry, #qrColor, #qrBg, #qrBorder, #qrRounded, #singleLinkUrl, #qrSize")
+                .on("input change", saveState);
+            $("input[name='openMode']").on("change", saveState);
+            $("#linksContainer").on("input change", ".link-url, .link-label, .utm-source, .utm-medium, .utm-campaign", saveState);
 
             $("#qrForm").submit(function (e) {
                 e.preventDefault();
@@ -415,14 +776,13 @@
                 const bg = $("#qrBg").val();
                 const border = $("#qrBorder").is(":checked");
                 const rounded = $("#qrRounded").is(":checked");
+                const size = parseInt($("#qrSize").val(), 10) || 220;
 
                 let finalUrl;
                 let qrTitleText;
 
-                // Store link mode for use in copy button
                 currentLinkMode = linkMode;
 
-                // Handle single link mode
                 if (linkMode === "single") {
                     const singleUrl = $("#singleLinkUrl").val().trim();
                     if (!singleUrl) {
@@ -434,13 +794,11 @@
                         return;
                     }
                     finalUrl = singleUrl;
-                    currentFinalUrl = finalUrl; // Store for copy functionality
+                    currentFinalUrl = finalUrl;
                     qrTitleText = title || "Your QR Code";
-                    // Hide shareable URL section and copy URL button for single link
                     $("#shareableUrlSection").addClass("d-none");
                     $("#copyUrl").parent().addClass("d-none");
                 } else {
-                    // Handle multi-link mode
                     const expiry = $("#qrExpiry").val();
                     const mode = $("input[name='openMode']:checked").val();
 
@@ -448,15 +806,22 @@
                     let invalid = false;
 
                     $("#linksContainer .link-row").each(function () {
-                        const url = $(this).find(".link-url").val().trim();
+                        const urlInput = $(this).find(".link-url").val().trim();
                         const label = $(this).find(".link-label").val().trim();
-                        if (!url) return;
-                        if (!validateHttps(url)) {
-                            showAlert("Invalid link: " + url);
+                        const utmSource = $(this).find(".utm-source").val().trim();
+                        const utmMedium = $(this).find(".utm-medium").val().trim();
+                        const utmCampaign = $(this).find(".utm-campaign").val().trim();
+
+                        if (!urlInput) return;
+
+                        if (!validateHttps(urlInput)) {
+                            showAlert("Invalid link: " + urlInput);
                             invalid = true;
                             return false;
                         }
-                        links.push({ url, label: label || null });
+
+                        const finalLinkUrl = buildUrlWithUtm(urlInput, utmSource, utmMedium, utmCampaign);
+                        links.push({ url: finalLinkUrl, label: label || null });
                     });
 
                     if (invalid) return;
@@ -482,13 +847,14 @@
 
                     const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
                     finalUrl = BASE_MULTI_URL + "?d=" + encodeURIComponent(encoded);
-                    currentFinalUrl = finalUrl; // Store for copy functionality
+                    currentFinalUrl = finalUrl;
                     qrTitleText = title || "Your MultiLinkQR Code";
-                    // Show shareable URL section and copy URL button for multi-link
                     $("#shareableUrlSection").removeClass("d-none");
                     $("#copyUrl").parent().removeClass("d-none");
                     $("#generatedUrl").val(finalUrl);
                 }
+
+                saveState();
 
                 $("#qrTitlePreview").text(qrTitleText);
                 $("#noQrMessage").addClass("d-none");
@@ -500,10 +866,10 @@
 
                 const canvas = document.getElementById("qrCanvas");
 
-                // Generate QR and then draw logo if available
                 QRCode.toCanvas(canvas, finalUrl, {
-                    width: 220,
+                    width: size,
                     margin: 2,
+                    scale: 1,
                     color: {
                         dark: color || "#000000",
                         light: bg || "#ffffff"
@@ -514,17 +880,14 @@
                         return;
                     }
 
-                    // Draw logo in center if uploaded
                     if (logoImage) {
                         const ctx = canvas.getContext("2d");
-                        const canvasSize = canvas.width; // width == height
+                        const canvasSize = canvas.width;
 
-                        // Logo should be about 20–25% of QR size
                         const logoSize = canvasSize * 0.22;
                         const x = (canvasSize - logoSize) / 2;
                         const y = (canvasSize - logoSize) / 2;
 
-                        // Optional: white/QR background box under logo for better contrast
                         ctx.fillStyle = bg || "#ffffff";
                         ctx.fillRect(x, y, logoSize, logoSize);
 
