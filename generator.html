@@ -65,14 +65,22 @@
             font-size: 0.9rem;
             color: #6c757d;
         }
+
+        #logoPreview {
+            max-width: 80px;
+            max-height: 80px;
+            margin-top: 0.5rem;
+            display: none;
+            border-radius: 8px;
+        }
     </style>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ54LBGSDP"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-TJ54LBGSDP');
     </script>
 </head>
@@ -215,6 +223,16 @@
                                 </div>
                             </div>
 
+                            <!-- LOGO UPLOAD -->
+                            <div class="mb-3">
+                                <label class="fw-semibold">Logo (optional)</label>
+                                <input type="file" id="qrLogo" class="form-control" accept="image/*">
+                                <div class="form-text">
+                                    Logo will be placed in the center of the QR. Keep it simple and not too large for best scan results.
+                                </div>
+                                <img id="logoPreview" alt="Logo preview">
+                            </div>
+
                             <!-- SINGLE LINK INPUT -->
                             <div id="singleLinkSection" class="mb-3 d-none">
                                 <label class="fw-semibold">Link</label>
@@ -301,6 +319,7 @@
         const BASE_MULTI_URL = "https://multilinkqr.com/multi.html";
         let currentFinalUrl = ""; // Store the current QR URL for copy functionality
         let currentLinkMode = ""; // Store the current link mode
+        let logoImage = null;     // Store uploaded logo
 
         function showAlert(msg, type = "danger") {
             $("#alertArea").html(`<div class="alert alert-${type}">${msg}</div>`);
@@ -335,6 +354,31 @@
             $("#yearSpan").text(new Date().getFullYear());
             addLinkRow("https://instagram.com/", "Instagram");
             addLinkRow("https://www.linkedin.com/", "LinkedIn");
+
+            // Logo file input handler
+            $("#qrLogo").on("change", function (e) {
+                const file = e.target.files[0];
+                const preview = document.getElementById("logoPreview");
+
+                if (!file) {
+                    logoImage = null;
+                    preview.style.display = "none";
+                    preview.src = "";
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (evt) {
+                    const img = new Image();
+                    img.onload = function () {
+                        logoImage = img;
+                        preview.src = img.src;
+                        preview.style.display = "block";
+                    };
+                    img.src = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
 
             // Link mode toggle
             $("input[name='linkMode']").change(function() {
@@ -401,20 +445,25 @@
                     const mode = $("input[name='openMode']:checked").val();
 
                     const links = [];
+                    let invalid = false;
+
                     $("#linksContainer .link-row").each(function () {
                         const url = $(this).find(".link-url").val().trim();
                         const label = $(this).find(".link-label").val().trim();
                         if (!url) return;
-                        if (!validateHttps(url)) { 
-                            showAlert("Invalid link: " + url); 
-                            return false; 
+                        if (!validateHttps(url)) {
+                            showAlert("Invalid link: " + url);
+                            invalid = true;
+                            return false;
                         }
                         links.push({ url, label: label || null });
                     });
 
-                    if (links.length === 0) { 
-                        showAlert("Add at least one HTTPS link."); 
-                        return; 
+                    if (invalid) return;
+
+                    if (links.length === 0) {
+                        showAlert("Add at least one HTTPS link.");
+                        return;
                     }
 
                     let exp = null;
@@ -450,12 +499,36 @@
                 $("#qrWrapper").toggleClass("rounded-pixels", rounded);
 
                 const canvas = document.getElementById("qrCanvas");
+
+                // Generate QR and then draw logo if available
                 QRCode.toCanvas(canvas, finalUrl, {
                     width: 220,
                     margin: 2,
                     color: {
                         dark: color || "#000000",
                         light: bg || "#ffffff"
+                    }
+                }, function (err) {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+
+                    // Draw logo in center if uploaded
+                    if (logoImage) {
+                        const ctx = canvas.getContext("2d");
+                        const canvasSize = canvas.width; // width == height
+
+                        // Logo should be about 20–25% of QR size
+                        const logoSize = canvasSize * 0.22;
+                        const x = (canvasSize - logoSize) / 2;
+                        const y = (canvasSize - logoSize) / 2;
+
+                        // Optional: white/QR background box under logo for better contrast
+                        ctx.fillStyle = bg || "#ffffff";
+                        ctx.fillRect(x, y, logoSize, logoSize);
+
+                        ctx.drawImage(logoImage, x, y, logoSize, logoSize);
                     }
                 });
 
@@ -468,6 +541,10 @@
 
                 $("#downloadSvg").off().click(function () {
                     QRCode.toString(finalUrl, { type: "svg" }, function (err, svg) {
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
                         const blob = new Blob([svg], { type: "image/svg+xml" });
                         const url = URL.createObjectURL(blob);
                         const a = document.createElement("a");
@@ -477,11 +554,11 @@
                         URL.revokeObjectURL(url);
                     });
                 });
+
                 $("#copyUrl").off().on("click", function () {
                     const text = currentLinkMode === "single" ? currentFinalUrl : $("#generatedUrl").val();
                     navigator.clipboard.writeText(text).then(() => {
                         $("#copyMessage").removeClass("d-none");
-
                         setTimeout(() => {
                             $("#copyMessage").addClass("d-none");
                         }, 1500);
