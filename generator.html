@@ -9,6 +9,7 @@
     <meta name="keywords" content="multi link qr code, qr code with multiple links, multi url qr code, qr generator multiple links, multi link qr generator, social media qr code, business qr code generator">
     <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://multilinkqr.com/generator.html" />
 
     <!-- OpenGraph -->
     <meta property="og:title" content="Free Multi-Link QR Code Generator">
@@ -91,6 +92,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="generator.html">Generate QR</a></li>
                     <li class="nav-item"><a class="nav-link" href="tips.html">QR Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                 </ul>
@@ -103,8 +105,7 @@
         <h1 class="h2 text-center mb-4 fw-bold">Free Multi-Link QR Code Generator</h1>
 
         <p class="text-center mb-5 text-muted">
-            Create one QR code that opens multiple HTTPS links at once. Ideal for business cards, social media profiles, marketing,
-            creators, restaurants and professionals. Customize colors, labels, expiry date, and download as PNG or SVG.
+            MultiLinkQR allows you to create both Single-Link QR Codes (direct redirect to one HTTPS link) and Multi-Link QR Codes (open multiple links or show buttons). Ideal for business cards, social media profiles, marketing, creators, restaurants and professionals. Customize colors, labels, expiry date, and download as PNG or SVG. Completely free and no account needed.
         </p>
 
         <div class="row g-4">
@@ -113,11 +114,24 @@
             <div class="col-lg-7">
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
-                        <h2 class="h4 mb-3">Generate Multi-Link QR Code</h2>
+                        <h2 class="h4 mb-3">Generate QR Code (Single-Link or Multi-Link)</h2>
 
                         <div id="alertArea"></div>
 
                         <form id="qrForm">
+
+                            <!-- LINK MODE -->
+                            <div class="mb-3">
+                                <label class="fw-semibold">Link Mode</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="linkMode" value="single" id="linkModeSingle">
+                                    <label class="form-check-label" for="linkModeSingle">Single Link (Direct redirect)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="linkMode" value="multi" id="linkModeMulti" checked>
+                                    <label class="form-check-label" for="linkModeMulti">Multi-Link (Multiple links)</label>
+                                </div>
+                            </div>
 
                             <!-- TITLE -->
                             <div class="mb-3">
@@ -126,13 +140,13 @@
                             </div>
 
                             <!-- EXPIRY -->
-                            <div class="mb-3">
+                            <div class="mb-3" id="expirySection">
                                 <label class="fw-semibold">Expiry Date (optional)</label>
                                 <input type="date" id="qrExpiry" class="form-control">
                             </div>
 
                             <!-- OPEN MODE -->
-                            <div class="mb-3">
+                            <div class="mb-3" id="openModeSection">
                                 <label class="fw-semibold">Open Mode</label>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="openMode" value="auto" checked>
@@ -201,14 +215,23 @@
                                 </div>
                             </div>
 
-                            <!-- LINKS -->
-                            <div class="d-flex justify-content-between mb-2">
-                                <label class="fw-semibold">Links</label>
-                                <button type="button" id="addLink" class="btn btn-outline-secondary btn-sm">+ Add Link</button>
+                            <!-- SINGLE LINK INPUT -->
+                            <div id="singleLinkSection" class="mb-3 d-none">
+                                <label class="fw-semibold">Link</label>
+                                <input type="text" id="singleLinkUrl" class="form-control" placeholder="https://example.com">
+                                <div class="form-text mt-1">Link must start with <strong>https://</strong></div>
                             </div>
 
-                            <div id="linksContainer"></div>
-                            <div class="form-text mb-3">Each link must start with <strong>https://</strong></div>
+                            <!-- MULTI LINKS -->
+                            <div id="multiLinksSection">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <label class="fw-semibold">Links</label>
+                                    <button type="button" id="addLink" class="btn btn-outline-secondary btn-sm">+ Add Link</button>
+                                </div>
+
+                                <div id="linksContainer"></div>
+                                <div class="form-text mb-3">Each link must start with <strong>https://</strong></div>
+                            </div>
 
                             <button class="btn btn-primary w-100">Generate QR Code</button>
                         </form>
@@ -235,8 +258,10 @@
                             </div>
 
                             <div class="mt-3">
-                                <label class="fw-semibold">Shareable URL</label>
-                                <input type="text" id="generatedUrl" class="form-control mb-2" readonly>
+                                <div id="shareableUrlSection">
+                                    <label class="fw-semibold">Shareable URL</label>
+                                    <input type="text" id="generatedUrl" class="form-control mb-2" readonly>
+                                </div>
 
                                 <div class="btn-group mb-3" role="group">
                                     <button type="button" id="copyUrl" class="btn btn-outline-success btn-sm">Copy URL</button>
@@ -256,8 +281,16 @@
         </div>
     </div>
 
-    <footer class="text-center">
-        © <span id="yearSpan"></span> MultiLinkQR — Multi-Link QR Code Generator
+    <footer>
+        <div class="container d-flex flex-wrap justify-content-between align-items-center">
+            <div>© <span id="yearSpan"></span> MultiLinkQR — Multi-Link QR Code Generator</div>
+            <div>
+                <a href="blog.html" class="me-3">Blog</a>
+                <a href="privacy-policy.html" class="me-3">Privacy Policy</a>
+                <a href="terms.html" class="me-3">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
     </footer>
 
     <!-- Bootstrap JS -->
@@ -266,6 +299,8 @@
     <!-- QR LOGIC -->
     <script>
         const BASE_MULTI_URL = "https://multilinkqr.com/multi.html";
+        let currentFinalUrl = ""; // Store the current QR URL for copy functionality
+        let currentLinkMode = ""; // Store the current link mode
 
         function showAlert(msg, type = "danger") {
             $("#alertArea").html(`<div class="alert alert-${type}">${msg}</div>`);
@@ -301,6 +336,28 @@
             addLinkRow("https://instagram.com/", "Instagram");
             addLinkRow("https://www.linkedin.com/", "LinkedIn");
 
+            // Link mode toggle
+            $("input[name='linkMode']").change(function() {
+                const mode = $(this).val();
+                if (mode === "single") {
+                    $("#singleLinkSection").removeClass("d-none");
+                    $("#multiLinksSection").addClass("d-none");
+                    $("#expirySection").addClass("d-none");
+                    $("#openModeSection").addClass("d-none");
+                } else {
+                    $("#singleLinkSection").addClass("d-none");
+                    $("#multiLinksSection").removeClass("d-none");
+                    $("#expirySection").removeClass("d-none");
+                    $("#openModeSection").removeClass("d-none");
+                }
+                // Clear previous QR result when switching modes
+                $("#noQrMessage").removeClass("d-none");
+                $("#qrResult").addClass("d-none");
+                // Reset copy URL button visibility
+                $("#copyUrl").parent().removeClass("d-none");
+                clearAlert();
+            });
+
             $("#addLink").click(() => addLinkRow());
             $("#linksContainer").on("click", ".remove-link", function () { $(this).closest(".link-row").remove(); });
 
@@ -308,44 +365,83 @@
                 e.preventDefault();
                 clearAlert();
 
+                const linkMode = $("input[name='linkMode']:checked").val();
                 const title = $("#qrTitle").val().trim();
-                const expiry = $("#qrExpiry").val();
                 const color = $("#qrColor").val();
                 const bg = $("#qrBg").val();
                 const border = $("#qrBorder").is(":checked");
                 const rounded = $("#qrRounded").is(":checked");
-                const mode = $("input[name='openMode']:checked").val();
 
-                const links = [];
-                $("#linksContainer .link-row").each(function () {
-                    const url = $(this).find(".link-url").val().trim();
-                    const label = $(this).find(".link-label").val().trim();
-                    if (!url) return;
-                    if (!validateHttps(url)) { showAlert("Invalid link: " + url); return false; }
-                    links.push({ url, label: label || null });
-                });
+                let finalUrl;
+                let qrTitleText;
 
-                if (links.length === 0) { showAlert("Add at least one HTTPS link."); return; }
+                // Store link mode for use in copy button
+                currentLinkMode = linkMode;
 
-                let exp = null;
-                if (expiry) {
-                    const d = new Date(expiry + "T23:59:59");
-                    if (!isNaN(d.getTime())) exp = d.getTime();
+                // Handle single link mode
+                if (linkMode === "single") {
+                    const singleUrl = $("#singleLinkUrl").val().trim();
+                    if (!singleUrl) {
+                        showAlert("Please enter a link.");
+                        return;
+                    }
+                    if (!validateHttps(singleUrl)) {
+                        showAlert("Invalid link. Link must start with https://");
+                        return;
+                    }
+                    finalUrl = singleUrl;
+                    currentFinalUrl = finalUrl; // Store for copy functionality
+                    qrTitleText = title || "Your QR Code";
+                    // Hide shareable URL section and copy URL button for single link
+                    $("#shareableUrlSection").addClass("d-none");
+                    $("#copyUrl").parent().addClass("d-none");
+                } else {
+                    // Handle multi-link mode
+                    const expiry = $("#qrExpiry").val();
+                    const mode = $("input[name='openMode']:checked").val();
+
+                    const links = [];
+                    $("#linksContainer .link-row").each(function () {
+                        const url = $(this).find(".link-url").val().trim();
+                        const label = $(this).find(".link-label").val().trim();
+                        if (!url) return;
+                        if (!validateHttps(url)) { 
+                            showAlert("Invalid link: " + url); 
+                            return false; 
+                        }
+                        links.push({ url, label: label || null });
+                    });
+
+                    if (links.length === 0) { 
+                        showAlert("Add at least one HTTPS link."); 
+                        return; 
+                    }
+
+                    let exp = null;
+                    if (expiry) {
+                        const d = new Date(expiry + "T23:59:59");
+                        if (!isNaN(d.getTime())) exp = d.getTime();
+                    }
+
+                    const payload = {
+                        title: title || null,
+                        exp,
+                        mode,
+                        style: { color, bg, border, rounded },
+                        links
+                    };
+
+                    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+                    finalUrl = BASE_MULTI_URL + "?d=" + encodeURIComponent(encoded);
+                    currentFinalUrl = finalUrl; // Store for copy functionality
+                    qrTitleText = title || "Your MultiLinkQR Code";
+                    // Show shareable URL section and copy URL button for multi-link
+                    $("#shareableUrlSection").removeClass("d-none");
+                    $("#copyUrl").parent().removeClass("d-none");
+                    $("#generatedUrl").val(finalUrl);
                 }
 
-                const payload = {
-                    title: title || null,
-                    exp,
-                    mode,
-                    style: { color, bg, border, rounded },
-                    links
-                };
-
-                const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-                const finalUrl = BASE_MULTI_URL + "?d=" + encodeURIComponent(encoded);
-
-                $("#generatedUrl").val(finalUrl);
-                $("#qrTitlePreview").text(title || "Your MultiLinkQR Code");
+                $("#qrTitlePreview").text(qrTitleText);
                 $("#noQrMessage").addClass("d-none");
                 $("#qrResult").removeClass("d-none");
 
@@ -382,7 +478,7 @@
                     });
                 });
                 $("#copyUrl").off().on("click", function () {
-                    const text = $("#generatedUrl").val();
+                    const text = currentLinkMode === "single" ? currentFinalUrl : $("#generatedUrl").val();
                     navigator.clipboard.writeText(text).then(() => {
                         $("#copyMessage").removeClass("d-none");
 

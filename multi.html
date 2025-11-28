@@ -8,7 +8,8 @@
     <meta name="description"
           content="MultiLinkQR landing page. Open multiple HTTPS links from a single QR code scan, with buttons and link preview cards as a fallback.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="index,follow">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://multilinkqr.com/multi.html" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="Opening Your Links – MultiLinkQR" />
@@ -249,16 +250,56 @@
             }
         }
 
+        function getSocialMediaIcon(url, label) {
+            if (!url) return null;
+            const urlLower = url.toLowerCase();
+            const labelLower = (label || "").toLowerCase();
+            
+            // Check by domain
+            if (urlLower.includes("instagram.com")) return "📷";
+            if (urlLower.includes("facebook.com")) return "👤";
+            if (urlLower.includes("twitter.com") || urlLower.includes("x.com")) return "🐦";
+            if (urlLower.includes("linkedin.com")) return "💼";
+            if (urlLower.includes("youtube.com")) return "▶️";
+            if (urlLower.includes("whatsapp.com")) return "💬";
+            if (urlLower.includes("tiktok.com")) return "🎵";
+            if (urlLower.includes("pinterest.com")) return "📌";
+            if (urlLower.includes("snapchat.com")) return "👻";
+            if (urlLower.includes("reddit.com")) return "🤖";
+            if (urlLower.includes("github.com")) return "💻";
+            if (urlLower.includes("behance.net")) return "🎨";
+            if (urlLower.includes("dribbble.com")) return "🏀";
+            
+            // Check by label
+            if (labelLower.includes("instagram")) return "📷";
+            if (labelLower.includes("facebook")) return "👤";
+            if (labelLower.includes("twitter") || labelLower.includes("x.com")) return "🐦";
+            if (labelLower.includes("linkedin")) return "💼";
+            if (labelLower.includes("youtube")) return "▶️";
+            if (labelLower.includes("whatsapp")) return "💬";
+            if (labelLower.includes("tiktok")) return "🎵";
+            if (labelLower.includes("pinterest")) return "📌";
+            if (labelLower.includes("snapchat")) return "👻";
+            if (labelLower.includes("reddit")) return "🤖";
+            if (labelLower.includes("github")) return "💻";
+            if (labelLower.includes("behance")) return "🎨";
+            if (labelLower.includes("dribbble")) return "🏀";
+            
+            return null;
+        }
+
         function renderButtons(links, primaryColor) {
             const container = $("#buttonsView");
             container.empty();
             links.forEach(function (item, idx) {
                 const label = item.label || ("Link " + (idx + 1));
+                const icon = getSocialMediaIcon(item.url, item.label);
+                const iconHtml = icon ? '<span style="font-size:1.2em;margin-right:0.5rem;">' + icon + '</span>' : '';
                 container.append(
                     '<a href="' + item.url + '" target="_blank" rel="noopener noreferrer"' +
                     ' class="btn btn-primary w-100 mb-2"' +
                     ' style="background-color:' + primaryColor + ';border-color:' + primaryColor + '">' +
-                    label +
+                    iconHtml + label +
                     '</a>'
                 );
             });
@@ -272,10 +313,19 @@
                 const domain = getDomain(item.url);
                 const favicon = createFaviconUrl(item.url);
                 const firstLetter = (domain && domain[0]) ? domain[0].toUpperCase() : "?";
+                const socialIcon = getSocialMediaIcon(item.url, item.label);
 
-                const faviconHtml = favicon
-                    ? '<img src="' + favicon + '" alt="icon" onerror="this.style.display=\'none\'" style="width:32px;height:32px;border-radius:8px;">'
-                    : '<span>' + firstLetter + '</span>';
+                let faviconHtml;
+                if (socialIcon) {
+                    // Use social media icon if detected
+                    faviconHtml = '<span style="font-size:1.5em;">' + socialIcon + '</span>';
+                } else if (favicon) {
+                    // Try favicon, fallback to first letter on error
+                    faviconHtml = '<img src="' + favicon + '" alt="icon" onerror="this.parentElement.innerHTML=\'<span>' + firstLetter + '</span>\'" style="width:32px;height:32px;border-radius:8px;">';
+                } else {
+                    // Fallback to first letter
+                    faviconHtml = '<span>' + firstLetter + '</span>';
+                }
 
                 container.append(
                     '<div class="preview-card">' +

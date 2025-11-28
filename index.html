@@ -8,9 +8,10 @@
     <meta name="description"
           content="MultiLinkQR is a free online multi-link QR code generator. Create one QR code that opens multiple HTTPS links at once. Perfect for business cards, social media, events and portfolios." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="index,follow" />
+    <meta name="robots" content="index, follow" />
     <meta name="keywords"
-          content="multi link qr code, qr code multiple links, multi url qr code generator, free qr generator, social media qr code, business card qr code" />
+          content="free qr code generator, multi link qr code, single link qr code, qr code multiple links, multi url qr code generator, free qr generator, social media qr code, business card qr code, qr scanner online" />
+    <link rel="canonical" href="https://multilinkqr.com/index.html" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="MultiLinkQR – Free Multi-Link QR Code Generator" />
@@ -94,12 +95,24 @@
         }
 
         footer {
-            margin-top: 3rem;
-            padding: 1.5rem 0;
+            margin-top: 4rem;
+            padding: 2rem 0;
             background: #ffffff;
             border-top: 1px solid #e5e5e5;
             font-size: 0.9rem;
             color: #6c757d;
+        }
+        
+        .section-spacing {
+            margin-bottom: 3rem;
+        }
+        
+        .card {
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
         }
     </style>
 </head>
@@ -123,6 +136,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="generator.html">Generate QR</a></li>
                     <li class="nav-item"><a class="nav-link" href="tips.html">QR Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                 </ul>
@@ -143,8 +157,7 @@
                         One QR code.<br class="d-none d-md-block" />Multiple links.
                     </h1>
                     <p class="lead mb-4">
-                        MultiLinkQR lets you create a single <strong>multi-link QR code</strong> that opens several HTTPS links at once.
-                        Share your website, Instagram, LinkedIn, YouTube channel and more with one clean, professional QR code.
+                        MultiLinkQR allows you to create both <strong>Single-Link QR Codes</strong> (direct redirect to one HTTPS link) and <strong>Multi-Link QR Codes</strong> (open multiple links or show buttons). Share your website, Instagram, LinkedIn, YouTube channel and more with one clean, professional QR code. Completely free and no account needed.
                     </p>
                     <div class="d-flex flex-wrap gap-3">
                         <a href="generator.html" class="btn btn-primary btn-lg">
@@ -197,7 +210,9 @@
                         <p>
                             With MultiLinkQR, you can combine links to your website, online store, WhatsApp, Instagram, Facebook page,
                             LinkedIn profile, portfolio, YouTube channel and more. Instead of printing several QR codes on your
-                            business card or marketing material, you only need one clean, professional QR code.
+                            business card or marketing material, you only need one clean, professional QR code. Our free QR code generator
+                            also supports single-link QR codes for direct redirects, making it perfect for simple use cases like linking
+                            to a single website or social media profile.
                         </p>
                     </div>
                     <div class="col-lg-5">
@@ -294,9 +309,11 @@
                         <ul class="mb-3">
                             <li>
                                 <strong>Business cards:</strong> One QR to share your website, WhatsApp, email, Google Maps listing and social profiles.
+                                Use our free QR code generator to create multi-link QR codes for business cards that connect all your important links.
                             </li>
                             <li>
                                 <strong>Creators & influencers:</strong> Share Instagram, YouTube, TikTok, Twitter and personal website with a single scan.
+                                Perfect for social media profiles and creator portfolios.
                             </li>
                             <li>
                                 <strong>Events & seminars:</strong> Combine feedback forms, presentation slides, brochure PDFs and contact links.
@@ -310,6 +327,8 @@
                         </ul>
                         <p class="mb-0">
                             Wherever you would normally place several QR codes, MultiLinkQR helps you simplify everything into one.
+                            Whether you need a multi-link QR code for multiple destinations or a single-link QR code for direct redirects,
+                            our free QR code generator has you covered.
                         </p>
                     </div>
 
@@ -398,6 +417,7 @@
         <div class="container d-flex flex-wrap justify-content-between align-items-center">
             <div>© <span id="yearSpan"></span> MultiLinkQR – Free multi-link QR code generator.</div>
             <div>
+                <a href="blog.html" class="me-3">Blog</a>
                 <a href="privacy-policy.html" class="me-3">Privacy Policy</a>
                 <a href="terms.html" class="me-3">Terms</a>
                 <a href="contact.html">Contact</a>
