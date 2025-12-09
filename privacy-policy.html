@@ -67,22 +67,260 @@
 
   <main class="py-5">
       <div class="container">
-          <h1 class="h3 mb-3">Privacy Policy</h1>
-          <p>
-              MultiLinkQR is designed to be privacy-friendly. We do not require you to create an account and we do not
-              store your links in a central database. When you create a QR code, your data is encoded inside the generated
-              URL itself and processed in your browser.
-          </p>
-          <p>
-              We may use standard web server logs or analytics tools to understand how the website is used
-              (for example total page views, device types and country-level statistics). This information
-              is used only to improve the service.
-          </p>
-          <p>
-              If you embed third-party links (such as YouTube, Instagram, LinkedIn or any external website), their own
-              privacy policies will apply when visitors click those links. We recommend reviewing the privacy practices
-              of any services you link to.
-          </p>
+          <div class="row">
+              <div class="col-lg-10 mx-auto">
+                  <h1 class="h2 mb-4">Privacy Policy</h1>
+                  <p class="text-muted mb-4">Last updated: <span id="lastUpdated">January 2025</span></p>
+
+                  <div class="card shadow-sm mb-4">
+                      <div class="card-body p-4">
+                          <h2 class="h4 mb-3">Introduction</h2>
+                          <p>
+                              MultiLinkQR ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy 
+                              explains how we collect, use, disclose, and safeguard your information when you use our free 
+                              QR code generator service. Please read this privacy policy carefully. If you do not agree with 
+                              the terms of this privacy policy, please do not access or use our service.
+                          </p>
+                          <p class="mb-0">
+                              MultiLinkQR is designed with privacy as a core principle. We do not require you to create an 
+                              account, and we do not store your links, settings, or personal information in any central database. 
+                              Your data remains in your control.
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="card shadow-sm mb-4">
+                      <div class="card-body p-4">
+                          <h2 class="h4 mb-3">Information We Do NOT Collect</h2>
+                          <p>
+                              To make it clear what we don't do, here's what MultiLinkQR does NOT collect:
+                          </p>
+                          <ul>
+                              <li><strong>No Account Information:</strong> We don't require registration, so we don't collect 
+                                  usernames, email addresses, passwords, or any account-related information.</li>
+                              <li><strong>No QR Code Content:</strong> The links, labels, titles, and settings you enter are 
+                                  encoded directly into the generated URL and processed entirely in your browser. We never 
+                                  receive, store, or have access to this information.</li>
+                              <li><strong>No Personal Data:</strong> We don't collect names, addresses, phone numbers, or any 
+                                  other personally identifiable information unless you explicitly provide it to us through 
+                                  our contact form.</li>
+                              <li><strong>No Payment Information:</strong> MultiLinkQR is completely free, so we never collect 
+                                  credit card numbers, billing addresses, or payment details.</li>
+                              <li><strong>No Tracking of QR Code Scans:</strong> We don't track when, where, or how many times 
+                                  your QR codes are scanned. This information is not available to us.</li>
+                          </ul>
+                      </div>
+                  </div>
+
+                  <div class="card shadow-sm mb-4">
+                      <div class="card-body p-4">
+                          <h2 class="h4 mb-3">Information We May Collect</h2>
+                          <p>
+                              While we minimize data collection, we may collect the following types of information to improve 
+                              our service:
+                          </p>
+                          <h3 class="h6 mt-3 mb-2">1. Standard Web Analytics</h3>
+                          <p>
+                              We use Google Analytics and similar analytics tools to understand how visitors use our website. 
+                              This may include:
+                          </p>
+                          <ul>
+                              <li>Total page views and unique visitor counts</li>
+                              <li>Device types (desktop, mobile, tablet)</li>
+                              <li>Browser types and versions</li>
+                              <li>Country-level geographic data (not specific locations)</li>
+                              <li>Referral sources (how visitors found our site)</li>
+                              <li>Time spent on pages</li>
+                          </ul>
+                          <p>
+                              This information is collected in an aggregated, anonymized format and cannot be used to identify 
+                              individual users. We use this data solely to improve the website's functionality, user experience, 
+                              and performance.
+                          </p>
+
+                          <h3 class="h6 mt-3 mb-2">2. Server Logs</h3>
+                          <p>
+                              Like most websites, our web server automatically logs certain information when you visit our site, 
+                              including:
+                          </p>
+                          <ul>
+                              <li>IP addresses (which may be anonymized)</li>
+                              <li>Date and time of access</li>
+                              <li>Pages visited</li>
+                              <li>HTTP status codes</li>
+                              <li>Browser user agent strings</li>
+                          </ul>
+                          <p>
+                              These logs are used for security purposes, troubleshooting technical issues, and understanding 
+                              website traffic patterns. Logs are typically retained for a limited period and then deleted.
+                          </p>
+
+                          <h3 class="h6 mt-3 mb-2">3. Contact Information</h3>
+                          <p class="mb-0">
+                              If you contact us through our contact page or email, we may collect the information you provide, 
+                              such as your name, email address, and message content. This information is used solely to respond 
+                              to your inquiry and is not used for marketing purposes unless you explicitly consent.
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="card shadow-sm mb-4">
+                      <div class="card-body p-4">
+                          <h2 class="h4 mb-3">How Your QR Code Data Works</h2>
+                          <p>
+                              When you create a QR code using MultiLinkQR, all your information (links, labels, colors, 
+                              settings, etc.) is processed entirely in your web browser using JavaScript. Here's how it works:
+                          </p>
+                          <ol>
+                              <li><strong>Client-Side Processing:</strong> All data you enter is processed locally in your 
+                                  browser. Nothing is sent to our servers during the QR code generation process.</li>
+                              <li><strong>URL Encoding:</strong> Your settings and links are encoded into a base64 string 
+                                  and embedded directly into the generated URL (for multi-link QR codes).</li>
+                              <li><strong>No Server Storage:</strong> We don't store your QR code data on our servers. 
+                                  The only way someone can access your links is if they have the QR code itself or the 
+                                  generated URL.</li>
+                              <li><strong>Direct Access:</strong> Anyone who scans your QR code or has the URL can decode 
+                                  and access the information you encoded. This is by design, as it allows your QR codes to 
+                                  work without requiring our servers to be online.</li>
+                          </ol>
+                          <p class="mb-0">
+                              <strong>Important:</strong> Because your data is encoded in the URL, anyone with access to 
+                              the QR code or URL can see the links you've included. Only include links you're comfortable 
+                              sharing publicly. Never encode sensitive information like passwords, personal data, or private 
+                              content in your QR codes.
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="card shadow-sm mb-4">
+                      <div class="card-body p-4">
+                          <h2 class="h4 mb-3">Third-Party Services</h2>
+                          <p>
+                              MultiLinkQR uses the following third-party services that may collect information:
+                          </p>
+                          <ul>
+                              <li><strong>Google Analytics:</strong> We use Google Analytics to understand website usage. 
+                                  Google's privacy policy applies to this service. You can opt out of Google Analytics 
+                                  tracking using browser extensions or Google's opt-out tools.</li>
+                              <li><strong>Google AdSense:</strong> We may display advertisements through Google AdSense. 
+                                  Google uses cookies and similar technologies to serve ads based on your interests and 
+                                  browsing behavior. You can manage ad preferences in your Google account settings.</li>
+                              <li><strong>Content Delivery Networks (CDNs):</strong> We use CDNs to deliver Bootstrap, 
+                                  JavaScript libraries, and other resources. These services may collect standard web 
+                                  analytics data.</li>
+                          </ul>
+                          <p class="mb-0">
+                              When you click on links in your QR codes (such as YouTube, Instagram, LinkedIn, or any external 
+                              website), those third-party services have their own privacy policies that govern how they collect 
+                              and use your information. We recommend reviewing the privacy practices of any services you 
+                              link to in your QR codes.
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="card shadow-sm mb-4">
+                      <div class="card-body p-4">
+                          <h2 class="h4 mb-3">Cookies and Tracking Technologies</h2>
+                          <p>
+                              We may use cookies, web beacons, and similar tracking technologies to:
+                          </p>
+                          <ul>
+                              <li>Remember your theme preferences (dark mode/light mode)</li>
+                              <li>Save your QR code generator form state locally in your browser</li>
+                              <li>Analyze website traffic and usage patterns</li>
+                              <li>Serve relevant advertisements (through Google AdSense)</li>
+                          </ul>
+                          <p>
+                              Most web browsers allow you to control cookies through their settings. You can set your browser 
+                              to refuse cookies or alert you when cookies are being sent. However, disabling cookies may 
+                              affect some functionality of our website, such as saving your preferences.
+                          </p>
+                          <p class="mb-0">
+                              We use both session cookies (which expire when you close your browser) and persistent cookies 
+                              (which remain on your device until deleted or expired). The data stored in cookies is used 
+                              solely for the purposes described above.
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="card shadow-sm mb-4">
+                      <div class="card-body p-4">
+                          <h2 class="h4 mb-3">Data Security</h2>
+                          <p>
+                              While we don't store your QR code data on our servers, we take reasonable measures to protect 
+                              the website and any information we do collect:
+                          </p>
+                          <ul>
+                              <li>We use HTTPS encryption to protect data in transit</li>
+                              <li>We follow industry-standard security practices</li>
+                              <li>We regularly update our software and dependencies</li>
+                              <li>We limit access to server logs and analytics data to authorized personnel only</li>
+                          </ul>
+                          <p class="mb-0">
+                              However, no method of transmission over the Internet or electronic storage is 100% secure. While 
+                              we strive to use commercially acceptable means to protect your information, we cannot guarantee 
+                              absolute security.
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="card shadow-sm mb-4">
+                      <div class="card-body p-4">
+                          <h2 class="h4 mb-3">Children's Privacy</h2>
+                          <p class="mb-0">
+                              MultiLinkQR is not intended for children under the age of 13. We do not knowingly collect 
+                              personal information from children under 13. If you are a parent or guardian and believe your 
+                              child has provided us with personal information, please contact us, and we will delete such 
+                              information from our records.
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="card shadow-sm mb-4">
+                      <div class="card-body p-4">
+                          <h2 class="h4 mb-3">Your Rights and Choices</h2>
+                          <p>
+                              Depending on your location, you may have certain rights regarding your personal information:
+                          </p>
+                          <ul>
+                              <li><strong>Access:</strong> You can request information about what data we have collected about you.</li>
+                              <li><strong>Deletion:</strong> You can request deletion of any personal information we may have.</li>
+                              <li><strong>Opt-Out:</strong> You can opt out of analytics tracking using browser extensions or 
+                                  settings, and manage ad preferences through Google's ad settings.</li>
+                              <li><strong>Data Portability:</strong> You can request a copy of your data in a portable format.</li>
+                          </ul>
+                          <p class="mb-0">
+                              To exercise these rights, please contact us at 
+                              <a href="mailto:support@multilinkqr.com">support@multilinkqr.com</a>. We will respond to your 
+                              request within a reasonable timeframe.
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="card shadow-sm mb-4">
+                      <div class="card-body p-4">
+                          <h2 class="h4 mb-3">Changes to This Privacy Policy</h2>
+                          <p class="mb-0">
+                              We may update this Privacy Policy from time to time to reflect changes in our practices or 
+                              for other operational, legal, or regulatory reasons. We will notify you of any material changes 
+                              by posting the new Privacy Policy on this page and updating the "Last updated" date. You are 
+                              advised to review this Privacy Policy periodically for any changes.
+                          </p>
+                      </div>
+                  </div>
+
+                  <div class="card shadow-sm">
+                      <div class="card-body p-4">
+                          <h2 class="h4 mb-3">Contact Us</h2>
+                          <p class="mb-0">
+                              If you have any questions about this Privacy Policy or our privacy practices, please contact us at 
+                              <a href="mailto:support@multilinkqr.com">support@multilinkqr.com</a> or through our 
+                              <a href="contact.html">contact page</a>.
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
   </main>
 
