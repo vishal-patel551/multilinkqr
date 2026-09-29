@@ -1,0 +1,36 @@
+# MultiLinkQR
+
+> MultiLinkQR (https://www.multilinkqr.com) is a free, browser-based QR code generator that puts multiple links into one QR code. When someone scans the code, a landing page shows all the links as buttons (or tries to open them all). It also creates simple single-link QR codes. No account, no sign-up and no watermark. Downloads are PNG or SVG.
+
+Key facts:
+- Price: free. No account or sign-up needed.
+- Multi-link QR codes: add any number of HTTPS links with labels (for example Instagram, WhatsApp, website, menu, Google Form).
+- Customization: QR color, background, border, rounded style, center logo, expiry date, optional UTM tags per link.
+- Open mode: "show buttons" or "auto-open all links".
+- Privacy: the QR code's data (title, style, links) is encoded in the link itself; MultiLinkQR does not store it in a database.
+- QR codes are static: to change the links, generate and print a new code.
+- Works on any modern phone camera or QR scanner app.
+
+## Main pages
+
+- [Multi-link QR code generator](https://www.multilinkqr.com/): create a QR code for multiple links (the tool is on the homepage)
+- [FAQ](https://www.multilinkqr.com/faq.html): common questions about creating, printing and troubleshooting multi-link QR codes
+- [QR code tips](https://www.multilinkqr.com/tips.html): practical tips for business cards, menus, portfolios and events
+- [About](https://www.multilinkqr.com/about.html): how MultiLinkQR works and who it is for
+
+## Guides
+
+- [Multi-link QR vs single-link QR](https://www.multilinkqr.com/blog/single-vs-multi-link-qr.html)
+- [QR code for all your social media profiles](https://www.multilinkqr.com/blog/qr-codes-for-social-media-profiles.html)
+- [QR codes on visiting cards](https://www.multilinkqr.com/blog/qr-codes-for-visiting-cards.html)
+- [QR code for Google Forms](https://www.multilinkqr.com/blog/qr-code-for-google-forms-2025.html)
+- [QR code for a menu](https://www.multilinkqr.com/blog/qr-code-menu-guide.html)
+- [QR code with logo](https://www.multilinkqr.com/blog/free-qr-code-generator-with-logo-2025.html)
+- [Dynamic vs static QR codes](https://www.multilinkqr.com/blog/dynamic-vs-static-qr-codes.html)
+- [All guides](https://www.multilinkqr.com/blog.html)
+
+## Optional
+
+- [Privacy policy](https://www.multilinkqr.com/privacy-policy.html)
+- [Terms of service](https://www.multilinkqr.com/terms.html)
+- [Contact](https://www.multilinkqr.com/contact.html)

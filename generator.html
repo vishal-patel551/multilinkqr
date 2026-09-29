@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Free Multi-Link QR Code Generator – Create One QR for Multiple Links</title>
+    <title>Multi-URL QR Code Generator – Add Multiple Links to One QR</title>
 
     <!-- SEO Meta -->
-    <meta name="description" content="Free Multi-Link QR Code Generator. Create one QR code that opens multiple HTTPS links at once. Add labels, colors, expiry, auto-open mode and download QR as PNG or SVG. No login needed. Works on all devices.">
+    <meta name="description" content="Put multiple links in one QR code in seconds. Free multi-URL QR generator with labels, colors, logo and expiry date. No sign-up. PNG or SVG download.">
     <meta name="keywords" content="qr code generator, multi link qr code, business qr code">
     <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="canonical" href="https://www.multilinkqr.com/generator.html" />
+    <!-- The homepage now contains the same generator, so it is the main page for search -->
+    <link rel="canonical" href="https://www.multilinkqr.com/" />
 
     <!-- OpenGraph -->
     <meta property="og:title" content="Free Multi-Link QR Code Generator">
@@ -25,13 +26,13 @@
     <meta name="twitter:image" content="https://www.multilinkqr.com/og-image.png">
 
     <!-- Bootstrap 5 -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!-- QR Library -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 
     <style>
         body {
@@ -147,6 +148,17 @@
                 color: #e0f3ff;
             }
 
+        /* Ad slots collapse until an ad code is pasted in */
+        .ad-slot:empty {
+            display: none;
+        }
+
+        .ad-slot-result {
+            min-height: 250px;
+            display: flex;
+            justify-content: center;
+        }
+
         .scan-tips {
             font-size: 0.9rem;
             text-align: left;
@@ -203,7 +215,7 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg bg-white border-bottom">
         <div class="container">
-            <a class="navbar-brand brand-logo" href="index.html">
+            <a class="navbar-brand brand-logo" href="/">
                 <span class="text-primary">Multi</span>LinkQR
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
@@ -211,7 +223,7 @@
             </button>
             <div class="collapse navbar-collapse" id="nav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="generator.html">Generate QR</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/#create">Generate QR</a></li>
                     <li class="nav-item"><a class="nav-link" href="tips.html">QR Tips</a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
@@ -418,6 +430,9 @@
 
                                 <div id="copyMessage" class="text-success small d-none">Copied!</div>
 
+                                <!-- AD: Adsterra Banner 300x250 (result panel, loaded by js/generator.js after first QR) -->
+                                <div class="ad-slot ad-slot-result my-3" data-ad-key="2f212665fbe5cfee9ae3ce7b8e22a9d3" data-ad-w="300" data-ad-h="250"></div>
+
                                 <!-- Scanability Tips -->
                                 <div class="scan-tips mt-3 text-start">
                                     <div class="fw-semibold mb-1">Scanability Tips</div>
@@ -506,446 +521,17 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- QR LOGIC -->
-    <script>
-        const BASE_MULTI_URL = "https://www.multilinkqr.com/multi.html";
-        let currentFinalUrl = "";
-        let currentLinkMode = "";
-        let logoImage = null;
-
-        function showAlert(msg, type = "danger") {
-            $("#alertArea").html(`<div class="alert alert-${type}">${msg}</div>`);
-        }
-        function clearAlert() { $("#alertArea").empty(); }
-
-        function validateHttps(url) {
-            return /^https:\/\/.+/i.test(url.trim());
-        }
-
-        function buildUrlWithUtm(baseUrl, source, medium, campaign) {
-            if (!source && !medium && !campaign) return baseUrl;
-
-            try {
-                const urlObj = new URL(baseUrl);
-                if (source) urlObj.searchParams.set("utm_source", source);
-                if (medium) urlObj.searchParams.set("utm_medium", medium);
-                if (campaign) urlObj.searchParams.set("utm_campaign", campaign);
-                return urlObj.toString();
-            } catch (e) {
-                return baseUrl;
-            }
-        }
-
-        function addLinkRow(url = "", label = "", utmSource = "", utmMedium = "", utmCampaign = "") {
-            const idx = $("#linksContainer .link-row").length + 1;
-            $("#linksContainer").append(`
-                <div class="row g-2 mb-2 link-row">
-                    <div class="col-12">
-                        <div class="row g-2">
-                            <div class="col-md-7">
-                                <div class="input-group input-group-sm">
-                                    <span class="input-group-text">Link ${idx}</span>
-                                    <input type="text" class="form-control link-url" value="${url}" placeholder="https://example.com">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control form-control-sm link-label" value="${label}" placeholder="Label (Instagram)">
-                            </div>
-                            <div class="col-md-1 text-end">
-                                <button class="btn btn-outline-danger btn-sm remove-link" type="button">&times;</button>
-                            </div>
-                        </div>
-                        <div class="mt-1 d-flex justify-content-between align-items-center">
-                            <span class="utm-toggle text-primary">${utmSource || utmMedium || utmCampaign ? "− Hide UTM params" : "+ Add UTM params"}</span>
-                        </div>
-                        <div class="utm-fields mt-1 ${utmSource || utmMedium || utmCampaign ? "" : "d-none"}">
-                            <div class="row g-1">
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control form-control-sm utm-source" placeholder="utm_source" value="${utmSource}">
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control form-control-sm utm-medium" placeholder="utm_medium" value="${utmMedium}">
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control form-control-sm utm-campaign" placeholder="utm_campaign" value="${utmCampaign}">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `);
-        }
-
-        function applyThemeFromStorage() {
-            const saved = localStorage.getItem("mlqr_theme");
-            const body = document.body;
-            const toggleBtn = document.getElementById("themeToggle");
-
-            if (saved === "dark") {
-                body.classList.add("dark-mode");
-                if (toggleBtn) toggleBtn.textContent = "☀️ Light";
-            } else {
-                body.classList.remove("dark-mode");
-                if (toggleBtn) toggleBtn.textContent = "🌙 Dark";
-            }
-        }
-
-        function saveState() {
-            try {
-                const state = {
-                    linkMode: $("input[name='linkMode']:checked").val(),
-                    title: $("#qrTitle").val().trim(),
-                    expiry: $("#qrExpiry").val(),
-                    openMode: $("input[name='openMode']:checked").val(),
-                    color: $("#qrColor").val(),
-                    bg: $("#qrBg").val(),
-                    border: $("#qrBorder").is(":checked"),
-                    rounded: $("#qrRounded").is(":checked"),
-                    singleLinkUrl: $("#singleLinkUrl").val().trim(),
-                    qrSize: $("#qrSize").val(),
-                    links: []
-                };
-
-                $("#linksContainer .link-row").each(function () {
-                    const url = $(this).find(".link-url").val().trim();
-                    const label = $(this).find(".link-label").val().trim();
-                    const utmSource = $(this).find(".utm-source").val().trim();
-                    const utmMedium = $(this).find(".utm-medium").val().trim();
-                    const utmCampaign = $(this).find(".utm-campaign").val().trim();
-
-                    if (!url && !label && !utmSource && !utmMedium && !utmCampaign) return;
-
-                    state.links.push({
-                        url,
-                        label,
-                        utmSource,
-                        utmMedium,
-                        utmCampaign
-                    });
-                });
-
-                localStorage.setItem("mlqr_state", JSON.stringify(state));
-            } catch (e) {
-                console.warn("Failed to save state", e);
-            }
-        }
-
-        function restoreState() {
-            const raw = localStorage.getItem("mlqr_state");
-            if (!raw) {
-                addLinkRow("https://instagram.com/", "Instagram");
-                addLinkRow("https://www.linkedin.com/", "LinkedIn");
-                return;
-            }
-
-            try {
-                const state = JSON.parse(raw);
-
-                if (state.linkMode === "single") {
-                    $("#linkModeSingle").prop("checked", true);
-                } else {
-                    $("#linkModeMulti").prop("checked", true);
-                }
-
-                $("#qrTitle").val(state.title || "");
-                $("#qrExpiry").val(state.expiry || "");
-
-                if (state.openMode === "buttons") {
-                    $("input[name='openMode'][value='buttons']").prop("checked", true);
-                } else {
-                    $("input[name='openMode'][value='auto']").prop("checked", true);
-                }
-
-                if (state.color) $("#qrColor").val(state.color);
-                if (state.bg) $("#qrBg").val(state.bg);
-                $("#qrBorder").prop("checked", !!state.border);
-                $("#qrRounded").prop("checked", !!state.rounded);
-                $("#singleLinkUrl").val(state.singleLinkUrl || "");
-                if (state.qrSize) $("#qrSize").val(state.qrSize);
-
-                $("#linksContainer").empty();
-                if (Array.isArray(state.links) && state.links.length > 0) {
-                    state.links.forEach(l => {
-                        addLinkRow(
-                            l.url || "",
-                            l.label || "",
-                            l.utmSource || "",
-                            l.utmMedium || "",
-                            l.utmCampaign || ""
-                        );
-                    });
-                } else {
-                    addLinkRow("https://instagram.com/", "Instagram");
-                    addLinkRow("https://www.linkedin.com/", "LinkedIn");
-                }
-
-                $("input[name='linkMode']:checked").trigger("change");
-
-            } catch (e) {
-                console.warn("Failed to restore state", e);
-                addLinkRow("https://instagram.com/", "Instagram");
-                addLinkRow("https://www.linkedin.com/", "LinkedIn");
-            }
-        }
-
-        $(function () {
-            $("#yearSpan").text(new Date().getFullYear());
-
-            applyThemeFromStorage();
-            $("#themeToggle").on("click", function () {
-                const body = document.body;
-                body.classList.toggle("dark-mode");
-                const isDark = body.classList.contains("dark-mode");
-                this.textContent = isDark ? "☀️ Light" : "🌙 Dark";
-                localStorage.setItem("mlqr_theme", isDark ? "dark" : "light");
-            });
-
-            restoreState();
-
-            $("#qrLogo").on("change", function (e) {
-                const file = e.target.files[0];
-                const preview = document.getElementById("logoPreview");
-
-                if (!file) {
-                    logoImage = null;
-                    preview.style.display = "none";
-                    preview.src = "";
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = function (evt) {
-                    const img = new Image();
-                    img.onload = function () {
-                        logoImage = img;
-                        preview.src = img.src;
-                        preview.style.display = "block";
-                    };
-                    img.src = evt.target.result;
-                };
-                reader.readAsDataURL(file);
-            });
-
-            $("input[name='linkMode']").change(function() {
-                const mode = $(this).val();
-                if (mode === "single") {
-                    $("#singleLinkSection").removeClass("d-none");
-                    $("#multiLinksSection").addClass("d-none");
-                    $("#expirySection").addClass("d-none");
-                    $("#openModeSection").addClass("d-none");
-                } else {
-                    $("#singleLinkSection").addClass("d-none");
-                    $("#multiLinksSection").removeClass("d-none");
-                    $("#expirySection").removeClass("d-none");
-                    $("#openModeSection").removeClass("d-none");
-                }
-                $("#noQrMessage").removeClass("d-none");
-                $("#qrResult").addClass("d-none");
-                $("#copyUrl").parent().removeClass("d-none");
-                clearAlert();
-                saveState();
-            });
-
-            $("#addLink").click(() => {
-                addLinkRow();
-                saveState();
-            });
-
-            $("#linksContainer").on("click", ".remove-link", function () {
-                $(this).closest(".link-row").remove();
-                saveState();
-            });
-
-            $("#linksContainer").on("click", ".utm-toggle", function () {
-                const fields = $(this).closest(".row").nextAll(".utm-fields").first();
-                fields.toggleClass("d-none");
-                if (fields.hasClass("d-none")) {
-                    $(this).text("+ Add UTM params");
-                } else {
-                    $(this).text("− Hide UTM params");
-                }
-                saveState();
-            });
-
-            $("#qrTitle, #qrExpiry, #qrColor, #qrBg, #qrBorder, #qrRounded, #singleLinkUrl, #qrSize")
-                .on("input change", saveState);
-            $("input[name='openMode']").on("change", saveState);
-            $("#linksContainer").on("input change", ".link-url, .link-label, .utm-source, .utm-medium, .utm-campaign", saveState);
-
-            $("#qrForm").submit(function (e) {
-                e.preventDefault();
-                clearAlert();
-
-                const linkMode = $("input[name='linkMode']:checked").val();
-                const title = $("#qrTitle").val().trim();
-                const color = $("#qrColor").val();
-                const bg = $("#qrBg").val();
-                const border = $("#qrBorder").is(":checked");
-                const rounded = $("#qrRounded").is(":checked");
-                const size = parseInt($("#qrSize").val(), 10) || 220;
-
-                let finalUrl;
-                let qrTitleText;
-
-                currentLinkMode = linkMode;
-
-                if (linkMode === "single") {
-                    const singleUrl = $("#singleLinkUrl").val().trim();
-                    if (!singleUrl) {
-                        showAlert("Please enter a link.");
-                        return;
-                    }
-                    if (!validateHttps(singleUrl)) {
-                        showAlert("Invalid link. Link must start with https://");
-                        return;
-                    }
-                    finalUrl = singleUrl;
-                    currentFinalUrl = finalUrl;
-                    qrTitleText = title || "Your QR Code";
-                    $("#shareableUrlSection").addClass("d-none");
-                    $("#copyUrl").parent().addClass("d-none");
-                } else {
-                    const expiry = $("#qrExpiry").val();
-                    const mode = $("input[name='openMode']:checked").val();
-
-                    const links = [];
-                    let invalid = false;
-
-                    $("#linksContainer .link-row").each(function () {
-                        const urlInput = $(this).find(".link-url").val().trim();
-                        const label = $(this).find(".link-label").val().trim();
-                        const utmSource = $(this).find(".utm-source").val().trim();
-                        const utmMedium = $(this).find(".utm-medium").val().trim();
-                        const utmCampaign = $(this).find(".utm-campaign").val().trim();
-
-                        if (!urlInput) return;
-
-                        if (!validateHttps(urlInput)) {
-                            showAlert("Invalid link: " + urlInput);
-                            invalid = true;
-                            return false;
-                        }
-
-                        const finalLinkUrl = buildUrlWithUtm(urlInput, utmSource, utmMedium, utmCampaign);
-                        links.push({ url: finalLinkUrl, label: label || null });
-                    });
-
-                    if (invalid) return;
-
-                    if (links.length === 0) {
-                        showAlert("Add at least one HTTPS link.");
-                        return;
-                    }
-
-                    let exp = null;
-                    if (expiry) {
-                        const d = new Date(expiry + "T23:59:59");
-                        if (!isNaN(d.getTime())) exp = d.getTime();
-                    }
-
-                    const payload = {
-                        title: title || null,
-                        exp,
-                        mode,
-                        style: { color, bg, border, rounded },
-                        links
-                    };
-
-                    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-                    finalUrl = BASE_MULTI_URL + "?d=" + encodeURIComponent(encoded);
-                    currentFinalUrl = finalUrl;
-                    qrTitleText = title || "Your MultiLinkQR Code";
-                    $("#shareableUrlSection").removeClass("d-none");
-                    $("#copyUrl").parent().removeClass("d-none");
-                    $("#generatedUrl").val(finalUrl);
-                }
-
-                saveState();
-
-                $("#qrTitlePreview").text(qrTitleText);
-                $("#noQrMessage").addClass("d-none");
-                $("#qrResult").removeClass("d-none");
-
-                $("#qrWrapper").css("background-color", bg);
-                $("#qrWrapper").toggleClass("with-border", border);
-                $("#qrWrapper").toggleClass("rounded-pixels", rounded);
-
-                const canvas = document.getElementById("qrCanvas");
-
-                QRCode.toCanvas(canvas, finalUrl, {
-                    width: size,
-                    margin: 2,
-                    scale: 1,
-                    color: {
-                        dark: color || "#000000",
-                        light: bg || "#ffffff"
-                    }
-                }, function (err) {
-                    if (err) {
-                        console.error(err);
-                        return;
-                    }
-
-                    if (logoImage) {
-                        const ctx = canvas.getContext("2d");
-                        const canvasSize = canvas.width;
-
-                        const logoSize = canvasSize * 0.22;
-                        const x = (canvasSize - logoSize) / 2;
-                        const y = (canvasSize - logoSize) / 2;
-
-                        ctx.fillStyle = bg || "#ffffff";
-                        ctx.fillRect(x, y, logoSize, logoSize);
-
-                        ctx.drawImage(logoImage, x, y, logoSize, logoSize);
-                    }
-                });
-
-                $("#downloadPng").off().click(function () {
-                    const a = document.createElement("a");
-                    a.download = (title || "multilinkqr") + ".png";
-                    a.href = canvas.toDataURL("image/png");
-                    a.click();
-                });
-
-                $("#downloadSvg").off().click(function () {
-                    QRCode.toString(finalUrl, { type: "svg" }, function (err, svg) {
-                        if (err) {
-                            console.error(err);
-                            return;
-                        }
-                        const blob = new Blob([svg], { type: "image/svg+xml" });
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement("a");
-                        a.href = url;
-                        a.download = "multilinkqr.svg";
-                        a.click();
-                        URL.revokeObjectURL(url);
-                    });
-                });
-
-                $("#copyUrl").off().on("click", function () {
-                    const text = currentLinkMode === "single" ? currentFinalUrl : $("#generatedUrl").val();
-                    navigator.clipboard.writeText(text).then(() => {
-                        $("#copyMessage").removeClass("d-none");
-                        setTimeout(() => {
-                            $("#copyMessage").addClass("d-none");
-                        }, 1500);
-                    }).catch(() => {
-                        alert("Copy failed. Please copy manually.");
-                    });
-                });
-
-            });
-        });
-    </script>
+    <!-- QR LOGIC (shared with the homepage) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <script src="js/generator.js"></script>
 
     <!-- Cookie Consent Banner -->
     <div id="cookieConsent" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a2e; color:#fff; padding:1rem 1.5rem; z-index:9999; box-shadow:0 -2px 10px rgba(0,0,0,0.2);">
         <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3">
             <div style="flex:1; min-width:200px;">
                 <strong>Cookie Notice:</strong> We use cookies to analyze website traffic and optimize your experience. By continuing to use our site, you consent to our use of cookies.
-                <a href="privacy-policy.html" style="color:#0dcaf0;">Learn more</a>
+                <a href="privacy-policy.html" style="color:#0dcaf0;">Read our privacy policy</a>
             </div>
             <div class="d-flex gap-2">
                 <button id="acceptCookies" class="btn btn-primary btn-sm">Accept All</button>

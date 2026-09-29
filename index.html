@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>MultiLinkQR – Free Multi-Link QR Code Generator (One QR, Multiple Links)</title>
+    <title>MultiLinkQR – Free QR Code for Multiple Links (Multi-URL)</title>
 
     <!-- SEO -->
     <meta name="description"
-          content="MultiLinkQR is a free online multi-link QR code generator. Create one QR code that opens multiple HTTPS links at once. Perfect for business cards, social media, events and portfolios." />
+          content="Create one QR code for multiple links – free, no sign-up, no watermark. Add Instagram, WhatsApp, your website and more. Download as PNG or SVG." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="index, follow" />
     <meta name="keywords"
@@ -14,7 +14,7 @@
     <link rel="canonical" href="https://www.multilinkqr.com/" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="MultiLinkQR – Free Multi-Link QR Code Generator" />
+    <meta property="og:title" content="MultiLinkQR – Free QR Code for Multiple Links" />
     <meta property="og:description"
           content="Create one QR code that opens multiple HTTPS links. Free, fast and mobile-friendly multi-link QR generator." />
     <meta property="og:type" content="website" />
@@ -29,6 +29,8 @@
     <meta name="twitter:image" content="https://www.multilinkqr.com/og-image.png" />
 
     <!-- Bootstrap 5 -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ54LBGSDP"></script>
@@ -114,13 +116,122 @@
             .card:hover {
                 box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
             }
+
+        /* ---- Generator tool (same as generator.html) ---- */
+        .qr-preview-wrapper {
+            display: inline-block;
+            padding: 12px;
+            border-radius: 12px;
+            max-width: 320px;
+            width: 100%;
+        }
+
+        #qrWrapper canvas {
+            width: 100% !important;
+            height: auto !important;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .with-border {
+            border: 2px solid #dee2e6;
+        }
+
+        .rounded-pixels canvas {
+            border-radius: 8px;
+        }
+
+        #logoPreview {
+            max-width: 80px;
+            max-height: 80px;
+            margin-top: 0.5rem;
+            display: none;
+            border-radius: 8px;
+        }
+
+        .utm-toggle {
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .utm-fields {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 6px 8px;
+        }
+
+        .scan-tips {
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        /* Ad slots collapse until an ad code is pasted in */
+        .ad-slot:empty {
+            display: none;
+        }
+
+        .ad-slot-result {
+            min-height: 250px;
+            display: flex;
+            justify-content: center;
+        }
     </style>
+    <!-- Structured data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.multilinkqr.com/#organization",
+          "name": "MultiLinkQR",
+          "url": "https://www.multilinkqr.com/"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.multilinkqr.com/#website",
+          "name": "MultiLinkQR",
+          "url": "https://www.multilinkqr.com/",
+          "publisher": {
+            "@id": "https://www.multilinkqr.com/#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebApplication",
+          "name": "MultiLinkQR – Multi-Link QR Code Generator",
+          "url": "https://www.multilinkqr.com/",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "Any (web browser)",
+          "browserRequirements": "Requires JavaScript",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "Free tool to put multiple links into one QR code. Add labels, colors, a logo and an expiry date, then download as PNG or SVG. No sign-up.",
+          "featureList": [
+            "Multiple links in one QR code",
+            "Single-link QR codes",
+            "Custom colors and logo",
+            "Expiry date",
+            "PNG and SVG download",
+            "No sign-up"
+          ],
+          "publisher": {
+            "@id": "https://www.multilinkqr.com/#organization"
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <div class="container">
-            <a class="navbar-brand brand-logo" href="index.html">
+            <a class="navbar-brand brand-logo" href="/">
                 <span class="text-primary">Multi</span>LinkQR
             </a>
             <button class="navbar-toggler"
@@ -134,7 +245,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="generator.html">Generate QR</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#create">Generate QR</a></li>
                     <li class="nav-item"><a class="nav-link" href="tips.html">QR Tips</a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
@@ -145,52 +256,233 @@
     </nav>
 
     <!-- HERO -->
-    <header class="hero py-5">
-        <div class="container">
-            <div class="row align-items-center g-4">
-                <div class="col-lg-7">
-                    <span class="hero-badge mb-3">
-                        <span class="rounded-circle bg-primary" style="width:8px;height:8px;"></span>
-                        Free online QR generator
-                    </span>
-                    <h1 class="display-5 mb-3">
-                        One QR code.<br class="d-none d-md-block" />Multiple links.
-                    </h1>
-                    <p class="lead mb-4">
-                        MultiLinkQR allows you to create both <strong>Single-Link QR Codes</strong> (direct redirect to one HTTPS link) and <strong>Multi-Link QR Codes</strong> (open multiple links or show buttons). Share your website, Instagram, LinkedIn, YouTube channel and more with one clean, professional QR code. Completely free and no account needed.
-                    </p>
-                    <div class="d-flex flex-wrap gap-3">
-                        <a href="generator.html" class="btn btn-primary btn-lg">
-                            Generate Multi-Link QR
-                        </a>
-                        <a href="tips.html" class="btn btn-outline-secondary btn-lg">
-                            Learn how to use QR codes
-                        </a>
-                    </div>
-                    <p class="text-muted small mt-3 mb-0">
-                        No account required • No database • No tracking – your data is stored directly in the QR URL.
-                    </p>
-                </div>
-                <div class="col-lg-5">
-                    <div class="card shadow-sm">
-                        <div class="card-body p-4">
-                            <h2 class="h5 mb-3 section-heading">Why use a multi-link QR code?</h2>
-                            <ul class="mb-3">
-                                <li>Open multiple URLs with a single QR scan.</li>
-                                <li>Add labels like <em>Instagram</em>, <em>Website</em>, <em>LinkedIn</em>.</li>
-                                <li>Choose custom QR colors, background and rounded style.</li>
-                                <li>Set an expiry date for limited-time campaigns.</li>
-                                <li>Download QR as PNG or SVG for printing and sharing.</li>
-                            </ul>
-                            <p class="small text-muted mb-0">
-                                Perfect for business cards, flyers, posters, menus, creator profiles and event check-ins.
-                            </p>
-                        </div>
+    <header class="hero py-4 py-md-5">
+        <div class="container text-center">
+            <span class="hero-badge mb-3">
+                <span class="rounded-circle bg-primary" style="width:8px;height:8px;"></span>
+                Free • No sign-up • No watermark
+            </span>
+            <h1 class="display-6 mb-2">Free QR Code Generator for Multiple Links</h1>
+            <p class="lead mb-0 mx-auto" style="max-width:720px;">
+                One QR code. Multiple links. Put your website, Instagram, WhatsApp, YouTube and more into a single
+                multi-URL QR code, or create a simple single-link QR code. Download as PNG or SVG.
+            </p>
+        </div>
+    </header>
+
+    <!-- GENERATOR TOOL (same markup as generator.html, logic in js/generator.js) -->
+    <section id="create" class="py-4 py-md-5">
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- FORM -->
+            <div class="col-lg-7">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <h2 class="h4 mb-3">Create your QR code</h2>
+
+                        <div id="alertArea"></div>
+
+                        <form id="qrForm">
+
+                            <!-- LINK MODE -->
+                            <div class="mb-3">
+                                <label class="fw-semibold">Link Mode</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="linkMode" value="single" id="linkModeSingle">
+                                    <label class="form-check-label" for="linkModeSingle">Single Link (Direct redirect)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="linkMode" value="multi" id="linkModeMulti" checked>
+                                    <label class="form-check-label" for="linkModeMulti">Multi-Link (Multiple links)</label>
+                                </div>
+                            </div>
+
+                            <!-- TITLE -->
+                            <div class="mb-3">
+                                <label class="fw-semibold">QR Title</label>
+                                <input type="text" id="qrTitle" class="form-control" placeholder="Example: My Social Links">
+                            </div>
+
+                            <!-- EXPIRY -->
+                            <div class="mb-3" id="expirySection">
+                                <label class="fw-semibold">Expiry Date (optional)</label>
+                                <input type="date" id="qrExpiry" class="form-control">
+                            </div>
+
+                            <!-- OPEN MODE -->
+                            <div class="mb-3" id="openModeSection">
+                                <label class="fw-semibold">Open Mode</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="openMode" value="auto" checked>
+                                    <label class="form-check-label">Auto-open all links</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="openMode" value="buttons">
+                                    <label class="form-check-label">Show buttons only</label>
+                                </div>
+                            </div>
+
+                            <!-- STYLE -->
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-4">
+                                    <label class="fw-semibold">Color</label>
+                                    <select id="qrColor" class="form-select">
+                                        <option value="#000000" selected>Black</option>
+                                        <option value="#1a1a1a">Dark Gray</option>
+                                        <option value="#444444">Gray</option>
+                                        <option value="#ffffff">White</option>
+
+                                        <option value="#0d6efd">Blue</option>
+                                        <option value="#6610f2">Purple</option>
+                                        <option value="#6f42c1">Indigo</option>
+                                        <option value="#d63384">Pink</option>
+                                        <option value="#dc3545">Red</option>
+                                        <option value="#fd7e14">Orange</option>
+                                        <option value="#ffc107">Yellow</option>
+                                        <option value="#198754">Green</option>
+                                        <option value="#20c997">Teal</option>
+                                        <option value="#0dcaf0">Cyan</option>
+
+                                        <option value="#1877F2">Facebook Blue</option>
+                                        <option value="#E4405F">Instagram Pink</option>
+                                        <option value="#1DA1F2">Twitter Blue</option>
+                                        <option value="#0A66C2">LinkedIn Blue</option>
+                                        <option value="#FF0000">YouTube Red</option>
+                                        <option value="#25D366">WhatsApp Green</option>
+
+                                        <option value="#39FF14">Neon Green</option>
+                                        <option value="#FF073A">Neon Red</option>
+                                        <option value="#F000FF">Neon Pink</option>
+                                        <option value="#00FFFF">Aqua</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="fw-semibold">Background</label>
+                                    <select id="qrBg" class="form-select">
+                                        <option value="#ffffff" selected>White</option>
+                                        <option value="#f8f9fa">Light Gray</option>
+                                        <option value="#000000">Black</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="fw-semibold">Extras</label>
+                                    <div class="form-check">
+                                        <input type="checkbox" id="qrBorder" class="form-check-input" checked>
+                                        <label class="form-check-label">Show Border</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" id="qrRounded" class="form-check-input">
+                                        <label class="form-check-label">Rounded Pixels</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- QR SIZE -->
+                            <div class="mb-3">
+                                <label class="fw-semibold">QR Size</label>
+                                <select id="qrSize" class="form-select">
+                                    <option value="220">Small (screens)</option>
+                                    <option value="400" selected>Medium</option>
+                                    <option value="800">Large (print)</option>
+                                </select>
+                                <div class="form-text">
+                                    Larger sizes are better for printing and posters. Smaller sizes are fine for on-screen sharing.
+                                </div>
+                            </div>
+
+                            <!-- LOGO UPLOAD -->
+                            <div class="mb-3">
+                                <label class="fw-semibold">Logo (optional)</label>
+                                <input type="file" id="qrLogo" class="form-control" accept="image/*">
+                                <div class="form-text">
+                                    Logo will be placed in the center of the QR. Keep it simple and not too large for best scan results.
+                                </div>
+                                <img id="logoPreview" alt="Logo preview">
+                            </div>
+
+                            <!-- SINGLE LINK INPUT -->
+                            <div id="singleLinkSection" class="mb-3 d-none">
+                                <label class="fw-semibold">Link</label>
+                                <input type="text" id="singleLinkUrl" class="form-control" placeholder="https://example.com">
+                                <div class="form-text mt-1">Link must start with <strong>https://</strong></div>
+                            </div>
+
+                            <!-- MULTI LINKS -->
+                            <div id="multiLinksSection">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <label class="fw-semibold">Links</label>
+                                    <button type="button" id="addLink" class="btn btn-outline-secondary btn-sm">+ Add Link</button>
+                                </div>
+
+                                <div id="linksContainer"></div>
+                                <div class="form-text mb-3">Each link must start with <strong>https://</strong></div>
+                            </div>
+
+                            <button class="btn btn-primary w-100">Generate QR Code</button>
+                        </form>
                     </div>
                 </div>
             </div>
+
+            <!-- QR OUTPUT -->
+            <div class="col-lg-5">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+
+                        <h3 class="h5 mb-3">QR Preview & Download</h3>
+
+                        <div id="noQrMessage" class="alert alert-info">
+                            Generate a QR code to see preview here.
+                        </div>
+
+                        <div id="qrResult" class="d-none">
+                            <div class="fw-semibold mb-2" id="qrTitlePreview"></div>
+
+                            <div id="qrWrapper" class="qr-preview-wrapper with-border mx-auto">
+                                <canvas id="qrCanvas"></canvas>
+                            </div>
+
+                            <div class="mt-3">
+                                <div id="shareableUrlSection">
+                                    <label class="fw-semibold">Shareable URL</label>
+                                    <input type="text" id="generatedUrl" class="form-control mb-2" readonly>
+                                </div>
+
+                                <div class="btn-group mb-3" role="group">
+                                    <button type="button" id="copyUrl" class="btn btn-outline-success btn-sm">Copy URL</button>
+                                    <button type="button" id="downloadPng" class="btn btn-outline-primary btn-sm">Download PNG</button>
+                                    <button type="button" id="downloadSvg" class="btn btn-outline-secondary btn-sm">Download SVG</button>
+                                </div>
+
+                                <div id="copyMessage" class="text-success small d-none">Copied!</div>
+
+                                <!-- AD: Adsterra Banner 300x250 (result panel, loaded by js/generator.js after first QR) -->
+                                <div class="ad-slot ad-slot-result my-3" data-ad-key="2f212665fbe5cfee9ae3ce7b8e22a9d3" data-ad-w="300" data-ad-h="250"></div>
+
+                                <!-- Scanability Tips -->
+                                <div class="scan-tips mt-3 text-start">
+                                    <div class="fw-semibold mb-1">Scanability Tips</div>
+                                    <ul class="mb-0">
+                                        <li>Keep the logo smaller than about 25% of the QR area.</li>
+                                        <li>Maintain strong contrast (dark QR code on a light background).</li>
+                                        <li>Avoid too much compression when sharing or printing screenshots.</li>
+                                        <li>Always test with at least one phone before printing at scale.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </header>
+    </div>
+    </section>
 
     <!-- AD PLACEMENT -->
     <div class="container my-4 text-center">
@@ -290,7 +582,7 @@
                             <div class="card-body p-4 p-md-5">
                                 <h2 class="h3 mb-4 section-heading text-center">How to generate a multi-link QR code</h2>
                                 <ol class="mb-0">
-                                    <li>Click on the <strong>“Generate Multi-Link QR”</strong> button at the top of this page.</li>
+                                    <li>Use the <a href="#create">QR generator</a> at the top of this page.</li>
                                     <li>Enter a name for your QR code (for example <em>“Ravi’s Business Links”</em>).</li>
                                     <li>Add as many <strong>HTTPS links</strong> as you need and choose labels for each.</li>
                                     <li>Pick your preferred QR color, background and rounded style.</li>
@@ -305,6 +597,9 @@
                 </div>
             </div>
         </section>
+        <!-- AD: Adsterra Banner 300x250 (mid-content) -->
+        <div class="container"><div class="ad-slot ad-slot-result my-4"><script>atOptions={"key":"2f212665fbe5cfee9ae3ce7b8e22a9d3","format":"iframe","height":250,"width":300,"params":{}};</script><script src="https://www.highrevenueformat.com/2f212665fbe5cfee9ae3ce7b8e22a9d3/invoke.js"></script></div></div>
+
         <!-- USE CASES + FAQ -->
         <section class="py-5">
             <div class="container">
@@ -410,7 +705,7 @@
                 </div>
 
                 <div class="text-center mt-5">
-                    <a href="generator.html" class="btn btn-primary btn-lg">
+                    <a href="/#create" class="btn btn-primary btn-lg">
                         Start generating your multi-link QR code
                     </a>
                 </div>
@@ -830,7 +1125,7 @@
                             <p class="lead mb-3">
                                 Ready to create your first QR code? It takes less than a minute to get started.
                             </p>
-                            <a href="generator.html" class="btn btn-primary btn-lg me-2">
+                            <a href="/#create" class="btn btn-primary btn-lg me-2">
                                 Generate QR Code Now
                             </a>
                             <a href="tips.html" class="btn btn-outline-secondary btn-lg">
@@ -861,13 +1156,16 @@
         document.getElementById("yearSpan").textContent = new Date().getFullYear();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <script src="js/generator.js"></script>
 
     <!-- Cookie Consent Banner -->
     <div id="cookieConsent" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a2e; color:#fff; padding:1rem 1.5rem; z-index:9999; box-shadow:0 -2px 10px rgba(0,0,0,0.2);">
         <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3">
             <div style="flex:1; min-width:200px;">
                 <strong>Cookie Notice:</strong> We use cookies to analyze website traffic and optimize your experience. By continuing to use our site, you consent to our use of cookies.
-                <a href="privacy-policy.html" style="color:#0dcaf0;">Learn more</a>
+                <a href="privacy-policy.html" style="color:#0dcaf0;">Read our privacy policy</a>
             </div>
             <div class="d-flex gap-2">
                 <button id="acceptCookies" class="btn btn-primary btn-sm">Accept All</button>
