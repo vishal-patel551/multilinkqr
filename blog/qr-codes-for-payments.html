@@ -2,16 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>QR Codes for Payments – Complete Guide | MultiLinkQR</title>
-    <meta name="description" content="Learn how QR codes are used for payments, payment links, and financial transactions. Discover best practices for implementing payment QR codes." />
+    <title>Payment QR Codes: Several Payment Options in One Code</title>
+    <meta name="description" content="How payment QR codes work, how to offer PayPal, card and other payment links in one QR code, and how to protect customers from QR code scams." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#4f3fa3" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.multilinkqr.com/blog/qr-codes-for-payments.html" />
-    <meta name="keywords" content="qr code payment, payment qr code" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="keywords" content="payment qr code, qr code for payments, qr code payment links" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ54LBGSDP"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -256,18 +263,92 @@
                     font-size: 1.25rem;
                 }
         }
+        .article-figure {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+            .article-figure img {
+                width: 100%;
+                height: auto;
+                border-radius: 12px;
+                border: 1px solid var(--border-color);
+                background: #fff;
+            }
+
+            .article-figure.fig-narrow img {
+                max-width: 420px;
+            }
+
+            .article-figure.fig-phone img {
+                max-width: 300px;
+                box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            }
+
+            .article-figure.fig-qr img {
+                max-width: 260px;
+                border: none;
+            }
+
+            .article-figure figcaption {
+                font-size: 0.9rem;
+                color: var(--text-secondary);
+                margin-top: 0.6rem;
+            }
+
+        .article-content code {
+            font-size: 0.9em;
+            color: #6f42c1;
+            background: #f5f3ff;
+            padding: 0.1em 0.35em;
+            border-radius: 4px;
+            word-break: break-word;
+        }
     </style>
+    <!-- Social sharing preview -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Payment QR Codes: Several Payment Options in One Code" />
+    <meta property="og:description" content="How payment QR codes work, how to offer PayPal, card and other payment links in one QR code, and how to protect customers from QR code scams." />
+    <meta property="og:url" content="https://www.multilinkqr.com/blog/qr-codes-for-payments.html" />
+    <meta property="og:image" content="https://www.multilinkqr.com/images/step-2-add-links.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Payment QR Codes: Several Payment Options in One Code" />
+    <meta name="twitter:description" content="How payment QR codes work, how to offer PayPal, card and other payment links in one QR code, and how to protect customers from QR code scams." />
+    <meta name="twitter:image" content="https://www.multilinkqr.com/images/step-2-add-links.webp" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Payment QR Codes: How They Work and How to Offer Several Options",
+      "description": "How payment QR codes work, how to offer PayPal, card and other payment links in one QR code, and how to protect customers from QR code scams.",
+      "image": "https://www.multilinkqr.com/images/step-2-add-links.webp",
+      "datePublished": "2025-01-10",
+      "dateModified": "2026-09-29",
+      "mainEntityOfPage": "https://www.multilinkqr.com/blog/qr-codes-for-payments.html",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Organization",
+        "name": "MultiLinkQR",
+        "url": "https://www.multilinkqr.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "MultiLinkQR",
+        "url": "https://www.multilinkqr.com/"
+      }
+    }
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <div class="container">
-            <a class="navbar-brand brand-logo" href="../index.html"><span class="text-primary">Multi</span>LinkQR</a>
+            <a class="navbar-brand brand-logo" href="/"><span class="text-primary">Multi</span>LinkQR</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="../generator.html">Generate QR</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#create">Generate QR</a></li>
                     <li class="nav-item"><a class="nav-link" href="../tips.html">QR Tips</a></li>
                     <li class="nav-item"><a class="nav-link active" href="../blog.html">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" href="../about.html">About</a></li>
@@ -276,12 +357,14 @@
             </div>
         </div>
     </nav>
-        <header class="article-header">
+
+    <header class="article-header">
         <div class="container">
             <div class="article-wrapper">
-                <h1>QR Codes for Payments</h1>
+                <h1>Payment QR Codes: How They Work and How to Offer Several Options</h1>
                 <div class="article-meta">
-                    <span>📅 Published on MultiLinkQR Blog</span>
+                    <span>📅 Updated September 2026</span>
+                    <span>⏱️ 3 min read</span>
                 </div>
             </div>
         </div>
@@ -292,40 +375,78 @@
             <div class="article-wrapper">
                 <article class="article-card">
                     <div class="article-content">
-                        <p>QR codes have revolutionized payment systems, making transactions faster, more convenient, and contactless. From mobile payments to invoice links, QR codes are transforming how we handle financial transactions.</p>
+                        <p>QR codes have become one of the most common ways to pay, from market stalls and taxis to online invoices. This guide explains how payment QR codes work, the difference between the codes your bank or payment app gives you and a general QR code generator, and how small sellers can offer <strong>several payment options in one QR code</strong>.</p>
 
-                            <h2>Types of Payment QR Codes</h2>
-                            <h3>Payment Links</h3>
-                            <p>QR codes can link to payment pages, invoice links, or payment gateways. Customers scan the code and complete payment on their device. This is useful for invoices, bills, or online payments.</p>
-                            <h3>Mobile Payment Apps</h3>
-                            <p>Many payment apps use QR codes for peer-to-peer transfers, merchant payments, or bill splitting. These codes are typically generated by payment platforms.</p>
-                            <h3>Invoice and Billing</h3>
-                            <p>Businesses can create QR codes that link to invoice pages, making it easy for customers to view and pay bills directly from their phones.</p>
-                            <h2>Best Practices for Payment QR Codes</h2>
-                            <ul>
-                                <li>Ensure payment pages are secure (HTTPS) and mobile-optimized</li>
-                                <li>Make QR codes large and clearly visible</li>
-                                <li>Test payment flows thoroughly before deployment</li>
-                                <li>Include clear instructions for customers</li>
-                                <li>Use trusted payment gateways and platforms</li>
-                                <li>Consider security and fraud prevention measures</li>
-                            </ul>
-                            <h2>Creating Payment QR Codes</h2>
-                            <p>To create QR codes for payment links, use MultiLinkQR's free generator. Simply enter your payment page URL, generate the QR code, and download. For payment links, single-link QR codes are typically best since you're directing to one specific payment page.</p>
-                            <h2>Security Considerations</h2>
-                            <p>When using QR codes for payments, ensure:</p>
-                            <ul>
-                                <li>Payment pages use HTTPS encryption</li>
-                                <li>QR codes link to trusted, verified payment platforms</li>
-                                <li>Customers verify payment amounts before completing transactions</li>
-                                <li>You use secure payment processing systems</li>
-                            </ul>
-                            <h2>Getting Started</h2>
-                            <p>Ready to create payment QR codes? Use MultiLinkQR's free generator at <a href="../generator.html">generator.html</a>. Enter your payment link, customize the design, and download. No account needed, completely free.</p>
-                            <div class="article-divider"></div>
+<h2>How payment QR codes work</h2>
+<p>There are two main kinds:</p>
+<ul>
+    <li><strong>Payment-app QR codes</strong> are generated by your bank or payment app (for example UPI apps, PayPal, Venmo, Cash App or a card terminal provider). They contain special payment data and are read by that app, which then asks the customer to confirm the amount.</li>
+    <li><strong>Payment link QR codes</strong> simply open a secure web page where the customer pays, such as a PayPal.me link, a Stripe or Square payment link, or an invoice page.</li>
+</ul>
+<p>A general QR code generator like MultiLinkQR <strong>does not process payments</strong> and never handles money. It can create QR codes for <strong>payment links</strong> that start with <code>https://</code>. For app-specific codes (such as UPI codes, which use a special format), always use the QR code your payment app or bank provides.</p>
+
+<h2>One QR code for several payment options</h2>
+<p>If you accept more than one method, a multi-link QR code lets customers pick the one they use. Each button opens the matching payment page:</p>
+<ul>
+    <li>"Pay with PayPal" → your PayPal.me link</li>
+    <li>"Pay by card" → your Stripe, Square or SumUp payment link</li>
+    <li>"Venmo" or "Cash App" → your profile payment link</li>
+    <li>"Bank transfer details" → a page or PDF with your account details</li>
+</ul>
+<p>This is useful for market stalls, freelancers, tutors, event organizers and small shops. It's also handy on invoices: one code with the payment options plus a "Questions? WhatsApp us" button.</p>
+
+<figure class="article-figure">
+                            <img src="/images/step-2-add-links.webp" alt="Adding several labeled links in the MultiLinkQR generator" width="962" height="513" loading="lazy" decoding="async">
+                            <figcaption>Add each payment link as its own button with a clear label.</figcaption>
+                        </figure>
+
+<!-- AD PLACEMENT -->
+                        <div class="my-4 text-center">
+                            <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:#adb5bd;margin-bottom:0.25rem;">Advertisement</div>
+                            <script async="async" data-cfasync="false" src="https://pl28682042.effectivegatecpm.com/83a6a0ff2ec2627099ede0c792156325/invoke.js"></script>
+                            <div id="container-83a6a0ff2ec2627099ede0c792156325"></div>
+                        </div>
+                        <h2>How to create it</h2>
+<ol>
+    <li>Get the <strong>payment link</strong> for each method from your payment provider's dashboard or app (look for "payment link", "PayPal.me" or "share profile").</li>
+    <li>Open the <a href="/#create">QR code generator</a> and choose <strong>Multi-Link</strong>.</li>
+    <li>Enter your business name as the title. Customers see it at the top of the page, which reassures them they are paying the right person.</li>
+    <li>Add each payment link with a clear label and choose <strong>Show buttons only</strong>.</li>
+    <li>Generate the code, <strong>test every button</strong> (make a small test payment if possible), then download and print it.</li>
+</ol>
+
+<h2>Security tips for payment QR codes</h2>
+<p>Payment QR codes are a target for scammers, who sometimes stick their own code over a real one. Protect yourself and your customers:</p>
+<ul>
+    <li><strong>Check your printed codes regularly</strong> for stickers placed on top, especially in public places.</li>
+    <li><strong>Display your business name</strong> next to the code, and use it as the QR title so customers can confirm it after scanning.</li>
+    <li><strong>Only link to official payment pages</strong> (<code>paypal.com</code>, <code>stripe.com</code> and so on). MultiLinkQR only accepts <code>https://</code> links.</li>
+    <li><strong>Tell customers what to expect</strong>, for example "You'll see <em>Rosa's Cafe</em> on the payment page".</li>
+    <li><strong>Never put passwords or card details</strong> in a QR code, and never ask customers to enter them anywhere except the official payment page.</li>
+</ul>
+
+<h2>Tips for customers scanning a payment code</h2>
+<ul>
+    <li>Check the web address that opens before you pay. It should be the official payment provider.</li>
+    <li>Confirm the payee name matches the business in front of you.</li>
+    <li>Be careful with QR codes on parking meters, lamp posts or unexpected flyers asking for payment. When in doubt, pay through the official app instead.</li>
+</ul>
+
+<h2>Frequently asked questions</h2>
+<h3>Can MultiLinkQR create a UPI QR code?</h3>
+<p>No. UPI codes use a special payment format that only UPI apps read, and your UPI or bank app already generates one for you. MultiLinkQR creates QR codes for secure <code>https://</code> payment links.</p>
+<h3>Does MultiLinkQR see or handle payments?</h3>
+<p>No. The QR code only opens your payment provider's page. The payment happens entirely between your customer and that provider.</p>
+<h3>Is it free?</h3>
+<p>Yes. Creating the QR code is free. Your payment provider's normal fees still apply.</p>
+
+                        <div class="article-divider"></div>
+
                         <div class="article-cta">
-                            <a href="../generator.html" class="btn btn-primary me-3">Create Your QR Code</a>
-                            <a href="../blog.html" class="btn btn-outline-secondary">Back to Blog</a>
+                            <h3 class="h5 mb-3">Create a payment links QR code</h3>
+                            <p class="mb-3">Put all your https:// payment links in one QR code. Free. MultiLinkQR never handles payments itself.</p>
+                            <a href="/#create" class="btn btn-primary me-3">Generate QR Code Free</a>
+                            <a href="../blog.html" class="btn btn-outline-secondary">Read More Guides</a>
                         </div>
                     </div>
                 </article>
@@ -344,15 +465,16 @@
             </div>
         </div>
     </footer>
+
     <script>document.getElementById("yearSpan").textContent = new Date().getFullYear();</script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <!-- Cookie Consent Banner -->
     <div id="cookieConsent" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a2e; color:#fff; padding:1rem 1.5rem; z-index:9999; box-shadow:0 -2px 10px rgba(0,0,0,0.2);">
         <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3">
             <div style="flex:1; min-width:200px;">
                 <strong>Cookie Notice:</strong> We use cookies to analyze website traffic and optimize your experience. By continuing to use our site, you consent to our use of cookies.
-                <a href="../privacy-policy.html" style="color:#0dcaf0;">Learn more</a>
+                <a href="../privacy-policy.html" style="color:#0dcaf0;">Read our privacy policy</a>
             </div>
             <div class="d-flex gap-2">
                 <button id="acceptCookies" class="btn btn-primary btn-sm">Accept All</button>
@@ -379,4 +501,3 @@
     </script>
 </body>
 </html>
-
