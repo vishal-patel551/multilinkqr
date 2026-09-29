@@ -285,6 +285,7 @@
                             <div class="mb-3" id="expirySection">
                                 <label class="fw-semibold">Expiry Date (optional)</label>
                                 <input type="date" id="qrExpiry" class="form-control">
+                                <div class="form-text">Leave empty and the QR code never expires. After this date, visitors see an "expired" message.</div>
                             </div>
 
                             <!-- OPEN MODE -->
@@ -574,6 +575,12 @@
             slot.appendChild(s);
         }
 
+        // Today as YYYY-MM-DD in the visitor's own time zone (same format as the date input)
+        function todayStr() {
+            const d = new Date();
+            return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+        }
+
         function validateHttps(url) {
             return /^https:\/\/.+/i.test(url.trim());
         }
@@ -706,7 +713,8 @@
                 }
 
                 $("#qrTitle").val(state.title || "");
-                $("#qrExpiry").val(state.expiry || "");
+                // An expiry date that has already passed is not restored, otherwise every new QR code would be expired
+                $("#qrExpiry").val(state.expiry && state.expiry >= todayStr() ? state.expiry : "");
 
                 if (state.openMode === "buttons") {
                     $("input[name='openMode'][value='buttons']").prop("checked", true);
@@ -748,6 +756,9 @@
 
         $(function () {
             $("#yearSpan").text(new Date().getFullYear());
+
+            // Past dates can't be picked as expiry date
+            $("#qrExpiry").attr("min", todayStr());
 
             applyThemeFromStorage();
             $("#themeToggle").on("click", function () {
@@ -865,6 +876,10 @@
                     $("#copyUrl").addClass("d-none");
                 } else {
                     const expiry = $("#qrExpiry").val();
+                    if (expiry && expiry < todayStr()) {
+                        showAlert("The expiry date is in the past, so the QR code would not work. Choose a future date, or clear the date for a QR code that never expires.");
+                        return;
+                    }
                     const mode = $("input[name='openMode']:checked").val();
 
                     const links = [];
