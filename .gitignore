@@ -1,0 +1,7 @@
+# Local tool settings, never publish
+.claude/
+
+# Private notes and scripts belong outside the website folder
+*.md
+*.py
+Download/

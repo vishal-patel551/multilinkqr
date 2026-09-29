@@ -2,19 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>MultiLinkQR – Free Multi-Link QR Code Generator (One QR, Multiple Links)</title>
+    <title>MultiLinkQR – Free QR Code for Multiple Links (Multi-URL)</title>
 
     <!-- SEO -->
     <meta name="description"
-          content="MultiLinkQR is a free online multi-link QR code generator. Create one QR code that opens multiple HTTPS links at once. Perfect for business cards, social media, events and portfolios." />
+          content="Create one QR code for multiple links – free, no sign-up, no watermark and it never expires. Add Instagram, WhatsApp, your website and more." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#4f3fa3" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="robots" content="index, follow" />
     <meta name="keywords"
           content="multi link qr code generator, qr code for business cards, social media qr code" />
     <link rel="canonical" href="https://www.multilinkqr.com/" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="MultiLinkQR – Free Multi-Link QR Code Generator" />
+    <meta property="og:title" content="MultiLinkQR – Free QR Code for Multiple Links" />
     <meta property="og:description"
           content="Create one QR code that opens multiple HTTPS links. Free, fast and mobile-friendly multi-link QR generator." />
     <meta property="og:type" content="website" />
@@ -29,7 +35,9 @@
     <meta name="twitter:image" content="https://www.multilinkqr.com/og-image.png" />
 
     <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" rel="stylesheet" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ54LBGSDP"></script>
     <script>
@@ -114,13 +122,123 @@
             .card:hover {
                 box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
             }
+
+        /* ---- Generator tool (same as generator.html) ---- */
+        .qr-preview-wrapper {
+            display: inline-block;
+            padding: 12px;
+            border-radius: 12px;
+            max-width: 320px;
+            width: 100%;
+        }
+
+        #qrWrapper canvas {
+            width: 100% !important;
+            height: auto !important;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .with-border {
+            border: 2px solid #dee2e6;
+        }
+
+        .rounded-pixels canvas {
+            border-radius: 8px;
+        }
+
+        #logoPreview {
+            max-width: 80px;
+            max-height: 80px;
+            margin-top: 0.5rem;
+            display: none;
+            border-radius: 8px;
+        }
+
+        .utm-toggle {
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .utm-fields {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 6px 8px;
+        }
+
+        .scan-tips {
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        /* Ad slots collapse until an ad code is pasted in */
+        .ad-slot:empty {
+            display: none;
+        }
+
+        .ad-slot-result {
+            min-height: 250px;
+            display: flex;
+            justify-content: center;
+        }
     </style>
+    <!-- Structured data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.multilinkqr.com/#organization",
+          "name": "MultiLinkQR",
+          "url": "https://www.multilinkqr.com/",
+          "logo": "https://www.multilinkqr.com/icon-512.png"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.multilinkqr.com/#website",
+          "name": "MultiLinkQR",
+          "url": "https://www.multilinkqr.com/",
+          "publisher": {
+            "@id": "https://www.multilinkqr.com/#organization"
+          },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebApplication",
+          "name": "MultiLinkQR – Multi-Link QR Code Generator",
+          "url": "https://www.multilinkqr.com/",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "Any (web browser)",
+          "browserRequirements": "Requires JavaScript",
+          "isAccessibleForFree": true,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "Free tool to put multiple links into one QR code. Add labels, colors, a logo and an expiry date, then download as PNG or SVG. No sign-up.",
+          "featureList": [
+            "Multiple links in one QR code",
+            "Single-link QR codes",
+            "Custom colors and logo",
+            "Expiry date",
+            "PNG and SVG download",
+            "No sign-up"
+          ],
+          "publisher": {
+            "@id": "https://www.multilinkqr.com/#organization"
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <div class="container">
-            <a class="navbar-brand brand-logo" href="index.html">
+            <a class="navbar-brand brand-logo" href="/">
                 <span class="text-primary">Multi</span>LinkQR
             </a>
             <button class="navbar-toggler"
@@ -134,7 +252,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="generator.html">Generate QR</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#create">Generate QR</a></li>
                     <li class="nav-item"><a class="nav-link" href="tips.html">QR Tips</a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
@@ -145,52 +263,233 @@
     </nav>
 
     <!-- HERO -->
-    <header class="hero py-5">
-        <div class="container">
-            <div class="row align-items-center g-4">
-                <div class="col-lg-7">
-                    <span class="hero-badge mb-3">
-                        <span class="rounded-circle bg-primary" style="width:8px;height:8px;"></span>
-                        Free online QR generator
-                    </span>
-                    <h1 class="display-5 mb-3">
-                        One QR code.<br class="d-none d-md-block" />Multiple links.
-                    </h1>
-                    <p class="lead mb-4">
-                        MultiLinkQR allows you to create both <strong>Single-Link QR Codes</strong> (direct redirect to one HTTPS link) and <strong>Multi-Link QR Codes</strong> (open multiple links or show buttons). Share your website, Instagram, LinkedIn, YouTube channel and more with one clean, professional QR code. Completely free and no account needed.
-                    </p>
-                    <div class="d-flex flex-wrap gap-3">
-                        <a href="generator.html" class="btn btn-primary btn-lg">
-                            Generate Multi-Link QR
-                        </a>
-                        <a href="tips.html" class="btn btn-outline-secondary btn-lg">
-                            Learn how to use QR codes
-                        </a>
-                    </div>
-                    <p class="text-muted small mt-3 mb-0">
-                        No account required • No database • No tracking – your data is stored directly in the QR URL.
-                    </p>
-                </div>
-                <div class="col-lg-5">
-                    <div class="card shadow-sm">
-                        <div class="card-body p-4">
-                            <h2 class="h5 mb-3 section-heading">Why use a multi-link QR code?</h2>
-                            <ul class="mb-3">
-                                <li>Open multiple URLs with a single QR scan.</li>
-                                <li>Add labels like <em>Instagram</em>, <em>Website</em>, <em>LinkedIn</em>.</li>
-                                <li>Choose custom QR colors, background and rounded style.</li>
-                                <li>Set an expiry date for limited-time campaigns.</li>
-                                <li>Download QR as PNG or SVG for printing and sharing.</li>
-                            </ul>
-                            <p class="small text-muted mb-0">
-                                Perfect for business cards, flyers, posters, menus, creator profiles and event check-ins.
-                            </p>
-                        </div>
+    <header class="hero py-4 py-md-5">
+        <div class="container text-center">
+            <span class="hero-badge mb-3">
+                <span class="rounded-circle bg-primary" style="width:8px;height:8px;"></span>
+                Free • No sign-up • No watermark • Never expires
+            </span>
+            <h1 class="display-6 mb-2">Free QR Code Generator for Multiple Links</h1>
+            <p class="lead mb-0 mx-auto" style="max-width:720px;">
+                One QR code. Multiple links. Put your website, Instagram, WhatsApp, YouTube and more into a single
+                multi-URL QR code, or create a simple single-link QR code. Download as PNG or SVG.
+            </p>
+        </div>
+    </header>
+
+    <!-- GENERATOR TOOL (same markup as generator.html, logic is the inline script at the bottom; keep both copies identical) -->
+    <section id="create" class="py-4 py-md-5">
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- FORM -->
+            <div class="col-lg-7">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <h2 class="h4 mb-3">Create your multi-URL QR code</h2>
+
+                        <div id="alertArea"></div>
+
+                        <form id="qrForm">
+
+                            <!-- LINK MODE -->
+                            <div class="mb-3">
+                                <label class="fw-semibold">Link Mode</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="linkMode" value="single" id="linkModeSingle">
+                                    <label class="form-check-label" for="linkModeSingle">Single Link (Direct redirect)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="linkMode" value="multi" id="linkModeMulti" checked>
+                                    <label class="form-check-label" for="linkModeMulti">Multi-Link (Multiple links)</label>
+                                </div>
+                            </div>
+
+                            <!-- TITLE -->
+                            <div class="mb-3">
+                                <label class="fw-semibold">QR Title</label>
+                                <input type="text" id="qrTitle" class="form-control" placeholder="Example: My Social Links">
+                            </div>
+
+                            <!-- EXPIRY -->
+                            <div class="mb-3" id="expirySection">
+                                <label class="fw-semibold">Expiry Date (optional)</label>
+                                <input type="date" id="qrExpiry" class="form-control">
+                            </div>
+
+                            <!-- OPEN MODE -->
+                            <div class="mb-3" id="openModeSection">
+                                <label class="fw-semibold">Open Mode</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="openMode" value="auto" checked>
+                                    <label class="form-check-label">Auto-open all links</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="openMode" value="buttons">
+                                    <label class="form-check-label">Show buttons only</label>
+                                </div>
+                            </div>
+
+                            <!-- STYLE -->
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-4">
+                                    <label class="fw-semibold">Color</label>
+                                    <select id="qrColor" class="form-select">
+                                        <option value="#000000" selected>Black</option>
+                                        <option value="#1a1a1a">Dark Gray</option>
+                                        <option value="#444444">Gray</option>
+                                        <option value="#ffffff">White</option>
+
+                                        <option value="#0d6efd">Blue</option>
+                                        <option value="#6610f2">Purple</option>
+                                        <option value="#6f42c1">Indigo</option>
+                                        <option value="#d63384">Pink</option>
+                                        <option value="#dc3545">Red</option>
+                                        <option value="#fd7e14">Orange</option>
+                                        <option value="#ffc107">Yellow</option>
+                                        <option value="#198754">Green</option>
+                                        <option value="#20c997">Teal</option>
+                                        <option value="#0dcaf0">Cyan</option>
+
+                                        <option value="#1877F2">Facebook Blue</option>
+                                        <option value="#E4405F">Instagram Pink</option>
+                                        <option value="#1DA1F2">Twitter Blue</option>
+                                        <option value="#0A66C2">LinkedIn Blue</option>
+                                        <option value="#FF0000">YouTube Red</option>
+                                        <option value="#25D366">WhatsApp Green</option>
+
+                                        <option value="#39FF14">Neon Green</option>
+                                        <option value="#FF073A">Neon Red</option>
+                                        <option value="#F000FF">Neon Pink</option>
+                                        <option value="#00FFFF">Aqua</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="fw-semibold">Background</label>
+                                    <select id="qrBg" class="form-select">
+                                        <option value="#ffffff" selected>White</option>
+                                        <option value="#f8f9fa">Light Gray</option>
+                                        <option value="#000000">Black</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="fw-semibold">Extras</label>
+                                    <div class="form-check">
+                                        <input type="checkbox" id="qrBorder" class="form-check-input" checked>
+                                        <label class="form-check-label">Show Border</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" id="qrRounded" class="form-check-input">
+                                        <label class="form-check-label">Rounded Pixels</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- QR SIZE -->
+                            <div class="mb-3">
+                                <label class="fw-semibold">QR Size</label>
+                                <select id="qrSize" class="form-select">
+                                    <option value="220">Small (screens)</option>
+                                    <option value="400" selected>Medium</option>
+                                    <option value="800">Large (print)</option>
+                                </select>
+                                <div class="form-text">
+                                    Larger sizes are better for printing and posters. Smaller sizes are fine for on-screen sharing.
+                                </div>
+                            </div>
+
+                            <!-- LOGO UPLOAD -->
+                            <div class="mb-3">
+                                <label class="fw-semibold">Logo (optional)</label>
+                                <input type="file" id="qrLogo" class="form-control" accept="image/*">
+                                <div class="form-text">
+                                    Logo will be placed in the center of the QR. Keep it simple and not too large for best scan results.
+                                </div>
+                                <img id="logoPreview" alt="Logo preview">
+                            </div>
+
+                            <!-- SINGLE LINK INPUT -->
+                            <div id="singleLinkSection" class="mb-3 d-none">
+                                <label class="fw-semibold">Link</label>
+                                <input type="text" id="singleLinkUrl" class="form-control" placeholder="https://example.com">
+                                <div class="form-text mt-1">Link must start with <strong>https://</strong></div>
+                            </div>
+
+                            <!-- MULTI LINKS -->
+                            <div id="multiLinksSection">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <label class="fw-semibold">Links</label>
+                                    <button type="button" id="addLink" class="btn btn-outline-secondary btn-sm">+ Add Link</button>
+                                </div>
+
+                                <div id="linksContainer"></div>
+                                <div class="form-text mb-3">Each link must start with <strong>https://</strong></div>
+                            </div>
+
+                            <button class="btn btn-primary w-100">Generate QR Code</button>
+                        </form>
                     </div>
                 </div>
             </div>
+
+            <!-- QR OUTPUT -->
+            <div class="col-lg-5">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+
+                        <h3 class="h5 mb-3">QR Preview & Download</h3>
+
+                        <div id="noQrMessage" class="alert alert-info">
+                            Generate a QR code to see preview here.
+                        </div>
+
+                        <div id="qrResult" class="d-none">
+                            <div class="fw-semibold mb-2" id="qrTitlePreview"></div>
+
+                            <div id="qrWrapper" class="qr-preview-wrapper with-border mx-auto">
+                                <canvas id="qrCanvas"></canvas>
+                            </div>
+
+                            <div class="mt-3">
+                                <div id="shareableUrlSection">
+                                    <label class="fw-semibold">Shareable URL</label>
+                                    <input type="text" id="generatedUrl" class="form-control mb-2" readonly>
+                                </div>
+
+                                <div class="btn-group mb-3" role="group">
+                                    <button type="button" id="copyUrl" class="btn btn-outline-success btn-sm">Copy URL</button>
+                                    <button type="button" id="downloadPng" class="btn btn-outline-primary btn-sm">Download PNG</button>
+                                    <button type="button" id="downloadSvg" class="btn btn-outline-secondary btn-sm">Download SVG</button>
+                                </div>
+
+                                <div id="copyMessage" class="text-success small d-none">Copied!</div>
+
+                                <!-- AD: Adsterra Banner 300x250 (result panel, loaded by the page script after first QR) -->
+                                <div class="ad-slot ad-slot-result my-3" data-ad-key="2f212665fbe5cfee9ae3ce7b8e22a9d3" data-ad-w="300" data-ad-h="250"></div>
+
+                                <!-- Scanability Tips -->
+                                <div class="scan-tips mt-3 text-start">
+                                    <div class="fw-semibold mb-1">Scanability Tips</div>
+                                    <ul class="mb-0">
+                                        <li>Keep the logo smaller than about 25% of the QR area.</li>
+                                        <li>Maintain strong contrast (dark QR code on a light background).</li>
+                                        <li>Avoid too much compression when sharing or printing screenshots.</li>
+                                        <li>Always test with at least one phone before printing at scale.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </header>
+    </div>
+    </section>
 
     <!-- AD PLACEMENT -->
     <div class="container my-4 text-center">
@@ -270,7 +569,7 @@
                                         </div>
                                         <h3 class="h6 mb-2">Privacy-friendly</h3>
                                         <p class="small mb-0">
-                                            No tracking scripts and no accounts. Your QR data is encoded directly in the URL itself.
+                                            No accounts, and your links are never stored on our servers. The QR data lives in the link itself.
                                         </p>
                                     </div>
                                 </div>
@@ -285,12 +584,14 @@
         <section class="py-5 bg-white border-top border-bottom">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-9">
+                    <div class="col-lg-10">
                         <div class="card shadow-sm how-card">
                             <div class="card-body p-4 p-md-5">
                                 <h2 class="h3 mb-4 section-heading text-center">How to generate a multi-link QR code</h2>
-                                <ol class="mb-0">
-                                    <li>Click on the <strong>“Generate Multi-Link QR”</strong> button at the top of this page.</li>
+                                <div class="row g-4 align-items-center">
+                                <div class="col-md-7">
+                                <ol class="mb-3">
+                                    <li>Use the <a href="#create">QR generator</a> at the top of this page.</li>
                                     <li>Enter a name for your QR code (for example <em>“Ravi’s Business Links”</em>).</li>
                                     <li>Add as many <strong>HTTPS links</strong> as you need and choose labels for each.</li>
                                     <li>Pick your preferred QR color, background and rounded style.</li>
@@ -299,12 +600,81 @@
                                     <li>Generate your QR code and download it as PNG or SVG.</li>
                                     <li>Print it on visiting cards, flyers, posters, menus or share the link directly online.</li>
                                 </ol>
+                                <a href="/blog/how-to-put-multiple-links-in-one-qr-code.html">See the full step-by-step guide with screenshots →</a>
+                                </div>
+                                <div class="col-md-5 text-center">
+                                    <img src="/images/scan-result-phone.webp" alt="What people see after scanning a multi-link QR code: buttons for Instagram, WhatsApp, the menu and reviews" width="585" height="1028" loading="lazy" decoding="async" class="img-fluid rounded-3 border shadow-sm" style="max-width:260px;">
+                                    <div class="small text-muted mt-2">What people see after scanning</div>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <!-- AD: Adsterra Banner 300x250 (mid-content) -->
+        <div class="container"><div class="ad-slot ad-slot-result my-4"><script>atOptions={"key":"2f212665fbe5cfee9ae3ce7b8e22a9d3","format":"iframe","height":250,"width":300,"params":{}};</script><script src="https://www.highrevenueformat.com/2f212665fbe5cfee9ae3ce7b8e22a9d3/invoke.js"></script></div></div>
+
+        <!-- GUIDES (internal links so Google finds and values the blog posts) -->
+        <section class="py-5 bg-white border-top border-bottom">
+            <div class="container">
+                <h2 class="h3 mb-2 text-center section-heading">Guides &amp; ideas</h2>
+                <p class="text-center text-muted mb-4">Practical, step-by-step guides for getting the most out of one QR code.</p>
+                <div class="row g-3">
+                    <div class="col-md-6 col-lg-4">
+                        <a href="/blog/how-to-put-multiple-links-in-one-qr-code.html" class="card h-100 shadow-sm text-decoration-none text-reset">
+                            <div class="card-body">
+                                <h3 class="h6 mb-2 text-primary">How to put multiple links in one QR code</h3>
+                                <p class="small text-muted mb-0">The complete walkthrough with screenshots and a demo code you can scan.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a href="/blog/qr-codes-for-social-media-profiles.html" class="card h-100 shadow-sm text-decoration-none text-reset">
+                            <div class="card-body">
+                                <h3 class="h6 mb-2 text-primary">One QR code for all your social media</h3>
+                                <p class="small text-muted mb-0">Instagram, TikTok, YouTube, LinkedIn and WhatsApp in a single scan.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a href="/blog/multi-destination-qr-code.html" class="card h-100 shadow-sm text-decoration-none text-reset">
+                            <div class="card-body">
+                                <h3 class="h6 mb-2 text-primary">Multi-destination QR codes explained</h3>
+                                <p class="small text-muted mb-0">How they work and how they differ from dynamic and "smart" QR codes.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a href="/blog/qr-code-menu-guide.html" class="card h-100 shadow-sm text-decoration-none text-reset">
+                            <div class="card-body">
+                                <h3 class="h6 mb-2 text-primary">QR codes for menus, restaurants &amp; cafés</h3>
+                                <p class="small text-muted mb-0">Menu, ordering, reservations and reviews from one code on the table.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a href="/blog/qr-code-for-google-forms-2025.html" class="card h-100 shadow-sm text-decoration-none text-reset">
+                            <div class="card-body">
+                                <h3 class="h6 mb-2 text-primary">QR code for Google Forms</h3>
+                                <p class="small text-muted mb-0">Surveys, registrations and RSVPs, plus a trick to compare poster locations.</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a href="/blog/qr-codes-for-visiting-cards.html" class="card h-100 shadow-sm text-decoration-none text-reset">
+                            <div class="card-body">
+                                <h3 class="h6 mb-2 text-primary">QR codes on visiting cards</h3>
+                                <p class="small text-muted mb-0">Placement, size and which links belong on a business card.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="text-center mt-4"><a href="/blog.html" class="btn btn-outline-primary">All guides</a></div>
+            </div>
+        </section>
+
         <!-- USE CASES + FAQ -->
         <section class="py-5">
             <div class="container">
@@ -404,13 +774,44 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqFiveHeading">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#faqFive" aria-expanded="false" aria-controls="faqFive">
+                                        Do the QR codes expire?
+                                    </button>
+                                </h2>
+                                <div id="faqFive" class="accordion-collapse collapse" aria-labelledby="faqFiveHeading">
+                                    <div class="accordion-body">
+                                        No. Your QR code keeps working with no subscription and no scan limit, because the links are stored
+                                        in the code itself. It only expires if <em>you</em> choose an expiry date, which is useful for
+                                        events or limited-time offers.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqSixHeading">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#faqSix" aria-expanded="false" aria-controls="faqSix">
+                                        Can I add my logo?
+                                    </button>
+                                </h2>
+                                <div id="faqSix" class="accordion-collapse collapse" aria-labelledby="faqSixHeading">
+                                    <div class="accordion-body">
+                                        Yes, for free. Upload your logo in the generator and it's placed in the center of the QR code.
+                                        The PNG download includes the logo. Always test the code with your phone after adding one.
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
                 </div>
 
                 <div class="text-center mt-5">
-                    <a href="generator.html" class="btn btn-primary btn-lg">
+                    <a href="/#create" class="btn btn-primary btn-lg">
                         Start generating your multi-link QR code
                     </a>
                 </div>
@@ -492,10 +893,11 @@
                                     This protects your visitors from malicious websites and ensures compatibility across all 
                                     modern browsers and devices.
                                 </p>
-                                <h3 class="h5 mb-3">No Tracking Scripts</h3>
+                                <h3 class="h5 mb-3">No Stored Links</h3>
                                 <p>
-                                    We don't add tracking scripts to your QR code landing pages. Your visitors' privacy is 
-                                    respected, and you maintain full control over the user experience.
+                                    Your links are never sent to or stored on our servers, and our analytics never record which links a QR code
+                                    contains. Like most free websites, we use standard website analytics and ads to keep the service free, as
+                                    explained in our <a href="/privacy-policy.html">privacy policy</a>.
                                 </p>
                                 <h3 class="h5 mb-3">Client-Side Processing</h3>
                                 <p class="mb-0">
@@ -532,250 +934,90 @@
             </div>
         </section>
 
-        <!-- TESTIMONIALS & CASE STUDIES SECTION -->
+        <!-- REAL NUMBERS, EXAMPLES & DEMO -->
         <section class="py-5 bg-white border-top">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
-                        <h2 class="h3 mb-2 text-center section-heading">Real Success Stories from Our Users</h2>
-                        <p class="text-center text-muted mb-5">
-                            See how businesses and professionals are using MultiLinkQR to connect with their audiences
-                        </p>
-
-                        <div class="row g-4 mb-5">
-                            <!-- Testimonial 1 -->
-                            <div class="col-md-6">
-                                <div class="card h-100 shadow-sm">
-                                    <div class="card-body p-4">
-                                        <div class="mb-3">
-                                            <span class="text-warning">★★★★★</span>
-                                        </div>
-                                        <p class="mb-3">
-                                            "I run a small coffee shop and wanted a simple way to share our menu, Instagram, and Google reviews. MultiLinkQR let me create one QR code for our table tents that does everything. Our Instagram followers increased by 40% in just two months!"
-                                        </p>
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-weight: 600;">
-                                                S
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-semibold">Sarah Martinez</div>
-                                                <div class="small text-muted">Owner, Brew & Bites Café</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <h2 class="h3 mb-2 text-center section-heading">MultiLinkQR in numbers</h2>
+                        <p class="text-center text-muted mb-4">Real figures from our website analytics, January–September 2026.</p>
+                        <div class="row g-3 text-center mb-5">
+                            <div class="col-6 col-md-3">
+                                <div class="card h-100 shadow-sm"><div class="card-body">
+                                    <div class="display-6 fw-bold text-primary">25,000+</div>
+                                    <div class="small text-muted">scans of MultiLinkQR codes</div>
+                                </div></div>
                             </div>
-
-                            <!-- Testimonial 2 -->
-                            <div class="col-md-6">
-                                <div class="card h-100 shadow-sm">
-                                    <div class="card-body p-4">
-                                        <div class="mb-3">
-                                            <span class="text-warning">★★★★★</span>
-                                        </div>
-                                        <p class="mb-3">
-                                            "As a freelance designer, my business card space is precious. Instead of choosing which portfolio link to include, I now have ONE QR code that opens my Behance, Dribbble, LinkedIn, and personal website. Clients love how easy it is!"
-                                        </p>
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-weight: 600;">
-                                                R
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-semibold">Rajesh Kumar</div>
-                                                <div class="small text-muted">Freelance UI/UX Designer</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-6 col-md-3">
+                                <div class="card h-100 shadow-sm"><div class="card-body">
+                                    <div class="display-6 fw-bold text-primary">70+</div>
+                                    <div class="small text-muted">countries</div>
+                                </div></div>
                             </div>
-
-                            <!-- Testimonial 3 -->
-                            <div class="col-md-6">
-                                <div class="card h-100 shadow-sm">
-                                    <div class="card-body p-4">
-                                        <div class="mb-3">
-                                            <span class="text-warning">★★★★★</span>
-                                        </div>
-                                        <p class="mb-3">
-                                            "We organize monthly networking events and needed an easy way to share event details, registration forms, and speaker bios. MultiLinkQR codes on our posters made everything accessible instantly. Plus, the privacy-first approach means we're not tracking our attendees unnecessarily."
-                                        </p>
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-weight: 600;">
-                                                E
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-semibold">Emily Chen</div>
-                                                <div class="small text-muted">Event Coordinator, TechHub Events</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-6 col-md-3">
+                                <div class="card h-100 shadow-sm"><div class="card-body">
+                                    <div class="display-6 fw-bold text-primary">$0</div>
+                                    <div class="small text-muted">no plans, no sign-up, no watermark</div>
+                                </div></div>
                             </div>
-
-                            <!-- Testimonial 4 -->
-                            <div class="col-md-6">
-                                <div class="card h-100 shadow-sm">
-                                    <div class="card-body p-4">
-                                        <div class="mb-3">
-                                            <span class="text-warning">★★★★★</span>
-                                        </div>
-                                        <p class="mb-3">
-                                            "For our real estate listings, we print flyers with QR codes that link to virtual tours, floor plans, neighborhood info, and contact forms. The fact that it's completely free and doesn't require a subscription has saved us hundreds of dollars annually."
-                                        </p>
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-weight: 600;">
-                                                M
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-semibold">Michael Thompson</div>
-                                                <div class="small text-muted">Real Estate Agent, Premium Properties</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-6 col-md-3">
+                                <div class="card h-100 shadow-sm"><div class="card-body">
+                                    <div class="display-6 fw-bold text-primary">0</div>
+                                    <div class="small text-muted">links stored on our servers</div>
+                                </div></div>
                             </div>
                         </div>
 
-                        <!-- Usage Statistics -->
-                        <div class="card shadow-sm bg-light border-0">
-                            <div class="card-body p-4">
-                                <h3 class="h4 mb-4 text-center">By the Numbers</h3>
-                                <div class="row g-4 text-center">
-                                    <div class="col-6 col-md-3">
-                                        <div class="display-6 fw-bold text-primary">50K+</div>
-                                        <div class="small text-muted">QR Codes Generated</div>
-                                    </div>
-                                    <div class="col-6 col-md-3">
-                                        <div class="display-6 fw-bold text-primary">120+</div>
-                                        <div class="small text-muted">Countries Worldwide</div>
-                                    </div>
-                                    <div class="col-6 col-md-3">
-                                        <div class="display-6 fw-bold text-primary">100%</div>
-                                        <div class="small text-muted">Free Forever</div>
-                                    </div>
-                                    <div class="col-6 col-md-3">
-                                        <div class="display-6 fw-bold text-primary">0</div>
-                                        <div class="small text-muted">Accounts Required</div>
-                                    </div>
-                                </div>
+                        <h2 class="h3 mb-2 text-center section-heading">See it in action</h2>
+                        <p class="text-center text-muted mb-4">Scan the demo code with your phone camera. It's a real multi-link QR code made with this generator.</p>
+                        <div class="row g-4 align-items-center justify-content-center mb-5">
+                            <div class="col-md-5 text-center">
+                                <img src="/images/demo-multi-link-qr-code.png" alt="Scannable demo multi-link QR code made with MultiLinkQR" width="480" height="480" loading="lazy" decoding="async" class="img-fluid" style="max-width:240px;">
+                                <div class="small text-muted mt-2">Demo QR code: scan me</div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CASE STUDY SECTION -->
-        <section class="py-5">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                        <h2 class="h3 mb-4 text-center section-heading">Detailed Case Studies</h2>
-
-                        <!-- Case Study 1 -->
-                        <div class="card shadow-sm mb-4">
-                            <div class="card-body p-4 p-md-5">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <h3 class="h5 mb-3 fw-bold">Restaurant Increases Social Media Engagement by 156%</h3>
-                                        <p class="mb-3">
-                                            <strong>Challenge:</strong> A family-owned Italian restaurant wanted to increase their social media following and collect customer reviews without overwhelming table space with multiple QR codes.
-                                        </p>
-                                        <p class="mb-3">
-                                            <strong>Solution:</strong> Created a multi-link QR code containing links to their Instagram, Facebook page, Google Reviews, and digital menu. Printed the QR code on table tents and receipts.
-                                        </p>
-                                        <p class="mb-3">
-                                            <strong>Results:</strong>
-                                        </p>
-                                        <ul class="mb-0">
-                                            <li>156% increase in Instagram followers over 3 months</li>
-                                            <li>43 new Google reviews (up from 12 total previously)</li>
-                                            <li>Reduced printing costs by eliminating separate menu cards</li>
-                                            <li>Average of 15-20 QR code scans per day per table</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4 mt-4 mt-md-0">
-                                        <div class="bg-light p-4 rounded text-center">
-                                            <div class="display-4 fw-bold text-primary mb-2">+156%</div>
-                                            <div class="small text-muted">Social Media Growth</div>
-                                            <hr class="my-3">
-                                            <div class="h3 fw-bold text-primary mb-2">+43</div>
-                                            <div class="small text-muted">New Reviews</div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-md-5 text-center">
+                                <img src="/images/before-after-one-qr-code.webp" alt="Three separate QR codes compared with one multi-link QR code" width="1500" height="633" loading="lazy" decoding="async" class="img-fluid rounded-3 border">
+                                <div class="small text-muted mt-2">One code instead of three</div>
                             </div>
                         </div>
 
-                        <!-- Case Study 2 -->
-                        <div class="card shadow-sm mb-4">
-                            <div class="card-body p-4 p-md-5">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <h3 class="h5 mb-3 fw-bold">Content Creator Grows Audience Across 5 Platforms</h3>
-                                        <p class="mb-3">
-                                            <strong>Challenge:</strong> A yoga instructor and wellness coach struggled to promote all her content platforms (YouTube, Instagram, TikTok, website, booking system) in her physical studio and on printed materials.
-                                        </p>
-                                        <p class="mb-3">
-                                            <strong>Solution:</strong> Created a branded multi-link QR code with custom colors matching her brand. Added links to all 5 platforms with clear labels. Displayed the QR code on studio walls, business cards, and class handouts.
-                                        </p>
-                                        <p class="mb-3">
-                                            <strong>Results:</strong>
-                                        </p>
-                                        <ul class="mb-0">
-                                            <li>YouTube subscribers increased from 2,300 to 8,500 in 4 months</li>
-                                            <li>Online class bookings increased by 67%</li>
-                                            <li>Cross-platform engagement improved (students following on multiple platforms)</li>
-                                            <li>Saved $50/month by canceling paid link-in-bio service</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4 mt-4 mt-md-0">
-                                        <div class="bg-light p-4 rounded text-center">
-                                            <div class="display-4 fw-bold text-primary mb-2">270%</div>
-                                            <div class="small text-muted">YouTube Growth</div>
-                                            <hr class="my-3">
-                                            <div class="h3 fw-bold text-primary mb-2">$600</div>
-                                            <div class="small text-muted">Annual Savings</div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <h2 class="h3 mb-2 text-center section-heading">How people use one QR code for many links</h2>
+                        <p class="text-center text-muted mb-4">Typical examples of what goes into a MultiLinkQR code.</p>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="card h-100 shadow-sm"><div class="card-body">
+                                    <h3 class="h6 fw-bold mb-2">☕ Café or restaurant</h3>
+                                    <p class="small mb-2">Menu, WhatsApp for takeaway, Google reviews and Instagram on one table card.</p>
+                                    <a href="/blog/qr-code-menu-guide.html" class="small">Menu QR code guide →</a>
+                                </div></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 shadow-sm"><div class="card-body">
+                                    <h3 class="h6 fw-bold mb-2">🎥 Creator or influencer</h3>
+                                    <p class="small mb-2">Instagram, TikTok, YouTube and a business email, so followers pick their favorite platform.</p>
+                                    <a href="/blog/qr-codes-for-social-media-profiles.html" class="small">Social media QR code guide →</a>
+                                </div></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 shadow-sm"><div class="card-body">
+                                    <h3 class="h6 fw-bold mb-2">💼 Business card</h3>
+                                    <p class="small mb-2">Website, WhatsApp, LinkedIn and a Google Maps location in the corner of a visiting card.</p>
+                                    <a href="/blog/qr-codes-for-visiting-cards.html" class="small">Visiting card guide →</a>
+                                </div></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 shadow-sm"><div class="card-body">
+                                    <h3 class="h6 fw-bold mb-2">🎤 Event or workshop</h3>
+                                    <p class="small mb-2">Registration form, agenda PDF, venue map and a feedback form, with an expiry date after the event.</p>
+                                    <a href="/blog/qr-code-for-google-forms-2025.html" class="small">Google Forms QR code guide →</a>
+                                </div></div>
                             </div>
                         </div>
 
-                        <!-- Case Study 3 -->
-                        <div class="card shadow-sm">
-                            <div class="card-body p-4 p-md-5">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <h3 class="h5 mb-3 fw-bold">Conference Streamlines Attendee Experience</h3>
-                                        <p class="mb-3">
-                                            <strong>Challenge:</strong> An annual tech conference with 500+ attendees needed an efficient way to distribute event schedules, speaker information, feedback forms, and networking opportunities without printing hundreds of packets.
-                                        </p>
-                                        <p class="mb-3">
-                                            <strong>Solution:</strong> Created multi-link QR codes for different purposes: one for general event info (schedule, maps, WiFi), one per speaker (bio, slides, contact info), and one for networking (attendee directory, LinkedIn group, Slack channel).
-                                        </p>
-                                        <p class="mb-3">
-                                            <strong>Results:</strong>
-                                        </p>
-                                        <ul class="mb-0">
-                                            <li>87% of attendees scanned at least one QR code</li>
-                                            <li>Saved over $2,000 in printing costs for event packets</li>
-                                            <li>Received 3x more feedback form submissions than previous year</li>
-                                            <li>Reduced event setup time by 4 hours</li>
-                                            <li>More environmentally sustainable event with less paper waste</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4 mt-4 mt-md-0">
-                                        <div class="bg-light p-4 rounded text-center">
-                                            <div class="display-4 fw-bold text-primary mb-2">$2K</div>
-                                            <div class="small text-muted">Cost Savings</div>
-                                            <hr class="my-3">
-                                            <div class="h3 fw-bold text-primary mb-2">87%</div>
-                                            <div class="small text-muted">Attendee Engagement</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="text-center mt-4 p-4 rounded-3" style="background:#f1f6ff;">
+                            <div class="fw-semibold mb-1">Using MultiLinkQR for your business or event?</div>
+                            <div class="small text-muted mb-2">We'd love to hear how. Your story could help other people get started.</div>
+                            <a href="/contact.html" class="btn btn-outline-primary btn-sm">Share your story</a>
                         </div>
                     </div>
                 </div>
@@ -830,7 +1072,7 @@
                             <p class="lead mb-3">
                                 Ready to create your first QR code? It takes less than a minute to get started.
                             </p>
-                            <a href="generator.html" class="btn btn-primary btn-lg me-2">
+                            <a href="/#create" class="btn btn-primary btn-lg me-2">
                                 Generate QR Code Now
                             </a>
                             <a href="tips.html" class="btn btn-outline-secondary btn-lg">
@@ -860,14 +1102,497 @@
     <script>
         document.getElementById("yearSpan").textContent = new Date().getFullYear();
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js" integrity="sha384-HGmnkDZJy7mRkoARekrrj0VjEFSh9a0Z8qxGri/kTTAJkgR8hqD1lHsYSh3JdzRi" crossorigin="anonymous"></script>
+    <script>
+        // MultiLinkQR generator logic. The same copy is in index.html and generator.html - change both.
+        // NOTE: the ?d= payload format below must stay backward compatible,
+        // because every printed QR code points to multi.html?d=...
+        const BASE_MULTI_URL = "https://www.multilinkqr.com/multi.html";
+        let currentFinalUrl = "";
+        let currentLinkMode = "";
+        let logoImage = null;
+
+        function showAlert(msg, type = "danger") {
+            $("#alertArea").empty().append($(`<div class="alert alert-${type}"></div>`).text(msg));
+        }
+        function clearAlert() { $("#alertArea").empty(); }
+
+        function escapeHtml(str) {
+            return String(str == null ? "" : str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
+        // Adsterra banner in the result panel. Loaded only after the first QR is generated,
+        // so the impression is counted when the panel is actually visible.
+        let resultAdLoaded = false;
+        function loadResultAd() {
+            if (resultAdLoaded) return;
+            const slot = document.querySelector(".ad-slot-result[data-ad-key]");
+            if (!slot) return;
+            resultAdLoaded = true;
+            const key = slot.getAttribute("data-ad-key");
+            window.atOptions = {
+                key: key,
+                format: "iframe",
+                height: parseInt(slot.getAttribute("data-ad-h"), 10),
+                width: parseInt(slot.getAttribute("data-ad-w"), 10),
+                params: {}
+            };
+            const s = document.createElement("script");
+            s.src = "https://www.highrevenueformat.com/" + key + "/invoke.js";
+            slot.appendChild(s);
+        }
+
+        function validateHttps(url) {
+            return /^https:\/\/.+/i.test(url.trim());
+        }
+
+        function buildUrlWithUtm(baseUrl, source, medium, campaign) {
+            if (!source && !medium && !campaign) return baseUrl;
+
+            try {
+                const urlObj = new URL(baseUrl);
+                if (source) urlObj.searchParams.set("utm_source", source);
+                if (medium) urlObj.searchParams.set("utm_medium", medium);
+                if (campaign) urlObj.searchParams.set("utm_campaign", campaign);
+                return urlObj.toString();
+            } catch (e) {
+                return baseUrl;
+            }
+        }
+
+        function addLinkRow(url = "", label = "", utmSource = "", utmMedium = "", utmCampaign = "") {
+            const idx = $("#linksContainer .link-row").length + 1;
+            const hasUtm = utmSource || utmMedium || utmCampaign;
+            $("#linksContainer").append(`
+                <div class="row g-2 mb-2 link-row">
+                    <div class="col-12">
+                        <div class="row g-2">
+                            <div class="col-md-7">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text">Link ${idx}</span>
+                                    <input type="text" class="form-control link-url" value="${escapeHtml(url)}" placeholder="https://example.com">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm link-label" value="${escapeHtml(label)}" placeholder="Label (Instagram)">
+                            </div>
+                            <div class="col-md-1 text-end">
+                                <button class="btn btn-outline-danger btn-sm remove-link" type="button">&times;</button>
+                            </div>
+                        </div>
+                        <div class="mt-1 d-flex justify-content-between align-items-center">
+                            <span class="utm-toggle text-primary">${hasUtm ? "− Hide UTM params" : "+ Add UTM params"}</span>
+                        </div>
+                        <div class="utm-fields mt-1 ${hasUtm ? "" : "d-none"}">
+                            <div class="row g-1">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control form-control-sm utm-source" placeholder="utm_source" value="${escapeHtml(utmSource)}">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control form-control-sm utm-medium" placeholder="utm_medium" value="${escapeHtml(utmMedium)}">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control form-control-sm utm-campaign" placeholder="utm_campaign" value="${escapeHtml(utmCampaign)}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `);
+        }
+
+        function applyThemeFromStorage() {
+            const toggleBtn = document.getElementById("themeToggle");
+            // Dark mode only exists on pages that have the toggle button
+            if (!toggleBtn) return;
+
+            const saved = localStorage.getItem("mlqr_theme");
+            if (saved === "dark") {
+                document.body.classList.add("dark-mode");
+                toggleBtn.textContent = "☀️ Light";
+            } else {
+                document.body.classList.remove("dark-mode");
+                toggleBtn.textContent = "🌙 Dark";
+            }
+        }
+
+        function saveState() {
+            try {
+                const state = {
+                    linkMode: $("input[name='linkMode']:checked").val(),
+                    title: $("#qrTitle").val().trim(),
+                    expiry: $("#qrExpiry").val(),
+                    openMode: $("input[name='openMode']:checked").val(),
+                    color: $("#qrColor").val(),
+                    bg: $("#qrBg").val(),
+                    border: $("#qrBorder").is(":checked"),
+                    rounded: $("#qrRounded").is(":checked"),
+                    singleLinkUrl: $("#singleLinkUrl").val().trim(),
+                    qrSize: $("#qrSize").val(),
+                    links: []
+                };
+
+                $("#linksContainer .link-row").each(function () {
+                    const url = $(this).find(".link-url").val().trim();
+                    const label = $(this).find(".link-label").val().trim();
+                    const utmSource = $(this).find(".utm-source").val().trim();
+                    const utmMedium = $(this).find(".utm-medium").val().trim();
+                    const utmCampaign = $(this).find(".utm-campaign").val().trim();
+
+                    if (!url && !label && !utmSource && !utmMedium && !utmCampaign) return;
+
+                    state.links.push({
+                        url,
+                        label,
+                        utmSource,
+                        utmMedium,
+                        utmCampaign
+                    });
+                });
+
+                localStorage.setItem("mlqr_state", JSON.stringify(state));
+            } catch (e) {
+                console.warn("Failed to save state", e);
+            }
+        }
+
+        function restoreState() {
+            const raw = localStorage.getItem("mlqr_state");
+            if (!raw) {
+                addLinkRow("https://instagram.com/", "Instagram");
+                addLinkRow("https://www.linkedin.com/", "LinkedIn");
+                return;
+            }
+
+            try {
+                const state = JSON.parse(raw);
+
+                if (state.linkMode === "single") {
+                    $("#linkModeSingle").prop("checked", true);
+                } else {
+                    $("#linkModeMulti").prop("checked", true);
+                }
+
+                $("#qrTitle").val(state.title || "");
+                $("#qrExpiry").val(state.expiry || "");
+
+                if (state.openMode === "buttons") {
+                    $("input[name='openMode'][value='buttons']").prop("checked", true);
+                } else {
+                    $("input[name='openMode'][value='auto']").prop("checked", true);
+                }
+
+                if (state.color) $("#qrColor").val(state.color);
+                if (state.bg) $("#qrBg").val(state.bg);
+                $("#qrBorder").prop("checked", !!state.border);
+                $("#qrRounded").prop("checked", !!state.rounded);
+                $("#singleLinkUrl").val(state.singleLinkUrl || "");
+                if (state.qrSize) $("#qrSize").val(state.qrSize);
+
+                $("#linksContainer").empty();
+                if (Array.isArray(state.links) && state.links.length > 0) {
+                    state.links.forEach(l => {
+                        addLinkRow(
+                            l.url || "",
+                            l.label || "",
+                            l.utmSource || "",
+                            l.utmMedium || "",
+                            l.utmCampaign || ""
+                        );
+                    });
+                } else {
+                    addLinkRow("https://instagram.com/", "Instagram");
+                    addLinkRow("https://www.linkedin.com/", "LinkedIn");
+                }
+
+                $("input[name='linkMode']:checked").trigger("change");
+
+            } catch (e) {
+                console.warn("Failed to restore state", e);
+                addLinkRow("https://instagram.com/", "Instagram");
+                addLinkRow("https://www.linkedin.com/", "LinkedIn");
+            }
+        }
+
+        $(function () {
+            $("#yearSpan").text(new Date().getFullYear());
+
+            applyThemeFromStorage();
+            $("#themeToggle").on("click", function () {
+                const body = document.body;
+                body.classList.toggle("dark-mode");
+                const isDark = body.classList.contains("dark-mode");
+                this.textContent = isDark ? "☀️ Light" : "🌙 Dark";
+                localStorage.setItem("mlqr_theme", isDark ? "dark" : "light");
+            });
+
+            $("#qrLogo").on("change", function (e) {
+                const file = e.target.files[0];
+                const preview = document.getElementById("logoPreview");
+
+                if (!file) {
+                    logoImage = null;
+                    preview.style.display = "none";
+                    preview.src = "";
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (evt) {
+                    const img = new Image();
+                    img.onload = function () {
+                        logoImage = img;
+                        preview.src = img.src;
+                        preview.style.display = "block";
+                    };
+                    img.src = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+
+            // Bound before restoreState() so the restored link mode shows the right fields
+            $("input[name='linkMode']").change(function () {
+                const mode = $(this).val();
+                if (mode === "single") {
+                    $("#singleLinkSection").removeClass("d-none");
+                    $("#multiLinksSection").addClass("d-none");
+                    $("#expirySection").addClass("d-none");
+                    $("#openModeSection").addClass("d-none");
+                } else {
+                    $("#singleLinkSection").addClass("d-none");
+                    $("#multiLinksSection").removeClass("d-none");
+                    $("#expirySection").removeClass("d-none");
+                    $("#openModeSection").removeClass("d-none");
+                }
+                $("#noQrMessage").removeClass("d-none");
+                $("#qrResult").addClass("d-none");
+                $("#copyUrl").removeClass("d-none");
+                clearAlert();
+                saveState();
+            });
+
+            restoreState();
+
+            $("#addLink").click(() => {
+                addLinkRow();
+                saveState();
+            });
+
+            $("#linksContainer").on("click", ".remove-link", function () {
+                $(this).closest(".link-row").remove();
+                saveState();
+            });
+
+            $("#linksContainer").on("click", ".utm-toggle", function () {
+                const fields = $(this).closest(".link-row").find(".utm-fields").first();
+                fields.toggleClass("d-none");
+                if (fields.hasClass("d-none")) {
+                    $(this).text("+ Add UTM params");
+                } else {
+                    $(this).text("− Hide UTM params");
+                }
+                saveState();
+            });
+
+            $("#qrTitle, #qrExpiry, #qrColor, #qrBg, #qrBorder, #qrRounded, #singleLinkUrl, #qrSize")
+                .on("input change", saveState);
+            $("input[name='openMode']").on("change", saveState);
+            $("#linksContainer").on("input change", ".link-url, .link-label, .utm-source, .utm-medium, .utm-campaign", saveState);
+
+            $("#qrForm").submit(function (e) {
+                e.preventDefault();
+                clearAlert();
+
+                const linkMode = $("input[name='linkMode']:checked").val();
+                const title = $("#qrTitle").val().trim();
+                const color = $("#qrColor").val();
+                const bg = $("#qrBg").val();
+                const border = $("#qrBorder").is(":checked");
+                const rounded = $("#qrRounded").is(":checked");
+                const size = parseInt($("#qrSize").val(), 10) || 220;
+
+                let finalUrl;
+                let qrTitleText;
+
+                currentLinkMode = linkMode;
+
+                if (linkMode === "single") {
+                    const singleUrl = $("#singleLinkUrl").val().trim();
+                    if (!singleUrl) {
+                        showAlert("Please enter a link.");
+                        return;
+                    }
+                    if (!validateHttps(singleUrl)) {
+                        showAlert("Invalid link. Link must start with https://");
+                        return;
+                    }
+                    finalUrl = singleUrl;
+                    currentFinalUrl = finalUrl;
+                    qrTitleText = title || "Your QR Code";
+                    $("#shareableUrlSection").addClass("d-none");
+                    $("#copyUrl").addClass("d-none");
+                } else {
+                    const expiry = $("#qrExpiry").val();
+                    const mode = $("input[name='openMode']:checked").val();
+
+                    const links = [];
+                    let invalid = false;
+
+                    $("#linksContainer .link-row").each(function () {
+                        const urlInput = $(this).find(".link-url").val().trim();
+                        const label = $(this).find(".link-label").val().trim();
+                        const utmSource = $(this).find(".utm-source").val().trim();
+                        const utmMedium = $(this).find(".utm-medium").val().trim();
+                        const utmCampaign = $(this).find(".utm-campaign").val().trim();
+
+                        if (!urlInput) return;
+
+                        if (!validateHttps(urlInput)) {
+                            showAlert("Invalid link: " + urlInput);
+                            invalid = true;
+                            return false;
+                        }
+
+                        const finalLinkUrl = buildUrlWithUtm(urlInput, utmSource, utmMedium, utmCampaign);
+                        links.push({ url: finalLinkUrl, label: label || null });
+                    });
+
+                    if (invalid) return;
+
+                    if (links.length === 0) {
+                        showAlert("Add at least one HTTPS link.");
+                        return;
+                    }
+
+                    let exp = null;
+                    if (expiry) {
+                        const d = new Date(expiry + "T23:59:59");
+                        if (!isNaN(d.getTime())) exp = d.getTime();
+                    }
+
+                    const payload = {
+                        title: title || null,
+                        exp,
+                        mode,
+                        style: { color, bg, border, rounded },
+                        links
+                    };
+
+                    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+                    finalUrl = BASE_MULTI_URL + "?d=" + encodeURIComponent(encoded);
+                    currentFinalUrl = finalUrl;
+                    qrTitleText = title || "Your MultiLinkQR Code";
+                    $("#shareableUrlSection").removeClass("d-none");
+                    $("#copyUrl").removeClass("d-none");
+                    $("#generatedUrl").val(finalUrl);
+                }
+
+                saveState();
+
+                if (typeof gtag === "function") {
+                    gtag("event", "qr_generated", { link_mode: linkMode });
+                }
+
+                $("#qrTitlePreview").text(qrTitleText);
+                $("#noQrMessage").addClass("d-none");
+                $("#qrResult").removeClass("d-none");
+                loadResultAd();
+
+                $("#qrWrapper").css("background-color", bg);
+                $("#qrWrapper").toggleClass("with-border", border);
+                $("#qrWrapper").toggleClass("rounded-pixels", rounded);
+
+                const canvas = document.getElementById("qrCanvas");
+
+                QRCode.toCanvas(canvas, finalUrl, {
+                    width: size,
+                    margin: 2,
+                    scale: 1,
+                    color: {
+                        dark: color || "#000000",
+                        light: bg || "#ffffff"
+                    }
+                }, function (err) {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+
+                    if (logoImage) {
+                        const ctx = canvas.getContext("2d");
+                        const canvasSize = canvas.width;
+
+                        const logoSize = canvasSize * 0.22;
+                        const x = (canvasSize - logoSize) / 2;
+                        const y = (canvasSize - logoSize) / 2;
+
+                        ctx.fillStyle = bg || "#ffffff";
+                        ctx.fillRect(x, y, logoSize, logoSize);
+
+                        ctx.drawImage(logoImage, x, y, logoSize, logoSize);
+                    }
+                });
+
+                $("#downloadPng").off().click(function () {
+                    const a = document.createElement("a");
+                    a.download = (title || "multilinkqr") + ".png";
+                    a.href = canvas.toDataURL("image/png");
+                    a.click();
+                });
+
+                $("#downloadSvg").off().click(function () {
+                    // Use the same colors as the preview (logo is PNG-only)
+                    QRCode.toString(finalUrl, {
+                        type: "svg",
+                        margin: 2,
+                        color: {
+                            dark: color || "#000000",
+                            light: bg || "#ffffff"
+                        }
+                    }, function (err, svg) {
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
+                        const blob = new Blob([svg], { type: "image/svg+xml" });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = (title || "multilinkqr") + ".svg";
+                        a.click();
+                        URL.revokeObjectURL(url);
+                    });
+                });
+
+                $("#copyUrl").off().on("click", function () {
+                    const text = currentLinkMode === "single" ? currentFinalUrl : $("#generatedUrl").val();
+                    navigator.clipboard.writeText(text).then(() => {
+                        $("#copyMessage").removeClass("d-none");
+                        setTimeout(() => {
+                            $("#copyMessage").addClass("d-none");
+                        }, 1500);
+                    }).catch(() => {
+                        alert("Copy failed. Please copy manually.");
+                    });
+                });
+
+            });
+        });
+    </script>
 
     <!-- Cookie Consent Banner -->
     <div id="cookieConsent" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a2e; color:#fff; padding:1rem 1.5rem; z-index:9999; box-shadow:0 -2px 10px rgba(0,0,0,0.2);">
         <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3">
             <div style="flex:1; min-width:200px;">
                 <strong>Cookie Notice:</strong> We use cookies to analyze website traffic and optimize your experience. By continuing to use our site, you consent to our use of cookies.
-                <a href="privacy-policy.html" style="color:#0dcaf0;">Learn more</a>
+                <a href="privacy-policy.html" style="color:#0dcaf0;">Read our privacy policy</a>
             </div>
             <div class="d-flex gap-2">
                 <button id="acceptCookies" class="btn btn-primary btn-sm">Accept All</button>

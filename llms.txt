@@ -20,11 +20,13 @@ Key facts:
 
 ## Guides
 
+- [How to put multiple links in one QR code](https://www.multilinkqr.com/blog/how-to-put-multiple-links-in-one-qr-code.html): step-by-step with screenshots
+- [Multi-destination QR codes explained](https://www.multilinkqr.com/blog/multi-destination-qr-code.html): multi-URL vs dynamic vs location-based QR codes
+- [One QR code for all your social media](https://www.multilinkqr.com/blog/qr-codes-for-social-media-profiles.html)
 - [Multi-link QR vs single-link QR](https://www.multilinkqr.com/blog/single-vs-multi-link-qr.html)
-- [QR code for all your social media profiles](https://www.multilinkqr.com/blog/qr-codes-for-social-media-profiles.html)
 - [QR codes on visiting cards](https://www.multilinkqr.com/blog/qr-codes-for-visiting-cards.html)
 - [QR code for Google Forms](https://www.multilinkqr.com/blog/qr-code-for-google-forms-2025.html)
-- [QR code for a menu](https://www.multilinkqr.com/blog/qr-code-menu-guide.html)
+- [QR code for a menu (restaurants and cafés)](https://www.multilinkqr.com/blog/qr-code-menu-guide.html)
 - [QR code with logo](https://www.multilinkqr.com/blog/free-qr-code-generator-with-logo-2025.html)
 - [Dynamic vs static QR codes](https://www.multilinkqr.com/blog/dynamic-vs-static-qr-codes.html)
 - [All guides](https://www.multilinkqr.com/blog.html)

@@ -2,14 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Free Multi-Link QR Code Generator – Create One QR for Multiple Links</title>
+    <title>Multi-URL QR Code Generator – Add Multiple Links to One QR</title>
 
     <!-- SEO Meta -->
-    <meta name="description" content="Free Multi-Link QR Code Generator. Create one QR code that opens multiple HTTPS links at once. Add labels, colors, expiry, auto-open mode and download QR as PNG or SVG. No login needed. Works on all devices.">
+    <meta name="description" content="Put multiple links in one QR code in seconds. Free multi-URL QR generator with labels, colors, logo and expiry date. No sign-up. PNG or SVG download.">
     <meta name="keywords" content="qr code generator, multi link qr code, business qr code">
     <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="canonical" href="https://www.multilinkqr.com/generator.html" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#4f3fa3" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <!-- The homepage now contains the same generator, so it is the main page for search -->
+    <link rel="canonical" href="https://www.multilinkqr.com/" />
 
     <!-- OpenGraph -->
     <meta property="og:title" content="Free Multi-Link QR Code Generator">
@@ -25,13 +32,13 @@
     <meta name="twitter:image" content="https://www.multilinkqr.com/og-image.png">
 
     <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" rel="stylesheet">
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!-- QR Library -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 
     <style>
         body {
@@ -147,6 +154,17 @@
                 color: #e0f3ff;
             }
 
+        /* Ad slots collapse until an ad code is pasted in */
+        .ad-slot:empty {
+            display: none;
+        }
+
+        .ad-slot-result {
+            min-height: 250px;
+            display: flex;
+            justify-content: center;
+        }
+
         .scan-tips {
             font-size: 0.9rem;
             text-align: left;
@@ -203,7 +221,7 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg bg-white border-bottom">
         <div class="container">
-            <a class="navbar-brand brand-logo" href="index.html">
+            <a class="navbar-brand brand-logo" href="/">
                 <span class="text-primary">Multi</span>LinkQR
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
@@ -211,7 +229,7 @@
             </button>
             <div class="collapse navbar-collapse" id="nav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="generator.html">Generate QR</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/#create">Generate QR</a></li>
                     <li class="nav-item"><a class="nav-link" href="tips.html">QR Tips</a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
@@ -418,6 +436,9 @@
 
                                 <div id="copyMessage" class="text-success small d-none">Copied!</div>
 
+                                <!-- AD: Adsterra Banner 300x250 (result panel, loaded by the page script after first QR) -->
+                                <div class="ad-slot ad-slot-result my-3" data-ad-key="2f212665fbe5cfee9ae3ce7b8e22a9d3" data-ad-w="300" data-ad-h="250"></div>
+
                                 <!-- Scanability Tips -->
                                 <div class="scan-tips mt-3 text-start">
                                     <div class="fw-semibold mb-1">Scanability Tips</div>
@@ -504,19 +525,54 @@
     </footer>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <!-- QR LOGIC -->
+    <!-- QR LOGIC (shared with the homepage) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js" integrity="sha384-HGmnkDZJy7mRkoARekrrj0VjEFSh9a0Z8qxGri/kTTAJkgR8hqD1lHsYSh3JdzRi" crossorigin="anonymous"></script>
     <script>
+        // MultiLinkQR generator logic. The same copy is in index.html and generator.html - change both.
+        // NOTE: the ?d= payload format below must stay backward compatible,
+        // because every printed QR code points to multi.html?d=...
         const BASE_MULTI_URL = "https://www.multilinkqr.com/multi.html";
         let currentFinalUrl = "";
         let currentLinkMode = "";
         let logoImage = null;
 
         function showAlert(msg, type = "danger") {
-            $("#alertArea").html(`<div class="alert alert-${type}">${msg}</div>`);
+            $("#alertArea").empty().append($(`<div class="alert alert-${type}"></div>`).text(msg));
         }
         function clearAlert() { $("#alertArea").empty(); }
+
+        function escapeHtml(str) {
+            return String(str == null ? "" : str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
+        // Adsterra banner in the result panel. Loaded only after the first QR is generated,
+        // so the impression is counted when the panel is actually visible.
+        let resultAdLoaded = false;
+        function loadResultAd() {
+            if (resultAdLoaded) return;
+            const slot = document.querySelector(".ad-slot-result[data-ad-key]");
+            if (!slot) return;
+            resultAdLoaded = true;
+            const key = slot.getAttribute("data-ad-key");
+            window.atOptions = {
+                key: key,
+                format: "iframe",
+                height: parseInt(slot.getAttribute("data-ad-h"), 10),
+                width: parseInt(slot.getAttribute("data-ad-w"), 10),
+                params: {}
+            };
+            const s = document.createElement("script");
+            s.src = "https://www.highrevenueformat.com/" + key + "/invoke.js";
+            slot.appendChild(s);
+        }
 
         function validateHttps(url) {
             return /^https:\/\/.+/i.test(url.trim());
@@ -538,6 +594,7 @@
 
         function addLinkRow(url = "", label = "", utmSource = "", utmMedium = "", utmCampaign = "") {
             const idx = $("#linksContainer .link-row").length + 1;
+            const hasUtm = utmSource || utmMedium || utmCampaign;
             $("#linksContainer").append(`
                 <div class="row g-2 mb-2 link-row">
                     <div class="col-12">
@@ -545,29 +602,29 @@
                             <div class="col-md-7">
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-text">Link ${idx}</span>
-                                    <input type="text" class="form-control link-url" value="${url}" placeholder="https://example.com">
+                                    <input type="text" class="form-control link-url" value="${escapeHtml(url)}" placeholder="https://example.com">
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control form-control-sm link-label" value="${label}" placeholder="Label (Instagram)">
+                                <input type="text" class="form-control form-control-sm link-label" value="${escapeHtml(label)}" placeholder="Label (Instagram)">
                             </div>
                             <div class="col-md-1 text-end">
                                 <button class="btn btn-outline-danger btn-sm remove-link" type="button">&times;</button>
                             </div>
                         </div>
                         <div class="mt-1 d-flex justify-content-between align-items-center">
-                            <span class="utm-toggle text-primary">${utmSource || utmMedium || utmCampaign ? "− Hide UTM params" : "+ Add UTM params"}</span>
+                            <span class="utm-toggle text-primary">${hasUtm ? "− Hide UTM params" : "+ Add UTM params"}</span>
                         </div>
-                        <div class="utm-fields mt-1 ${utmSource || utmMedium || utmCampaign ? "" : "d-none"}">
+                        <div class="utm-fields mt-1 ${hasUtm ? "" : "d-none"}">
                             <div class="row g-1">
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control form-control-sm utm-source" placeholder="utm_source" value="${utmSource}">
+                                    <input type="text" class="form-control form-control-sm utm-source" placeholder="utm_source" value="${escapeHtml(utmSource)}">
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control form-control-sm utm-medium" placeholder="utm_medium" value="${utmMedium}">
+                                    <input type="text" class="form-control form-control-sm utm-medium" placeholder="utm_medium" value="${escapeHtml(utmMedium)}">
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control form-control-sm utm-campaign" placeholder="utm_campaign" value="${utmCampaign}">
+                                    <input type="text" class="form-control form-control-sm utm-campaign" placeholder="utm_campaign" value="${escapeHtml(utmCampaign)}">
                                 </div>
                             </div>
                         </div>
@@ -577,16 +634,17 @@
         }
 
         function applyThemeFromStorage() {
-            const saved = localStorage.getItem("mlqr_theme");
-            const body = document.body;
             const toggleBtn = document.getElementById("themeToggle");
+            // Dark mode only exists on pages that have the toggle button
+            if (!toggleBtn) return;
 
+            const saved = localStorage.getItem("mlqr_theme");
             if (saved === "dark") {
-                body.classList.add("dark-mode");
-                if (toggleBtn) toggleBtn.textContent = "☀️ Light";
+                document.body.classList.add("dark-mode");
+                toggleBtn.textContent = "☀️ Light";
             } else {
-                body.classList.remove("dark-mode");
-                if (toggleBtn) toggleBtn.textContent = "🌙 Dark";
+                document.body.classList.remove("dark-mode");
+                toggleBtn.textContent = "🌙 Dark";
             }
         }
 
@@ -700,8 +758,6 @@
                 localStorage.setItem("mlqr_theme", isDark ? "dark" : "light");
             });
 
-            restoreState();
-
             $("#qrLogo").on("change", function (e) {
                 const file = e.target.files[0];
                 const preview = document.getElementById("logoPreview");
@@ -726,7 +782,8 @@
                 reader.readAsDataURL(file);
             });
 
-            $("input[name='linkMode']").change(function() {
+            // Bound before restoreState() so the restored link mode shows the right fields
+            $("input[name='linkMode']").change(function () {
                 const mode = $(this).val();
                 if (mode === "single") {
                     $("#singleLinkSection").removeClass("d-none");
@@ -741,10 +798,12 @@
                 }
                 $("#noQrMessage").removeClass("d-none");
                 $("#qrResult").addClass("d-none");
-                $("#copyUrl").parent().removeClass("d-none");
+                $("#copyUrl").removeClass("d-none");
                 clearAlert();
                 saveState();
             });
+
+            restoreState();
 
             $("#addLink").click(() => {
                 addLinkRow();
@@ -757,7 +816,7 @@
             });
 
             $("#linksContainer").on("click", ".utm-toggle", function () {
-                const fields = $(this).closest(".row").nextAll(".utm-fields").first();
+                const fields = $(this).closest(".link-row").find(".utm-fields").first();
                 fields.toggleClass("d-none");
                 if (fields.hasClass("d-none")) {
                     $(this).text("+ Add UTM params");
@@ -803,7 +862,7 @@
                     currentFinalUrl = finalUrl;
                     qrTitleText = title || "Your QR Code";
                     $("#shareableUrlSection").addClass("d-none");
-                    $("#copyUrl").parent().addClass("d-none");
+                    $("#copyUrl").addClass("d-none");
                 } else {
                     const expiry = $("#qrExpiry").val();
                     const mode = $("input[name='openMode']:checked").val();
@@ -856,15 +915,20 @@
                     currentFinalUrl = finalUrl;
                     qrTitleText = title || "Your MultiLinkQR Code";
                     $("#shareableUrlSection").removeClass("d-none");
-                    $("#copyUrl").parent().removeClass("d-none");
+                    $("#copyUrl").removeClass("d-none");
                     $("#generatedUrl").val(finalUrl);
                 }
 
                 saveState();
 
+                if (typeof gtag === "function") {
+                    gtag("event", "qr_generated", { link_mode: linkMode });
+                }
+
                 $("#qrTitlePreview").text(qrTitleText);
                 $("#noQrMessage").addClass("d-none");
                 $("#qrResult").removeClass("d-none");
+                loadResultAd();
 
                 $("#qrWrapper").css("background-color", bg);
                 $("#qrWrapper").toggleClass("with-border", border);
@@ -909,7 +973,15 @@
                 });
 
                 $("#downloadSvg").off().click(function () {
-                    QRCode.toString(finalUrl, { type: "svg" }, function (err, svg) {
+                    // Use the same colors as the preview (logo is PNG-only)
+                    QRCode.toString(finalUrl, {
+                        type: "svg",
+                        margin: 2,
+                        color: {
+                            dark: color || "#000000",
+                            light: bg || "#ffffff"
+                        }
+                    }, function (err, svg) {
                         if (err) {
                             console.error(err);
                             return;
@@ -918,7 +990,7 @@
                         const url = URL.createObjectURL(blob);
                         const a = document.createElement("a");
                         a.href = url;
-                        a.download = "multilinkqr.svg";
+                        a.download = (title || "multilinkqr") + ".svg";
                         a.click();
                         URL.revokeObjectURL(url);
                     });
@@ -945,7 +1017,7 @@
         <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3">
             <div style="flex:1; min-width:200px;">
                 <strong>Cookie Notice:</strong> We use cookies to analyze website traffic and optimize your experience. By continuing to use our site, you consent to our use of cookies.
-                <a href="privacy-policy.html" style="color:#0dcaf0;">Learn more</a>
+                <a href="privacy-policy.html" style="color:#0dcaf0;">Read our privacy policy</a>
             </div>
             <div class="d-flex gap-2">
                 <button id="acceptCookies" class="btn btn-primary btn-sm">Accept All</button>

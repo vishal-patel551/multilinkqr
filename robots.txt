@@ -1,39 +1,12 @@
-# robots.txt for multilinkqr.com - Optimized for SEO
-# Updated: January 2025
+# robots.txt for www.multilinkqr.com
 
-# Allow all search engines to crawl the entire site
+# All search engines may crawl the whole site.
+# (multi.html pages with personal QR data are kept out of search results with a noindex tag,
+#  so they must stay crawlable for search engines to see it.)
 User-agent: *
 Allow: /
 
-# Sitemap location (critical for SEO)
-Sitemap: https://www.multilinkqr.com/sitemap.xml
-
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
-
-# Explicitly allow important pages for better indexing
-Allow: /index.html
-Allow: /generator.html
-Allow: /blog.html
-Allow: /blog/
-Allow: /about.html
-Allow: /contact.html
-Allow: /privacy-policy.html
-Allow: /terms.html
-
-# Special instructions for major search engines (faster crawling)
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Googlebot-Image
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-# Block aggressive scrapers (optional - preserve bandwidth)
+# Slow down aggressive SEO crawlers to save bandwidth
 User-agent: AhrefsBot
 Crawl-delay: 10
 
@@ -45,3 +18,5 @@ Disallow: /
 
 User-agent: BLEXBot
 Disallow: /
+
+Sitemap: https://www.multilinkqr.com/sitemap.xml

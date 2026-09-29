@@ -2,15 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FAQ - MultiLinkQR Frequently Asked Questions | Free QR Code Generator Help</title>
-    <meta name="description" content="Find answers to frequently asked questions about MultiLinkQR's free QR code generator. Learn about creating multi-link QR codes, customization, technical details, and more.">
+    <title>MultiLinkQR FAQ – Multi-Link QR Code Questions Answered</title>
+    <meta name="description" content="Answers to common questions about MultiLinkQR: creating multi-link QR codes, colors and logos, expiry dates, printing, privacy and troubleshooting.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#4f3fa3" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="robots" content="index, follow">
     <meta name="keywords" content="qr code faq, qr code help, qr code questions">
     <link rel="canonical" href="https://www.multilinkqr.com/faq.html" />
 
     <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" rel="stylesheet">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ54LBGSDP"></script>
@@ -70,11 +76,21 @@
             color: #6c757d;
         }
     </style>
+    <!-- Social sharing preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="MultiLinkQR FAQ – Multi-Link QR Code Questions Answered" />
+    <meta property="og:description" content="Answers to common questions about MultiLinkQR: creating multi-link QR codes, colors and logos, expiry dates, printing, privacy and troubleshooting." />
+    <meta property="og:url" content="https://www.multilinkqr.com/faq.html" />
+    <meta property="og:image" content="https://www.multilinkqr.com/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MultiLinkQR FAQ – Multi-Link QR Code Questions Answered" />
+    <meta name="twitter:description" content="Answers to common questions about MultiLinkQR: creating multi-link QR codes, colors and logos, expiry dates, printing, privacy and troubleshooting." />
+    <meta name="twitter:image" content="https://www.multilinkqr.com/og-image.png" />
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <div class="container">
-            <a class="navbar-brand brand-logo" href="index.html">
+            <a class="navbar-brand brand-logo" href="/">
                 <span class="text-primary">Multi</span>LinkQR
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -82,7 +98,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="generator.html">Generate QR</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#create">Generate QR</a></li>
                     <li class="nav-item"><a class="nav-link" href="tips.html">QR Tips</a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
@@ -293,7 +309,7 @@
                                 </h2>
                                 <div id="tech6" class="accordion-collapse collapse" data-bs-parent="#technical">
                                     <div class="accordion-body">
-                                        MultiLinkQR itself doesn't provide analytics or tracking capabilities, as our privacy-first approach means we don't track users or collect data about QR code scans. However, you can easily implement your own tracking using several methods. The most common approach is to add UTM parameters to your links (like ?utm_source=qrcode&utm_medium=print&utm_campaign=businesscard). These can be tracked in Google Analytics or any analytics platform you use. Alternatively, use a URL shortener service like Bitly or TinyURL which provide click tracking and analytics. If you need more advanced tracking, you can create a custom landing page on your own website that logs visits before redirecting to your intended destinations. This gives you full control over what data you collect and how you use it. For event-specific tracking, you can create unique QR codes for different locations or campaigns and compare their performance.
+                                        MultiLinkQR itself doesn't provide scan statistics, because we don't store your QR codes or the links they contain. However, you can easily implement your own tracking using several methods. The most common approach is to add UTM parameters to your links (like ?utm_source=qrcode&utm_medium=print&utm_campaign=businesscard). These can be tracked in Google Analytics or any analytics platform you use. Alternatively, use a URL shortener service like Bitly or TinyURL which provide click tracking and analytics. If you need more advanced tracking, you can create a custom landing page on your own website that logs visits before redirecting to your intended destinations. This gives you full control over what data you collect and how you use it. For event-specific tracking, you can create unique QR codes for different locations or campaigns and compare their performance.
                                     </div>
                                 </div>
                             </div>
@@ -496,7 +512,7 @@
                                 </h2>
                                 <div id="priv1" class="accordion-collapse collapse" data-bs-parent="#privacy">
                                     <div class="accordion-body">
-                                        MultiLinkQR is built with privacy as a core principle, not an afterthought. We protect your privacy through several architectural decisions. First, all QR code generation happens entirely in your web browser using client-side JavaScript - your links and settings are never transmitted to our servers. The data is encoded directly into the QR code URL in base64 format, meaning it's only readable by someone who has the QR code or URL. We don't require accounts, so we're not collecting email addresses, names, or personal information. We don't track what QR codes you create, what links you include, or how many codes you generate. We don't use tracking pixels or third-party analytics that follow you around the web. The only data we collect is aggregate website analytics (page views, device types) to improve the service, and this is anonymized and can't be tied to individual users. Your QR code data is yours alone - we literally cannot access it even if we wanted to, because it never reaches our servers.
+                                        MultiLinkQR is built with privacy as a core principle, not an afterthought. We protect your privacy through several architectural decisions. First, all QR code generation happens entirely in your web browser using client-side JavaScript - your links and settings are never transmitted to our servers. The data is encoded directly into the QR code URL in base64 format, meaning it's only readable by someone who has the QR code or URL. We don't require accounts, so we're not collecting email addresses, names, or personal information. We don't track what QR codes you create, what links you include, or how many codes you generate. Like most free websites, we use Google Analytics and show ads to keep the service free (see our privacy policy), but our analytics never receive the links inside your QR codes. The only data we collect is aggregate website analytics (page views, device types) to improve the service, and this is anonymized and can't be tied to individual users. Your QR code data is yours alone - we literally cannot access it even if we wanted to, because it never reaches our servers.
                                     </div>
                                 </div>
                             </div>
@@ -636,13 +652,19 @@
                         <div class="d-flex gap-3 justify-content-center flex-wrap">
                             <a href="contact.html" class="btn btn-primary btn-lg">Contact Support</a>
                             <a href="blog.html" class="btn btn-outline-secondary btn-lg">Read Our Blog</a>
-                            <a href="generator.html" class="btn btn-outline-primary btn-lg">Create QR Code</a>
+                            <a href="/#create" class="btn btn-outline-primary btn-lg">Create QR Code</a>
                         </div>
                     </div>
 
                 </div>
             </div>
         </div>
+    <!-- AD PLACEMENT -->
+    <div class="my-4 text-center">
+        <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:#adb5bd;margin-bottom:0.25rem;">Advertisement</div>
+        <script async="async" data-cfasync="false" src="https://pl28682042.effectivegatecpm.com/83a6a0ff2ec2627099ede0c792156325/invoke.js"></script>
+        <div id="container-83a6a0ff2ec2627099ede0c792156325"></div>
+    </div>
     </main>
 
 <footer>
@@ -660,14 +682,14 @@
     <script>
         document.getElementById("yearSpan").textContent = new Date().getFullYear();
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <!-- Cookie Consent Banner -->
     <div id="cookieConsent" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#1a1a2e; color:#fff; padding:1rem 1.5rem; z-index:9999; box-shadow:0 -2px 10px rgba(0,0,0,0.2);">
         <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3">
             <div style="flex:1; min-width:200px;">
                 <strong>Cookie Notice:</strong> We use cookies to analyze website traffic and optimize your experience.
-                <a href="privacy-policy.html" style="color:#0dcaf0;">Learn more</a>
+                <a href="privacy-policy.html" style="color:#0dcaf0;">Read our privacy policy</a>
             </div>
             <div class="d-flex gap-2">
                 <button id="acceptCookies" class="btn btn-primary btn-sm">Accept All</button>
