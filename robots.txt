@@ -20,3 +20,6 @@ User-agent: BLEXBot
 Disallow: /
 
 Sitemap: https://www.multilinkqr.com/sitemap.xml
+
+# LLM & AI agent documentation
+# https://www.multilinkqr.com/llms.txt

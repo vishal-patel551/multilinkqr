@@ -229,6 +229,60 @@
           "publisher": {
             "@id": "https://www.multilinkqr.com/#organization"
           }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://www.multilinkqr.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is MultiLinkQR really free to use?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. MultiLinkQR is completely free to use and does not require you to create an account. You can generate unlimited multi-link QR codes for personal or commercial use without watermarks or expiration."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do my links need to start with HTTPS?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "For security and browser compatibility, MultiLinkQR only accepts links that start with https://. This protects visitors and ensures consistent behavior across all devices."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I change the links later after printing the QR code?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "MultiLinkQR creates static QR codes where data is encoded directly into the code itself without database dependency. Once printed, links cannot be modified remotely; you can generate a new QR code anytime."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Will my QR codes work on all phones and browsers?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Landing pages are built with responsive HTML5 and tested on modern iOS and Android devices using native camera apps and QR scanner apps."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do the QR codes expire?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. QR codes do not expire and have no scan limits because destination links are encoded directly in the QR. They only expire if you explicitly set an optional expiry date."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I add my logo?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, completely free. Upload your logo in the generator to position it in the center of the QR code. Both PNG and SVG downloads support custom logos."
+              }
+            }
+          ]
         }
       ]
     }
@@ -254,6 +308,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/#create">Generate QR</a></li>
                     <li class="nav-item"><a class="nav-link" href="tips.html">QR Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
@@ -408,7 +463,7 @@
                                 <div class="form-text">
                                     Logo will be placed in the center of the QR. Keep it simple and not too large for best scan results.
                                 </div>
-                                <img id="logoPreview" alt="Logo preview">
+                                <img id="logoPreview" alt="Logo preview" width="80" height="80" style="display:none; max-width:80px; max-height:80px;">
                             </div>
 
                             <!-- SINGLE LINK INPUT -->
@@ -832,6 +887,11 @@
                             </div>
                         </div>
 
+                        <div class="text-center mt-3">
+                            <a href="faq.html" class="btn btn-outline-primary btn-sm">
+                                Have more questions? Read our full FAQ (35+ answers) &rarr;
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -897,6 +957,81 @@
                                         </p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPARISON TABLE SECTION (AEO/GEO Pattern: Free Tool vs Paid Subscriptions) -->
+        <section class="py-5 bg-light border-top border-bottom">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <span class="badge bg-primary text-uppercase px-3 py-2 mb-2">Free Alternative to Paid Tools</span>
+                    <h2 class="h3 section-heading">MultiLinkQR vs. Other QR Code Generators</h2>
+                    <p class="text-muted mx-auto" style="max-width: 680px;">
+                        Why pay monthly subscriptions or risk your QR codes expiring? See how MultiLinkQR compares to services like Linktree, Bitly, and paid QR platforms.
+                    </p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="card shadow-sm border-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0 text-center">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th class="text-start py-3 ps-4">Features</th>
+                                            <th class="py-3 bg-primary text-white fw-bold">MultiLinkQR</th>
+                                            <th class="py-3 text-muted">Linktree</th>
+                                            <th class="py-3 text-muted">Paid QR Platforms</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-start py-3 ps-4 fw-semibold">Monthly Cost</td>
+                                            <td class="py-3 fw-bold text-success">$0 (100% Free Forever)</td>
+                                            <td class="py-3 text-muted">$5 – $24 / month</td>
+                                            <td class="py-3 text-muted">$10 – $40 / month</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start py-3 ps-4 fw-semibold">Account / Sign-up Required</td>
+                                            <td class="py-3 fw-bold text-success">No (Instant Creation)</td>
+                                            <td class="py-3 text-danger">Yes (Required)</td>
+                                            <td class="py-3 text-danger">Yes (Required)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start py-3 ps-4 fw-semibold">Multiple Links in One QR</td>
+                                            <td class="py-3 fw-bold text-success">Unlimited Links</td>
+                                            <td class="py-3">Yes</td>
+                                            <td class="py-3 text-danger">Paid Tier Only</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start py-3 ps-4 fw-semibold">Code Expiry & Scan Limits</td>
+                                            <td class="py-3 fw-bold text-success">Never Expires / Unlimited</td>
+                                            <td class="py-3 text-muted">Active with Account</td>
+                                            <td class="py-3 text-danger">Expires After Trial (14-30 Days)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start py-3 ps-4 fw-semibold">Custom Logo & Colors</td>
+                                            <td class="py-3 fw-bold text-success">Included Free</td>
+                                            <td class="py-3 text-muted">Pro Tier Only</td>
+                                            <td class="py-3 text-muted">Paid Tier Only</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start py-3 ps-4 fw-semibold">Vector SVG Download</td>
+                                            <td class="py-3 fw-bold text-success">Included Free</td>
+                                            <td class="py-3 text-muted">Not Available</td>
+                                            <td class="py-3 text-muted">Paid Tier Only</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start py-3 ps-4 fw-semibold">Privacy & Security</td>
+                                            <td class="py-3 fw-bold text-success">Client-side URL (Zero Database)</td>
+                                            <td class="py-3 text-muted">Cloud Tracked</td>
+                                            <td class="py-3 text-muted">Cloud Tracked</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -1116,6 +1251,7 @@
         <div class="container d-flex flex-wrap justify-content-between align-items-center">
             <div>© <span id="yearSpan"></span> MultiLinkQR – Free multi-link QR code generator.</div>
             <div>
+                <a href="faq.html" class="me-3">FAQ</a>
                 <a href="blog.html" class="me-3">Blog</a>
                 <a href="privacy-policy.html" class="me-3">Privacy Policy</a>
                 <a href="terms.html" class="me-3">Terms</a>
