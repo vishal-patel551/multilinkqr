@@ -1,12 +1,33 @@
 # robots.txt for www.multilinkqr.com
+# Conforming to 2026 Agent Readiness & AI Search Standards (Claude SEO)
 
-# All search engines may crawl the whole site.
-# (multi.html pages with personal QR data are kept out of search results with a noindex tag,
-#  so they must stay crawlable for search engines to see it.)
+# General Search Engines (Google, Bing, Yahoo, DuckDuckGo)
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
-# Slow down aggressive SEO crawlers to save bandwidth
+# AI Answer Engines & Real-Time Search Crawlers (Permitted for Citations & GEO)
+User-agent: OAI-SearchBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+
+User-agent: ChatGPT-User
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+
+User-agent: PerplexityBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+
+User-agent: Claude-SearchBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+
+User-agent: Google-Extended
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+
+# Slow down aggressive backlink scrapers to preserve server resources
 User-agent: AhrefsBot
 Crawl-delay: 10
 
@@ -19,6 +40,7 @@ Disallow: /
 User-agent: BLEXBot
 Disallow: /
 
+# Sitemaps & LLM Context
 Sitemap: https://www.multilinkqr.com/sitemap.xml
 
 # LLM & AI agent documentation

@@ -162,6 +162,45 @@
             font-size: 0.9rem;
             color: #6c757d;
         }
+    
+        /* ── LANDING PAGE THEMES ────────────────────────────────────── */
+        body.theme-dark {
+            background: #0f0f1a !important;
+            color: #e8e8f0 !important;
+        }
+        body.theme-dark .card { background: #1a1a2e !important; color: #e8e8f0 !important; border-color: #2d2d4e; }
+        body.theme-dark .btn-primary { background: #7c3aed; border-color: #7c3aed; }
+        body.theme-dark .create-cta { background: #1a1a2e; border-color: #2d2d4e; }
+        body.theme-dark footer { background: #0a0a14 !important; color: #aaa; }
+
+        body.theme-glass {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) fixed !important;
+            min-height: 100vh;
+        }
+        body.theme-glass .card {
+            background: rgba(255,255,255,0.15) !important;
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.25) !important;
+            color: #fff !important;
+        }
+        body.theme-glass .create-cta { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); color: #fff; }
+        body.theme-glass footer { background: rgba(0,0,0,0.25) !important; color: #eee; }
+
+        body.theme-sunset {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #fda085 100%) fixed !important;
+            min-height: 100vh;
+        }
+        body.theme-sunset .card { background: rgba(255,255,255,0.92) !important; border: none; }
+        body.theme-sunset footer { background: rgba(0,0,0,0.2) !important; color: #fff; }
+
+        body.theme-earth {
+            background: #f5f0e8 !important;
+        }
+        body.theme-earth .card { background: #fffdf7 !important; border-color: #d4b896; }
+        body.theme-earth .btn-primary { background: #8b6914; border-color: #8b6914; }
+        body.theme-earth .create-cta { background: #f0e6d0; border-color: #d4b896; }
+        /* ── END THEMES ─────────────────────────────────────────────── */
+
     </style>
 </head>
 <body>
@@ -238,6 +277,9 @@
                                 <script async="async" data-cfasync="false" src="https://pl28682042.effectivegatecpm.com/83a6a0ff2ec2627099ede0c792156325/invoke.js"></script>
                                 <div id="container-83a6a0ff2ec2627099ede0c792156325"></div>
                             </div>
+
+
+
 
                             <!-- CREATE-YOUR-OWN CTA -->
                             <div class="create-cta mt-4">
@@ -339,6 +381,17 @@
             if (urlLower.includes("github.com")) return "💻";
             if (urlLower.includes("behance.net")) return "🎨";
             if (urlLower.includes("dribbble.com")) return "🏀";
+            if (urlLower.includes("telegram.me") || urlLower.includes("t.me")) return "✈️";
+            if (urlLower.includes("discord.com") || urlLower.includes("discord.gg")) return "🎮";
+            if (urlLower.includes("spotify.com")) return "🎵";
+            if (urlLower.includes("maps.google") || urlLower.includes("goo.gl/maps")) return "📍";
+            if (urlLower.includes("wa.me") || urlLower.includes("whatsapp")) return "💬";
+            if (urlLower.includes("mailto:") || urlLower.includes("mail.to")) return "📧";
+            if (urlLower.includes("zoom.us")) return "🎥";
+            if (urlLower.includes("calendly.com")) return "📅";
+            if (urlLower.includes("etsy.com")) return "🛍️";
+            if (urlLower.includes("amazon.com") || urlLower.includes("amzn.to")) return "📦";
+            if (urlLower.includes("paypal.com")) return "💳";
             
             // Check by label
             if (labelLower.includes("instagram")) return "📷";
@@ -526,6 +579,7 @@
             $("#pageTitle").text(title);
 
             const style = payload.style || {};
+            applyTheme(payload.theme || "");
             const primaryColor = style.color || "#0d6efd";
             const bg = style.bg || "#f8f9fa";
 
@@ -563,6 +617,25 @@
                 $("#buttonsView").addClass("d-none");
             });
         });
+    
+        // ── APPLY THEME FROM PAYLOAD ────────────────────────────────
+        function applyTheme(themeName) {
+            const validThemes = ["dark", "glass", "sunset", "earth"];
+            $("body").removeClass("theme-dark theme-glass theme-sunset theme-earth");
+            if (themeName && validThemes.includes(themeName)) {
+                $("body").addClass("theme-" + themeName);
+            }
+        }
+        // ── END THEME ──────────────────────────────────────────────
+
     </script>
+
+    <!-- STICKY FOOTER AD STRIP (high CPM, always visible) -->
+    <div id="stickyAdStrip" style="position:fixed;bottom:0;left:0;right:0;z-index:1050;background:#fff;border-top:1px solid #dee2e6;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 -2px 8px rgba(0,0,0,0.08);">
+        <span class="small text-muted fw-semibold">✨ Free QR codes — no sign-up</span>
+        <a href="/#create" class="btn btn-primary btn-sm">Make my own QR →</a>
+        <button onclick="document.getElementById('stickyAdStrip').style.display='none'" style="background:none;border:none;font-size:1.2rem;line-height:1;padding:0 4px;color:#aaa;cursor:pointer;" aria-label="Close">✕</button>
+    </div>
+
 </body>
 </html>
